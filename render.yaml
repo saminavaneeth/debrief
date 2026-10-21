@@ -1,0 +1,16 @@
+# Render blueprint: one long-running Node web service. Debrief keeps the mock EHS systems in
+# memory (snapshotted to .data/ on the instance's disk), so it must run as a single process.
+services:
+  - type: web
+    name: debrief
+    runtime: node
+    plan: free
+    buildCommand: npm ci && npm run build
+    startCommand: npm start
+    healthCheckPath: /api/health
+    autoDeploy: true
+    envVars:
+      - key: NODE_VERSION
+        value: "22"
+      - key: NEXT_TELEMETRY_DISABLED
+        value: "1"

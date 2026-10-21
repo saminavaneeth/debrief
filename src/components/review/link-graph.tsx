@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import type { EhsRecord } from "@/domain";
 
 const SERVER_COLOR: Record<string, string> = {
@@ -24,6 +25,7 @@ const LINK_LABEL: Record<string, string> = {
  * links. Each pair of records is drawn once.
  */
 export function LinkGraph({ records, touched }: { records: EhsRecord[]; touched: Set<string> }) {
+  const router = useRouter();
   const nodes = [...records].sort(
     (a, b) => Number(touched.has(b.id)) - Number(touched.has(a.id)) || a.id.localeCompare(b.id),
   );
@@ -116,10 +118,11 @@ export function LinkGraph({ records, touched }: { records: EhsRecord[]; touched:
           const color = SERVER_COLOR[n.server] ?? "#334155";
           const isTouched = touched.has(n.id);
           return (
-            <a
+            // Mouse and touch shortcut; keyboard and screen-reader users have the list below.
+            <g
               key={n.id}
-              href={`/console?server=${n.server}&id=${n.id}`}
-              aria-label={`${n.id} ${n.title}`}
+              className="cursor-pointer"
+              onClick={() => router.push(`/console?server=${n.server}&id=${n.id}`)}
             >
               <circle
                 cx={p.x}
@@ -152,7 +155,7 @@ export function LinkGraph({ records, touched }: { records: EhsRecord[]; touched:
               >
                 {n.id}
               </text>
-            </a>
+            </g>
           );
         })}
       </svg>

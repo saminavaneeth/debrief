@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
 import { CheckCircle2, CircleAlert, Loader2, Sparkles, Wrench } from "lucide-react";
 import type { TraceStep } from "@/domain";
@@ -97,7 +98,20 @@ export function ProcessScreen() {
           <fieldset className="space-y-2">
             <legend className="text-sm font-medium">Scenarios</legend>
             {eligible.length === 0 && (
-              <p className="text-muted-foreground">No scenarios with captures yet.</p>
+              <div className="space-y-3 rounded-2xl border border-dashed p-4">
+                <p className="text-muted-foreground">
+                  No scenarios with captures yet. Capture something first, or load the demo day from
+                  the menu on Today.
+                </p>
+                <div className="flex gap-2">
+                  <Button asChild size="lg" className="h-12">
+                    <Link href="/capture">Capture</Link>
+                  </Button>
+                  <Button asChild variant="outline" size="lg" className="h-12">
+                    <Link href="/">Today</Link>
+                  </Button>
+                </div>
+              </div>
             )}
             {eligible.map((s) => {
               const n = artifacts.filter((a) => a.scenarioId === s.id).length;

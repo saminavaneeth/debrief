@@ -24,10 +24,20 @@ export default defineConfig({
   projects: [
     {
       name: "phone",
+      testIgnore: /present\.spec\.ts/,
       use: {
         ...devices["Pixel 7"],
         channel: process.env.PW_CHANNEL ?? "msedge",
         viewport: { width: 390, height: 844 },
+      },
+    },
+    {
+      name: "desktop",
+      testMatch: /present\.spec\.ts/,
+      use: {
+        ...devices["Desktop Edge"],
+        channel: process.env.PW_CHANNEL ?? "msedge",
+        viewport: { width: 1440, height: 900 },
       },
     },
   ],

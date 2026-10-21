@@ -106,9 +106,12 @@ function ReviewDetail({ id }: { id: string }) {
     return <p className="text-muted-foreground py-10 text-center">Loading…</p>;
   if (run === null)
     return (
-      <p className="text-muted-foreground py-10 text-center">
-        This change set is no longer on this device.
-      </p>
+      <div className="space-y-4 py-10 text-center">
+        <p className="text-muted-foreground">This change set is no longer on this device.</p>
+        <Button asChild variant="outline" size="lg" className="h-12">
+          <Link href="/review">All change sets</Link>
+        </Button>
+      </div>
     );
   const readOnly = run.status !== "in_review";
   const cset = run.changeSet;

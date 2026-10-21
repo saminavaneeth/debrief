@@ -189,7 +189,7 @@ export function EhsConsole() {
                   )}
                 >
                   {s.displayName}
-                  <span className="bg-muted rounded-full px-1.5 text-xs tabular-nums">
+                  <span className="bg-muted text-foreground rounded-full px-1.5 text-xs tabular-nums">
                     {s.recordCount}
                   </span>
                   {!s.enabled && (
@@ -209,7 +209,7 @@ export function EhsConsole() {
           aria-label="Records"
           className={cn(
             "bg-background flex min-h-0 flex-col rounded-lg border",
-            selected && "hidden md:flex",
+            selectedId && "hidden md:flex",
           )}
         >
           <div className="space-y-2 border-b p-3">
@@ -287,22 +287,22 @@ export function EhsConsole() {
           aria-label="Record detail"
           className={cn(
             "bg-background rounded-lg border p-4 md:p-6",
-            !selected && "hidden md:block",
+            !selectedId && "hidden md:block",
           )}
         >
+          {selectedId && (
+            <Button
+              variant="ghost"
+              size="lg"
+              className="mb-3 -ml-2 md:hidden"
+              onClick={() => navigate({ id: null })}
+            >
+              <ChevronLeft aria-hidden />
+              All records
+            </Button>
+          )}
           {selected ? (
-            <>
-              <Button
-                variant="ghost"
-                size="lg"
-                className="mb-3 -ml-2 md:hidden"
-                onClick={() => navigate({ id: null })}
-              >
-                <ChevronLeft aria-hidden />
-                All records
-              </Button>
-              <RecordDetail record={selected} lookup={lookup} onNavigate={openRecord} />
-            </>
+            <RecordDetail record={selected} lookup={lookup} onNavigate={openRecord} />
           ) : (
             <div className="text-muted-foreground flex h-full min-h-60 items-center justify-center text-sm">
               {selectedId && !loading

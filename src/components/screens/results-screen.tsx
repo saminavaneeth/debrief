@@ -74,9 +74,25 @@ export function ResultsScreen() {
   if (run === undefined) return <p className="text-muted-foreground py-10 text-center">Loading…</p>;
   if (run === null || !run.results)
     return (
-      <p className="text-muted-foreground py-10 text-center">
-        No push results for this change set yet.
-      </p>
+      <div className="space-y-4 py-10 text-center">
+        <p className="text-muted-foreground">
+          {!id
+            ? "Results appear here after you push a change set."
+            : run === null
+              ? "This change set is no longer on this device."
+              : "This change set has not been pushed yet."}
+        </p>
+        <div className="flex justify-center gap-2">
+          {id && run && (
+            <Button asChild size="lg" className="h-12">
+              <Link href={`/review?cs=${id}`}>Review it</Link>
+            </Button>
+          )}
+          <Button asChild variant="outline" size="lg" className="h-12">
+            <Link href="/records">Pushed records</Link>
+          </Button>
+        </div>
+      </div>
     );
   const cset = run.changeSet;
   const executed = run.results.filter((r) => r.status === "executed").length;

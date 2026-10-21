@@ -8,6 +8,32 @@ written.
 It runs entirely locally in **demo mode**: perception comes from fixtures, while routing, matching,
 drafting, gap-finding, planning, MCP calls and workflows run as real code.
 
+![Presenter view: demo script, the capture app at phone size and the live EHS console](docs/screenshots/presenter.png)
+
+| Capture                                         | Process                                    | Evidence                                          | Workflows                                           |
+| ----------------------------------------------- | ------------------------------------------ | ------------------------------------------------- | --------------------------------------------------- |
+| ![Capture screen](docs/screenshots/capture.png) | ![Run trace](docs/screenshots/process.png) | ![Evidence drawer](docs/screenshots/evidence.png) | ![Workflow activity](docs/screenshots/activity.png) |
+
+## How it works
+
+```
+capture (phone, offline) → scenarios → process → review change set → push → linked records + workflows
+```
+
+- **Capture app** — a PWA. Voice, photo, video, document and note captures are stored on the
+  device (IndexedDB) and grouped into scenarios.
+- **Agent pipeline** — perception turns each capture into evidence with provenance; the
+  orchestrator routes, matches existing records, drafts from each system's schema, asks for
+  missing values and plans an ordered change set. It knows the EHS systems only through their MCP
+  manifests and schemas.
+- **Gateway** — every write (agent or workflow) is permission-checked, validated, executed with
+  an idempotency key, audited and emitted as an event.
+- **Mock EHS systems** — Incidents, Audits, Safety Meetings, Hazards & Observations, Checklists &
+  Inspections, and Training, each a separate MCP server.
+- **Workflow engine** — JSON rules that react to record events.
+
+Details: [Architecture](docs/ARCHITECTURE.md).
+
 ## Requirements
 
 - Node.js 20 or newer
@@ -36,6 +62,7 @@ npm run dev        # http://localhost:3000
 | `npm run seed`            | Rebuild `.data/store.json` from `data/seed` (same as Reset demo)    |
 | `npm run mcp -- <server>` | Run one mock EHS server over stdio                                  |
 | `npm run eval`            | Score the demo scenarios and variants; writes `evals/results/`      |
+| `npm start`               | Serve the production build (after `npm run build`)                  |
 
 ## Capture app
 
@@ -117,11 +144,34 @@ Claude Desktop (`claude_desktop_config.json`), with `cwd` set to this repository
 }
 ```
 
+## Presenter view and demo script
+
+[http://localhost:3000/present](http://localhost:3000/present) (desktop, 1024 px or wider) shows
+the demo script, the capture app at phone size and the live EHS console or Platform side by side.
+Record links tapped in the phone open in the right-hand pane. The 3-minute walkthrough is in
+[docs/DEMO_SCRIPT.md](docs/DEMO_SCRIPT.md).
+
+## Deploying
+
+Debrief keeps the mock EHS systems in memory (snapshotted to `.data/`), so it needs one
+long-running Node process; serverless platforms do not keep that state between requests.
+
+- **Render**: `render.yaml` is a blueprint for a Node web service (`npm ci && npm run build`,
+  `npm start`, health check `/api/health`). In the Render dashboard choose **New → Blueprint**
+  and select this repository. On the free plan the service sleeps when idle and restarts from the
+  seed data.
+- **Any Node host**: `npm ci && npm run build && npm start`; the server listens on `PORT`
+  (default 3000).
+
+Hosting over HTTPS also lets phones use the camera, microphone and speech recognition without the
+LAN setup above.
+
 ## Documentation
 
 - [Product requirements](docs/PRD.md)
 - [Architecture](docs/ARCHITECTURE.md)
 - [Decision log](docs/DECISIONS.md)
+- [Demo script](docs/DEMO_SCRIPT.md)
 
 ## Repository layout
 
@@ -138,6 +188,8 @@ e2e/         Playwright end-to-end tests
 src/capture/ on-device storage (Dexie), capture helpers, device perception, demo day
 src/agents/  AgentProvider, DemoProvider, orchestrator (route, match, draft, gaps, plan)
 src/rag/     records and knowledge indexes
-src/evals/   change-set comparison and the scenario harness
+src/evals/   change-set comparison, scenario harness and eval runner
+src/workflows/ workflow engine, feed and rule proposals
+evals/       `npm run eval` entry point and results
 mcp.config.json  connected servers and their transports
 ```

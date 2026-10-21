@@ -407,3 +407,37 @@ the header bell, or the workflow activity of one change set); POST takes a typed
 server or rule, set an autonomy level, scan or enable proposals, resolve suggestions, mark
 notifications read, run evals). Reset demo also restores server flags, policy and rules.
 **Consequences.** The Platform screen, the header bell and Results share one source of state.
+
+## D-043 · Presenter view frames the real app — 2026-10-21
+
+**Decision.** `/present` shows the demo script, the capture app in a phone-sized iframe and the
+EHS console or Platform in a second iframe, all same-origin, so they share IndexedDB and the
+server state. Console links opened in the phone are moved to the right-hand pane. Script steps
+live in `src/components/present/script.ts` and are mirrored in `docs/DEMO_SCRIPT.md`.
+**Consequences.** The walkthrough uses the same screens a user sees; no presenter-only copy of the
+app to keep in sync. Below 1024 px the view points to the app instead.
+
+## D-044 · Automated accessibility checks in the e2e suite — 2026-10-21
+
+**Decision (agreed with the user).** `@axe-core/playwright` (dev dependency) checks every main
+screen, the evidence drawer, each Platform tab, the console and the presenter against WCAG 2.1 A
+and AA; the test fails on any violation. Lighthouse was run once (not a dependency): accessibility,
+best practices and SEO 100; performance 79–86 on simulated mobile, limited by content that renders
+after hydration from IndexedDB. Lighthouse 12 has no PWA category; installability was confirmed
+with the browser's own installability check.
+**Consequences.** Link-graph nodes are a pointer shortcut only; the record list under the graph is
+the accessible way to open a record. The voice button's accessible name is its visible text.
+
+## D-045 · Records tab lists what this device pushed — 2026-10-21
+
+**Decision.** The Records tab shows records created or updated by each push from this device,
+grouped by push, with titles and statuses fetched from the gateway and links to the console.
+**Consequences.** IDs are still shown offline; titles need a connection.
+
+## D-046 · Deploy as one Node web service on Render — 2026-10-21
+
+**Decision (agreed with the user).** `render.yaml` defines a single Node web service
+(`npm ci && npm run build`, `npm start`, health check `/api/health`, Node 22). State stays in the
+in-memory store with its snapshot on the instance disk.
+**Consequences.** A restart (deploy, or the free plan waking from sleep) starts from the seed
+data. Persistent state across restarts needs a database adapter behind the repository interface.

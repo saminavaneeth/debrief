@@ -156,7 +156,7 @@ function FieldRow({
         <span className="text-muted-foreground block text-xs">
           {fieldLabel(path)}
           {tag && (
-            <span className="bg-muted ml-1.5 rounded px-1 py-px text-[10px] tracking-wide uppercase">
+            <span className="bg-muted text-foreground ml-1.5 rounded px-1 py-px text-[10px] tracking-wide uppercase">
               {tag}
             </span>
           )}

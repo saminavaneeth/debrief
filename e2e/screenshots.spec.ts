@@ -104,3 +104,28 @@ test("platform screens", async ({ page, request }) => {
   await page.getByText(/cases fully correct/).waitFor({ timeout: 60_000 });
   await page.screenshot({ path: `${out}/24-evals.png`, fullPage: true });
 });
+
+test("empty and error states", async ({ page, request }) => {
+  const out = process.env.SCREENSHOTS_DIR ?? "test-results/screens";
+  await request.post("/api/demo/reset");
+  const shots: [string, string][] = [
+    ["40-today-empty", "/"],
+    ["41-inbox-empty", "/inbox"],
+    ["42-process-empty", "/process"],
+    ["43-review-empty", "/review"],
+    ["44-results-empty", "/results"],
+    ["45-results-missing", "/results?cs=CS-missing"],
+    ["46-review-missing", "/review?cs=CS-missing"],
+    ["47-scenario-missing", "/scenario?id=SCN-missing"],
+    ["48-records", "/records"],
+    ["49-console-missing", "/console?server=incidents&id=INC-9999"],
+    ["50-runs-empty", "/platform?tab=runs"],
+    ["51-activity-empty", "/platform?tab=activity"],
+  ];
+  for (const [name, url] of shots) {
+    await page.goto(url);
+    await page.waitForLoadState("networkidle");
+    await page.waitForTimeout(500);
+    await page.screenshot({ path: `${out}/${name}.png` });
+  }
+});

@@ -59,7 +59,7 @@ test("process the demo day, review with evidence, answer a gap, push, see linked
   const done = page.getByText(/^(\d+) of \1 actions done/);
   await expect(done).toBeVisible();
   await expect(page.getByRole("img", { name: /Link graph of \d+ records/ })).toBeVisible();
-  // The record list under the graph (the graph node carries the same name).
+  // The record list under the graph.
   const incLink = page
     .getByRole("listitem")
     .getByRole("link", { name: /^INC-\d{4} Near miss: FL-07/ });
@@ -78,6 +78,13 @@ test("process the demo day, review with evidence, answer a gap, push, see linked
       .getByRole("button", { name: /FE-115.*Resulted in\s*HAZ-0014|Resulted in\s*HAZ-001\d/ })
       .first(),
   ).toBeVisible();
+
+  // Records lists what this device wrote.
+  await page.goto("/records");
+  await expect(
+    page.getByRole("link", { name: /INC-0009 created.*Near miss: FL-07/ }),
+  ).toBeVisible();
+  await expect(page.getByRole("link", { name: /HAZ-0007 updated/ })).toBeVisible();
 
   // Scenarios are marked pushed on the device.
   await page.goto("/");

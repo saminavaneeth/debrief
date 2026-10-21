@@ -101,7 +101,7 @@ test("all five capture types save to the device and survive a reload", async ({ 
   const box = (await talk.boundingBox())!;
   await page.mouse.move(box.x + box.width / 2, box.y + box.height / 2);
   await page.mouse.down();
-  await expect(page.getByRole("button", { name: "Stop recording" })).toBeVisible();
+  await expect(page.getByRole("button", { name: /^Recording/ })).toBeVisible();
   await page.waitForTimeout(1600);
   await page.mouse.up();
   await expect(sheet.getByRole("heading", { name: "Voice details" })).toBeVisible();

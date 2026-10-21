@@ -173,7 +173,6 @@ export function VoiceRecorder({ shift, target }: { shift: Shift; target: string 
         onKeyDown={onKeyDown}
         onContextMenu={(e) => e.preventDefault()}
         aria-pressed={active}
-        aria-label={active ? "Stop recording" : "Hold to talk, or tap to start recording"}
         className={cn(
           "flex min-h-24 w-full touch-none flex-col items-center justify-center gap-1 rounded-2xl text-lg font-semibold select-none",
           "focus-visible:ring-ring/50 focus-visible:ring-4 focus-visible:outline-none",
