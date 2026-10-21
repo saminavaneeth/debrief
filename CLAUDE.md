@@ -490,9 +490,9 @@ users; unsupported-field rate (target 0).
   code change; `npm run eval` reports all metrics.
 
 ### Phase 6 — Polish and ship
-- [ ] Presenter view (`/present`)
-- [ ] README (setup, architecture summary, screenshots), `docs/DEMO_SCRIPT.md` (3-minute walkthrough)
-- [ ] Accessibility pass, Lighthouse PWA check, empty/error states
+- [x] Presenter view (`/present`)
+- [x] README (setup, architecture summary, screenshots), `docs/DEMO_SCRIPT.md` (3-minute walkthrough)
+- [x] Accessibility pass, Lighthouse PWA check, empty/error states
 - [ ] Deploy. Note: in-memory state needs a single long-running Node process (e.g. Render/Railway)
       or a hosted DB adapter; serverless platforms will not keep MemoryStore state between requests.
 - **Done when:** a fresh clone runs with `npm install && npm run dev` on Windows and macOS and the
@@ -628,3 +628,18 @@ npm run mcp -- incidents   # run one mock server over stdio (MCP clients: npm ru
   Decisions D-037…D-042.
   **Next:** Phase 6 — presenter view, README screenshots + `docs/DEMO_SCRIPT.md`, accessibility
   and Lighthouse PWA pass, empty/error states, deploy (single long-running Node process).
+- **2026-10-21** — **Phase 6 mostly done; deploy pending the user.** Presenter view (`/present`):
+  script steps (`src/components/present/script.ts`) drive a phone-sized app iframe and a live
+  console/Platform iframe; console links from the phone open in the side pane.
+  `docs/DEMO_SCRIPT.md` (3-minute walkthrough + troubleshooting), README (screenshots in
+  `docs/screenshots/`, how-it-works summary, presenter, deploying). Accessibility:
+  `@axe-core/playwright` (approved dev dep) checks every screen at WCAG 2.1 AA; fixed contrast,
+  voice-button naming and nested links in the link graph. Lighthouse 12 via npx (approved, not a
+  dep): a11y/best practices/SEO 100, performance 79–86 simulated mobile; installability confirmed
+  via CDP (no PWA category in Lighthouse 12). Empty/not-found states now lead somewhere; Records
+  tab lists pushed records. Deploy: `render.yaml` (approved: Render) + `/api/health`. Fresh clone
+  verified on Windows: `npm ci`, build, start, all routes 200, `npm run eval` 18/18. 118 unit
+  tests, 11 e2e (phone + desktop projects). Decisions D-043…D-046.
+  **Pending:** connect the repo in Render (New → Blueprint) and run the demo on the hosted URL;
+  macOS fresh-clone check; real-phone check from Phase 3 (easier on the hosted HTTPS URL).
+  Optional later: real demo audio/video via ffmpeg (see Phase 3 notes).
