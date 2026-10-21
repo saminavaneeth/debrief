@@ -642,4 +642,4 @@ npm run mcp -- incidents   # run one mock server over stdio (MCP clients: npm ru
   tests, 11 e2e (phone + desktop projects). Decisions D-043…D-046.
   **Pending:** connect the repo in Render (New → Blueprint) and run the demo on the hosted URL;
   macOS fresh-clone check; real-phone check from Phase 3 (easier on the hosted HTTPS URL).
-  Optional later: real demo audio/video via ffmpeg (see Phase 3 notes).
+  Optional later: real demo audio/video via ffmpeg (today: speech synthesis and keyframes).
