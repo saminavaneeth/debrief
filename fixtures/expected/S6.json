@@ -1,0 +1,71 @@
+{
+  "scenarioId": "S6",
+  "demoDate": "2026-10-21",
+  "actions": [
+    {
+      "type": "create",
+      "ref": "a1",
+      "scenarioId": "SCN-S6",
+      "server": "hazards",
+      "recordType": "hazard",
+      "fields": {
+        "category": "spills_releases",
+        "assetIds": ["V-22"],
+        "siteId": "tank-farm",
+        "areaId": "tank-farm.tank-row",
+        "status": "open"
+      },
+      "fieldsContain": {
+        "title": "V-22"
+      },
+      "includes": [
+        {
+          "path": "correctiveActions",
+          "match": {
+            "title": "repair",
+            "ownerRef": "role:maintenance_tech",
+            "dueDate": "2026-10-24"
+          }
+        }
+      ]
+    },
+    {
+      "type": "attach",
+      "ref": "a2",
+      "scenarioId": "SCN-S6",
+      "artifactId": "S6-A2",
+      "to": {
+        "ref": "a1"
+      }
+    }
+  ],
+  "gaps": [],
+  "citations": [
+    {
+      "actionRef": "a1",
+      "fieldPath": "correctiveActions",
+      "docId": "sop-spill-response"
+    }
+  ],
+  "sortSuggestions": [
+    {
+      "kind": "move",
+      "artifactIds": ["S6-A1"],
+      "toScenarioId": "SCN-S6"
+    }
+  ],
+  "forbidden": [
+    {
+      "reason": "Morning note and afternoon photo describe the same leak (fan-in).",
+      "server": "hazards",
+      "recordType": "hazard",
+      "maxCreates": 1
+    }
+  ],
+  "workflows": [
+    {
+      "ruleId": "wf-repeat-area-hazards",
+      "fires": false
+    }
+  ]
+}

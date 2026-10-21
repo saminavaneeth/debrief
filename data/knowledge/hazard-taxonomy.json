@@ -1,0 +1,181 @@
+{
+  "version": "2026.1",
+  "categories": [
+    {
+      "id": "powered_industrial_trucks",
+      "name": "Forklifts & pedestrian separation",
+      "description": "Forklift condition, operation, and interaction with pedestrians.",
+      "keywords": [
+        "forklift",
+        "reach truck",
+        "pallet jack",
+        "reversing",
+        "backing up",
+        "mirror",
+        "horn",
+        "pedestrian lane",
+        "clipped",
+        "struck by forklift",
+        "tagged out"
+      ],
+      "defaultRisk": "high",
+      "knowledgeDocIds": ["sop-forklift-pedestrian", "osha-1910-178"]
+    },
+    {
+      "id": "slips_trips",
+      "name": "Slips, trips & walking surfaces",
+      "description": "Wet or uneven floors, trip points, housekeeping on walking surfaces.",
+      "keywords": [
+        "slipped",
+        "slip",
+        "wet floor",
+        "puddle",
+        "leak",
+        "trip",
+        "tripped",
+        "dock plate",
+        "hose across",
+        "no wet floor sign",
+        "spill on floor"
+      ],
+      "defaultRisk": "medium",
+      "knowledgeDocIds": ["sop-wet-floor-housekeeping", "osha-1910-28"]
+    },
+    {
+      "id": "falls_from_height",
+      "name": "Falls from height",
+      "description": "Work at height without adequate guardrails, nets or personal fall arrest.",
+      "keywords": [
+        "tie-off",
+        "tied off",
+        "tie off",
+        "harness",
+        "lanyard",
+        "deck edge",
+        "leading edge",
+        "guardrail",
+        "at height",
+        "feet up",
+        "ft up",
+        "fall protection",
+        "mezzanine edge"
+      ],
+      "defaultRisk": "critical",
+      "knowledgeDocIds": ["sop-fall-protection", "osha-1926-501", "osha-1910-28"]
+    },
+    {
+      "id": "heat_stress",
+      "name": "Heat stress",
+      "description": "Hot environments, hydration, rest and acclimatization.",
+      "keywords": [
+        "heat",
+        "hot",
+        "temperature",
+        "water cooler",
+        "hydration",
+        "dizzy",
+        "heat exhaustion",
+        "cooling",
+        "fans",
+        "shade"
+      ],
+      "defaultRisk": "high",
+      "knowledgeDocIds": ["sop-heat-stress"]
+    },
+    {
+      "id": "fire_protection",
+      "name": "Fire protection",
+      "description": "Extinguishers, sprinklers, egress and combustible storage.",
+      "keywords": [
+        "extinguisher",
+        "gauge",
+        "red zone",
+        "low pressure",
+        "pin",
+        "seal",
+        "blocked",
+        "obstructed",
+        "sprinkler",
+        "oily rags"
+      ],
+      "defaultRisk": "high",
+      "knowledgeDocIds": ["sop-extinguisher-inspection", "osha-1910-157"]
+    },
+    {
+      "id": "spills_releases",
+      "name": "Spills & releases",
+      "description": "Leaks and spills of oil, fuel and chemicals to floors, containment or ground.",
+      "keywords": [
+        "leak",
+        "leaking",
+        "dripping",
+        "drip",
+        "oil",
+        "hydraulic",
+        "sheen",
+        "spill",
+        "diesel",
+        "valve",
+        "containment"
+      ],
+      "defaultRisk": "medium",
+      "knowledgeDocIds": ["sop-spill-response"]
+    },
+    {
+      "id": "machine_guarding",
+      "name": "Machine guarding & lockout",
+      "description": "Missing guards, bypassed interlocks and lockout/tagout.",
+      "keywords": ["guard", "interlock", "lockout", "LOTO", "pinch point", "press", "conveyor"],
+      "defaultRisk": "high",
+      "knowledgeDocIds": []
+    },
+    {
+      "id": "electrical",
+      "name": "Electrical",
+      "description": "Damaged cords, panel clearance, exposed conductors.",
+      "keywords": ["cord", "frayed", "panel", "exposed wire", "outlet", "shock"],
+      "defaultRisk": "medium",
+      "knowledgeDocIds": []
+    },
+    {
+      "id": "struck_by",
+      "name": "Struck-by & material storage",
+      "description": "Falling or moving objects, racking damage, unstable loads.",
+      "keywords": [
+        "fell",
+        "falling object",
+        "racking",
+        "upright",
+        "unstable load",
+        "staged near edge",
+        "dropped"
+      ],
+      "defaultRisk": "high",
+      "knowledgeDocIds": []
+    },
+    {
+      "id": "chemical_exposure",
+      "name": "Chemical exposure",
+      "description": "Inhalation or skin contact with chemicals; ventilation and respirators.",
+      "keywords": ["solvent", "fumes", "respirator", "ventilation", "SDS", "overspray"],
+      "defaultRisk": "medium",
+      "knowledgeDocIds": []
+    },
+    {
+      "id": "ergonomics",
+      "name": "Ergonomics",
+      "description": "Lifting, awkward postures, forceful exertions.",
+      "keywords": ["lifting", "strain", "back", "awkward", "cheater bar", "hard to operate"],
+      "defaultRisk": "low",
+      "knowledgeDocIds": []
+    },
+    {
+      "id": "ppe",
+      "name": "Personal protective equipment",
+      "description": "Missing or incorrect PPE.",
+      "keywords": ["hard hat", "safety glasses", "gloves", "hi-vis", "vest", "PPE"],
+      "defaultRisk": "medium",
+      "knowledgeDocIds": []
+    }
+  ]
+}

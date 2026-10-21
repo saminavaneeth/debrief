@@ -1,0 +1,40 @@
+{
+  "id": "tpl-extinguisher-monthly",
+  "name": "Monthly portable fire extinguisher inspection",
+  "recordType": "inspection",
+  "frequency": "monthly",
+  "appliesTo": "fire_extinguisher",
+  "checks": [
+    {
+      "id": "gauge",
+      "label": "Pressure gauge in green (operable) range",
+      "failMeans": "Gauge reads low or in the red zone",
+      "hazardCategory": "fire_protection"
+    },
+    {
+      "id": "pin_seal",
+      "label": "Safety pin and tamper seal in place",
+      "failMeans": "Pin missing or seal broken",
+      "hazardCategory": "fire_protection"
+    },
+    {
+      "id": "access",
+      "label": "Mounted, visible and unobstructed",
+      "failMeans": "Blocked, hidden or not mounted",
+      "hazardCategory": "fire_protection"
+    },
+    {
+      "id": "condition",
+      "label": "No visible damage, corrosion or leakage; nozzle clear",
+      "failMeans": "Physical damage or blocked nozzle",
+      "hazardCategory": "fire_protection"
+    },
+    {
+      "id": "tag",
+      "label": "Annual maintenance tag current",
+      "failMeans": "Tag missing or annual service overdue",
+      "hazardCategory": "fire_protection"
+    }
+  ],
+  "knowledgeDocIds": ["sop-extinguisher-inspection", "osha-1910-157"]
+}

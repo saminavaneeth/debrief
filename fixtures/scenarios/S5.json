@@ -1,0 +1,240 @@
+{
+  "id": "S5",
+  "title": "Contractor at height without tie-off",
+  "summary": "Ridgeline Steel worker at the mezzanine deck edge, about 12 ft up, not tied off. Work stopped; spoke to foreman Mike Dunn.",
+  "shift": {
+    "id": "SHIFT-2026-10-21",
+    "date": "2026-10-21",
+    "userId": "P-001",
+    "siteId": "plant-1",
+    "startedAt": "2026-10-21T07:00:00-05:00"
+  },
+  "scenarios": [
+    {
+      "id": "SCN-S5",
+      "shiftId": "SHIFT-2026-10-21",
+      "title": "Contractor at height, Mezzanine",
+      "status": "ready",
+      "siteId": "plant-1",
+      "areaId": "plant-1.mezzanine",
+      "createdAt": "2026-10-21T15:20:00-05:00",
+      "updatedAt": "2026-10-21T15:20:00-05:00"
+    }
+  ],
+  "artifacts": [
+    {
+      "shiftId": "SHIFT-2026-10-21",
+      "capturedBy": "P-001",
+      "tags": [],
+      "id": "S5-A1",
+      "scenarioId": "SCN-S5",
+      "modality": "video",
+      "capturedAt": "2026-10-21T15:20:00-05:00",
+      "siteId": "plant-1",
+      "areaId": "plant-1.mezzanine",
+      "media": {
+        "mimeType": "video/mp4",
+        "uri": "/demo-assets/s5/deck-edge.mp4",
+        "durationMs": 18000,
+        "width": 1280,
+        "height": 720
+      }
+    },
+    {
+      "shiftId": "SHIFT-2026-10-21",
+      "capturedBy": "P-001",
+      "tags": [],
+      "id": "S5-A2",
+      "scenarioId": "SCN-S5",
+      "modality": "note",
+      "capturedAt": "2026-10-21T15:24:00-05:00",
+      "siteId": "plant-1",
+      "areaId": "plant-1.mezzanine",
+      "text": "Stopped work. Spoke to foreman Mike Dunn, crew re-briefed on tie-off before restart."
+    }
+  ],
+  "perception": {
+    "S5-A1": {
+      "kind": "video",
+      "keyframes": [
+        {
+          "atMs": 0,
+          "uri": "/demo-assets/s5/kf-00.jpg",
+          "findings": [
+            {
+              "id": "S5-A1-K0-F1",
+              "label": "falls_from_height",
+              "text": "Worker standing at the open east edge of the mezzanine deck",
+              "box": {
+                "x": 0.4,
+                "y": 0.15,
+                "w": 0.18,
+                "h": 0.6
+              },
+              "confidence": 0.9
+            }
+          ]
+        },
+        {
+          "atMs": 4000,
+          "uri": "/demo-assets/s5/kf-04.jpg",
+          "findings": [
+            {
+              "id": "S5-A1-K1-F1",
+              "label": "falls_from_height",
+              "text": "Harness worn, lanyard hanging free, not connected to an anchor",
+              "box": {
+                "x": 0.43,
+                "y": 0.3,
+                "w": 0.12,
+                "h": 0.3
+              },
+              "confidence": 0.86
+            }
+          ]
+        },
+        {
+          "atMs": 9000,
+          "uri": "/demo-assets/s5/kf-09.jpg",
+          "findings": [
+            {
+              "id": "S5-A1-K2-F1",
+              "label": "contractor",
+              "text": "Hi-vis vest with Ridgeline Steel logo",
+              "box": {
+                "x": 0.44,
+                "y": 0.28,
+                "w": 0.1,
+                "h": 0.12
+              },
+              "confidence": 0.8
+            }
+          ]
+        },
+        {
+          "atMs": 14000,
+          "uri": "/demo-assets/s5/kf-14.jpg",
+          "findings": [
+            {
+              "id": "S5-A1-K3-F1",
+              "label": "falls_from_height",
+              "text": "No guardrail on this section of deck edge; drop to floor below",
+              "box": {
+                "x": 0.1,
+                "y": 0.55,
+                "w": 0.8,
+                "h": 0.35
+              },
+              "confidence": 0.84
+            }
+          ]
+        }
+      ],
+      "transcript": "That's about twelve feet up on the east edge of the mezzanine deck. He's not tied off. Ridgeline crew."
+    }
+  },
+  "variants": [
+    {
+      "id": "S5-v2",
+      "description": "'Mezz', 'no tie-off', 'Ridgeline guys'.",
+      "perception": {
+        "S5-A1": {
+          "kind": "video",
+          "keyframes": [
+            {
+              "atMs": 0,
+              "uri": "/demo-assets/s5/kf-00.jpg",
+              "findings": [
+                {
+                  "id": "S5-A1-K0-F1",
+                  "label": "falls_from_height",
+                  "text": "Worker standing at the open east edge of the mezzanine deck",
+                  "box": {
+                    "x": 0.4,
+                    "y": 0.15,
+                    "w": 0.18,
+                    "h": 0.6
+                  },
+                  "confidence": 0.9
+                }
+              ]
+            },
+            {
+              "atMs": 4000,
+              "uri": "/demo-assets/s5/kf-04.jpg",
+              "findings": [
+                {
+                  "id": "S5-A1-K1-F1",
+                  "label": "falls_from_height",
+                  "text": "Harness worn, lanyard hanging free, not connected to an anchor",
+                  "box": {
+                    "x": 0.43,
+                    "y": 0.3,
+                    "w": 0.12,
+                    "h": 0.3
+                  },
+                  "confidence": 0.86
+                }
+              ]
+            }
+          ],
+          "transcript": "He's right on the edge of the mezz, twelve feet or so, no tie-off. That's one of the Ridgeline guys."
+        }
+      },
+      "artifactText": {
+        "S5-A2": "Called stop work and talked with Mike Dunn (Ridgeline foreman)."
+      }
+    },
+    {
+      "id": "S5-v3",
+      "description": "'12 ft drop', 'isn't tied off to anything', 'Ridgeline Steel'.",
+      "perception": {
+        "S5-A1": {
+          "kind": "video",
+          "keyframes": [
+            {
+              "atMs": 0,
+              "uri": "/demo-assets/s5/kf-00.jpg",
+              "findings": [
+                {
+                  "id": "S5-A1-K0-F1",
+                  "label": "falls_from_height",
+                  "text": "Worker standing at the open east edge of the mezzanine deck",
+                  "box": {
+                    "x": 0.4,
+                    "y": 0.15,
+                    "w": 0.18,
+                    "h": 0.6
+                  },
+                  "confidence": 0.9
+                }
+              ]
+            },
+            {
+              "atMs": 14000,
+              "uri": "/demo-assets/s5/kf-14.jpg",
+              "findings": [
+                {
+                  "id": "S5-A1-K3-F1",
+                  "label": "falls_from_height",
+                  "text": "No guardrail on this section of deck edge; drop to floor below",
+                  "box": {
+                    "x": 0.1,
+                    "y": 0.55,
+                    "w": 0.8,
+                    "h": 0.35
+                  },
+                  "confidence": 0.84
+                }
+              ]
+            }
+          ],
+          "transcript": "East edge of the mezzanine deck, roughly a 12 ft drop, and the worker isn't tied off to anything. Contractor, Ridgeline Steel."
+        }
+      },
+      "artifactText": {
+        "S5-A2": "Work stopped. Discussed with the foreman, Mike Dunn."
+      }
+    }
+  ]
+}

@@ -1,0 +1,857 @@
+[
+  {
+    "id": "HAZ-0001",
+    "server": "hazards",
+    "recordType": "hazard",
+    "title": "Paint booth exhaust filters clogged",
+    "description": "Exhaust filters loaded with overspray; airflow visibly reduced.",
+    "status": "closed",
+    "siteId": "plant-1",
+    "areaId": "plant-1.paint-booth",
+    "assetIds": [],
+    "createdAt": "2026-05-20T10:00:00-05:00",
+    "updatedAt": "2026-05-23T09:00:00-05:00",
+    "createdBy": "P-001",
+    "notes": [],
+    "correctiveActions": [
+      {
+        "id": "HAZ-0001-CA1",
+        "title": "Replace filters and set weekly change schedule",
+        "ownerRef": "P-007",
+        "dueDate": "2026-05-22",
+        "status": "done",
+        "createdAt": "2026-05-20T10:10:00-05:00",
+        "createdBy": "P-001",
+        "citations": []
+      }
+    ],
+    "links": [],
+    "evidence": [],
+    "history": [
+      {
+        "at": "2026-05-20T10:00:00-05:00",
+        "by": "P-001",
+        "action": "created",
+        "summary": "Record created",
+        "changes": []
+      },
+      {
+        "at": "2026-05-23T09:00:00-05:00",
+        "by": "P-002",
+        "action": "status_changed",
+        "summary": "Closed after corrective actions verified",
+        "changes": [
+          {
+            "path": "status",
+            "after": "closed"
+          }
+        ]
+      }
+    ],
+    "source": "walkdown",
+    "identifiedAt": "2026-05-20T10:00:00-05:00",
+    "category": "chemical_exposure",
+    "riskLevel": "medium"
+  },
+  {
+    "id": "HAZ-0002",
+    "server": "hazards",
+    "recordType": "hazard",
+    "title": "Missing guard on press 2, Line A",
+    "description": "Fixed guard on the press 2 flywheel removed and not replaced after maintenance.",
+    "status": "closed",
+    "siteId": "plant-1",
+    "areaId": "plant-1.assembly-a",
+    "assetIds": [],
+    "createdAt": "2026-06-03T08:30:00-05:00",
+    "updatedAt": "2026-06-04T08:00:00-05:00",
+    "createdBy": "P-001",
+    "notes": [],
+    "correctiveActions": [
+      {
+        "id": "HAZ-0002-CA1",
+        "title": "Reinstall guard; add guard check to maintenance sign-off",
+        "ownerRef": "P-007",
+        "dueDate": "2026-06-03",
+        "status": "done",
+        "createdAt": "2026-06-03T08:40:00-05:00",
+        "createdBy": "P-001",
+        "citations": []
+      }
+    ],
+    "links": [],
+    "evidence": [],
+    "history": [
+      {
+        "at": "2026-06-03T08:30:00-05:00",
+        "by": "P-001",
+        "action": "created",
+        "summary": "Record created",
+        "changes": []
+      },
+      {
+        "at": "2026-06-04T08:00:00-05:00",
+        "by": "P-002",
+        "action": "status_changed",
+        "summary": "Closed after corrective actions verified",
+        "changes": [
+          {
+            "path": "status",
+            "after": "closed"
+          }
+        ]
+      }
+    ],
+    "source": "walkdown",
+    "identifiedAt": "2026-06-03T08:30:00-05:00",
+    "category": "machine_guarding",
+    "riskLevel": "high"
+  },
+  {
+    "id": "HAZ-0003",
+    "server": "hazards",
+    "recordType": "hazard",
+    "title": "Open edge on mezzanine expansion before guardrail install",
+    "description": "East edge of the new mezzanine deck open while guardrail posts were on order. Area barricaded with warning line.",
+    "status": "closed",
+    "siteId": "plant-1",
+    "areaId": "plant-1.mezzanine",
+    "assetIds": [],
+    "createdAt": "2026-06-27T13:00:00-05:00",
+    "updatedAt": "2026-08-01T10:00:00-05:00",
+    "createdBy": "P-001",
+    "notes": [],
+    "correctiveActions": [
+      {
+        "id": "HAZ-0003-CA1",
+        "title": "Install permanent guardrail on east edge",
+        "ownerRef": "C-001",
+        "dueDate": "2026-07-25",
+        "status": "done",
+        "createdAt": "2026-06-27T13:15:00-05:00",
+        "createdBy": "P-001",
+        "citations": []
+      }
+    ],
+    "links": [],
+    "evidence": [],
+    "history": [
+      {
+        "at": "2026-06-27T13:00:00-05:00",
+        "by": "P-001",
+        "action": "created",
+        "summary": "Record created",
+        "changes": []
+      },
+      {
+        "at": "2026-08-01T10:00:00-05:00",
+        "by": "P-002",
+        "action": "status_changed",
+        "summary": "Closed after corrective actions verified",
+        "changes": [
+          {
+            "path": "status",
+            "after": "closed"
+          }
+        ]
+      }
+    ],
+    "source": "walkdown",
+    "identifiedAt": "2026-06-27T13:00:00-05:00",
+    "category": "falls_from_height",
+    "riskLevel": "high"
+  },
+  {
+    "id": "HAZ-0004",
+    "server": "hazards",
+    "recordType": "hazard",
+    "title": "V-20 handle corroded and hard to operate",
+    "description": "Handle on tank 1 outlet valve V-20 corroded; operators using a cheater bar.",
+    "status": "closed",
+    "siteId": "tank-farm",
+    "areaId": "tank-farm.tank-row",
+    "assetIds": ["V-20"],
+    "createdAt": "2026-07-15T09:30:00-05:00",
+    "updatedAt": "2026-07-30T14:00:00-05:00",
+    "createdBy": "P-001",
+    "notes": [],
+    "correctiveActions": [
+      {
+        "id": "HAZ-0004-CA1",
+        "title": "Replace V-20 handle",
+        "ownerRef": "P-007",
+        "dueDate": "2026-07-29",
+        "status": "done",
+        "createdAt": "2026-07-15T09:40:00-05:00",
+        "createdBy": "P-001",
+        "citations": []
+      }
+    ],
+    "links": [],
+    "evidence": [],
+    "history": [
+      {
+        "at": "2026-07-15T09:30:00-05:00",
+        "by": "P-001",
+        "action": "created",
+        "summary": "Record created",
+        "changes": []
+      },
+      {
+        "at": "2026-07-30T14:00:00-05:00",
+        "by": "P-002",
+        "action": "status_changed",
+        "summary": "Closed after corrective actions verified",
+        "changes": [
+          {
+            "path": "status",
+            "after": "closed"
+          }
+        ]
+      }
+    ],
+    "source": "walkdown",
+    "identifiedAt": "2026-07-15T09:30:00-05:00",
+    "category": "ergonomics",
+    "riskLevel": "low"
+  },
+  {
+    "id": "HAZ-0005",
+    "server": "hazards",
+    "recordType": "hazard",
+    "title": "Damaged racking upright, warehouse aisle 6",
+    "description": "Upright in aisle 6 bay 4 bent at the base, likely from forklift contact.",
+    "status": "closed",
+    "siteId": "building-a",
+    "areaId": "building-a.warehouse",
+    "assetIds": [],
+    "createdAt": "2026-08-05T11:00:00-05:00",
+    "updatedAt": "2026-08-13T09:00:00-05:00",
+    "createdBy": "P-001",
+    "notes": [],
+    "correctiveActions": [
+      {
+        "id": "HAZ-0005-CA1",
+        "title": "Unload bay and replace upright",
+        "ownerRef": "P-014",
+        "dueDate": "2026-08-12",
+        "status": "done",
+        "createdAt": "2026-08-05T11:10:00-05:00",
+        "createdBy": "P-001",
+        "citations": []
+      }
+    ],
+    "links": [],
+    "evidence": [],
+    "history": [
+      {
+        "at": "2026-08-05T11:00:00-05:00",
+        "by": "P-001",
+        "action": "created",
+        "summary": "Record created",
+        "changes": []
+      },
+      {
+        "at": "2026-08-13T09:00:00-05:00",
+        "by": "P-002",
+        "action": "status_changed",
+        "summary": "Closed after corrective actions verified",
+        "changes": [
+          {
+            "path": "status",
+            "after": "closed"
+          }
+        ]
+      }
+    ],
+    "source": "walkdown",
+    "identifiedAt": "2026-08-05T11:00:00-05:00",
+    "category": "struck_by",
+    "riskLevel": "high"
+  },
+  {
+    "id": "HAZ-0006",
+    "server": "hazards",
+    "recordType": "hazard",
+    "title": "Frayed microwave cord in break room",
+    "description": "Power cord on the left microwave frayed near the plug.",
+    "status": "closed",
+    "siteId": "plant-1",
+    "areaId": "plant-1.break-room",
+    "assetIds": [],
+    "createdAt": "2026-08-21T12:30:00-05:00",
+    "updatedAt": "2026-08-22T15:00:00-05:00",
+    "createdBy": "P-001",
+    "notes": [],
+    "correctiveActions": [
+      {
+        "id": "HAZ-0006-CA1",
+        "title": "Remove microwave from service and replace",
+        "ownerRef": "P-015",
+        "dueDate": "2026-08-22",
+        "status": "done",
+        "createdAt": "2026-08-21T12:35:00-05:00",
+        "createdBy": "P-001",
+        "citations": []
+      }
+    ],
+    "links": [],
+    "evidence": [],
+    "history": [
+      {
+        "at": "2026-08-21T12:30:00-05:00",
+        "by": "P-001",
+        "action": "created",
+        "summary": "Record created",
+        "changes": []
+      },
+      {
+        "at": "2026-08-22T15:00:00-05:00",
+        "by": "P-002",
+        "action": "status_changed",
+        "summary": "Closed after corrective actions verified",
+        "changes": [
+          {
+            "path": "status",
+            "after": "closed"
+          }
+        ]
+      }
+    ],
+    "source": "walkdown",
+    "identifiedAt": "2026-08-21T12:30:00-05:00",
+    "category": "electrical",
+    "riskLevel": "medium"
+  },
+  {
+    "id": "HAZ-0007",
+    "server": "hazards",
+    "recordType": "hazard",
+    "title": "FL-07 right-side mirror cracked",
+    "description": "Right-side rear-view mirror on FL-07 is cracked, distorting the view of the pedestrian lane when reversing out of Dock 3.",
+    "status": "open",
+    "siteId": "plant-1",
+    "areaId": "plant-1.dock-3",
+    "assetIds": ["FL-07"],
+    "createdAt": "2026-09-10T08:15:00-05:00",
+    "updatedAt": "2026-09-12T10:00:00-05:00",
+    "createdBy": "P-001",
+    "notes": [
+      {
+        "at": "2026-09-12T10:00:00-05:00",
+        "by": "P-007",
+        "text": "Replacement mirror ordered; on backorder."
+      }
+    ],
+    "correctiveActions": [
+      {
+        "id": "HAZ-0007-CA1",
+        "title": "Replace FL-07 right-side mirror",
+        "ownerRef": "P-007",
+        "dueDate": "2026-09-24",
+        "status": "open",
+        "createdAt": "2026-09-10T08:20:00-05:00",
+        "createdBy": "P-001",
+        "citations": []
+      }
+    ],
+    "links": [
+      {
+        "type": "foundDuring",
+        "targetId": "INS-0019",
+        "createdAt": "2026-09-10T08:15:00-05:00",
+        "createdBy": "P-001"
+      }
+    ],
+    "evidence": [],
+    "history": [
+      {
+        "at": "2026-09-10T08:15:00-05:00",
+        "by": "P-001",
+        "action": "created",
+        "summary": "Record created",
+        "changes": []
+      },
+      {
+        "at": "2026-09-10T08:15:00-05:00",
+        "by": "P-001",
+        "action": "linked",
+        "summary": "Linked to INS-0019",
+        "changes": []
+      },
+      {
+        "at": "2026-09-12T10:00:00-05:00",
+        "by": "P-007",
+        "action": "noted",
+        "summary": "Part on backorder",
+        "changes": []
+      }
+    ],
+    "source": "inspection",
+    "identifiedAt": "2026-09-10T08:15:00-05:00",
+    "category": "powered_industrial_trucks",
+    "riskLevel": "medium"
+  },
+  {
+    "id": "HAZ-0008",
+    "server": "hazards",
+    "recordType": "hazard",
+    "title": "Oily rags left on bench, Maintenance Shop",
+    "description": "Oily rags piled on the bench instead of in the self-closing safety can.",
+    "status": "closed",
+    "siteId": "plant-1",
+    "areaId": "plant-1.maintenance-shop",
+    "assetIds": [],
+    "createdAt": "2026-09-17T16:00:00-05:00",
+    "updatedAt": "2026-09-18T09:00:00-05:00",
+    "createdBy": "P-001",
+    "notes": [],
+    "correctiveActions": [
+      {
+        "id": "HAZ-0008-CA1",
+        "title": "Move rags to safety can; brief shop staff",
+        "ownerRef": "P-007",
+        "dueDate": "2026-09-18",
+        "status": "done",
+        "createdAt": "2026-09-17T16:05:00-05:00",
+        "createdBy": "P-001",
+        "citations": []
+      }
+    ],
+    "links": [],
+    "evidence": [],
+    "history": [
+      {
+        "at": "2026-09-17T16:00:00-05:00",
+        "by": "P-001",
+        "action": "created",
+        "summary": "Record created",
+        "changes": []
+      },
+      {
+        "at": "2026-09-18T09:00:00-05:00",
+        "by": "P-002",
+        "action": "status_changed",
+        "summary": "Closed after corrective actions verified",
+        "changes": [
+          {
+            "path": "status",
+            "after": "closed"
+          }
+        ]
+      }
+    ],
+    "source": "walkdown",
+    "identifiedAt": "2026-09-17T16:00:00-05:00",
+    "category": "fire_protection",
+    "riskLevel": "medium"
+  },
+  {
+    "id": "HAZ-0009",
+    "server": "hazards",
+    "recordType": "hazard",
+    "title": "Air hose across walkway, Line A",
+    "description": "Air hose for station 6 run across the main walkway at ankle height.",
+    "status": "closed",
+    "siteId": "plant-1",
+    "areaId": "plant-1.assembly-a",
+    "assetIds": [],
+    "createdAt": "2026-09-29T10:45:00-05:00",
+    "updatedAt": "2026-10-07T10:00:00-05:00",
+    "createdBy": "P-001",
+    "notes": [],
+    "correctiveActions": [
+      {
+        "id": "HAZ-0009-CA1",
+        "title": "Install overhead hose reel at station 6",
+        "ownerRef": "P-007",
+        "dueDate": "2026-10-06",
+        "status": "done",
+        "createdAt": "2026-09-29T11:00:00-05:00",
+        "createdBy": "P-001",
+        "citations": []
+      }
+    ],
+    "links": [],
+    "evidence": [],
+    "history": [
+      {
+        "at": "2026-09-29T10:45:00-05:00",
+        "by": "P-001",
+        "action": "created",
+        "summary": "Record created",
+        "changes": []
+      },
+      {
+        "at": "2026-10-07T10:00:00-05:00",
+        "by": "P-002",
+        "action": "status_changed",
+        "summary": "Closed after corrective actions verified",
+        "changes": [
+          {
+            "path": "status",
+            "after": "closed"
+          }
+        ]
+      }
+    ],
+    "source": "walkdown",
+    "identifiedAt": "2026-09-29T10:45:00-05:00",
+    "category": "slips_trips",
+    "riskLevel": "low"
+  },
+  {
+    "id": "HAZ-0010",
+    "server": "hazards",
+    "recordType": "hazard",
+    "title": "Dock plate lip damaged, Dock 3 door 2",
+    "description": "Front lip of the dock plate at Dock 3 door 2 is bent upward about half an inch, creating a trip point for pallet jacks and pedestrians.",
+    "status": "open",
+    "siteId": "plant-1",
+    "areaId": "plant-1.dock-3",
+    "assetIds": [],
+    "createdAt": "2026-10-02T13:20:00-05:00",
+    "updatedAt": "2026-10-02T13:20:00-05:00",
+    "createdBy": "P-001",
+    "notes": [],
+    "correctiveActions": [
+      {
+        "id": "HAZ-0010-CA1",
+        "title": "Repair or replace dock plate at door 2",
+        "ownerRef": "P-007",
+        "dueDate": "2026-10-28",
+        "status": "open",
+        "createdAt": "2026-10-02T13:30:00-05:00",
+        "createdBy": "P-001",
+        "citations": []
+      }
+    ],
+    "links": [],
+    "evidence": [],
+    "history": [
+      {
+        "at": "2026-10-02T13:20:00-05:00",
+        "by": "P-001",
+        "action": "created",
+        "summary": "Record created",
+        "changes": []
+      }
+    ],
+    "source": "walkdown",
+    "identifiedAt": "2026-10-02T13:20:00-05:00",
+    "category": "slips_trips",
+    "riskLevel": "medium"
+  },
+  {
+    "id": "HAZ-0011",
+    "server": "hazards",
+    "recordType": "hazard",
+    "title": "Heat stress risk on Assembly Line B afternoons",
+    "description": "Afternoon temperatures on Line B reached 92°F with high humidity. One water cooler for a crew of nine; no shaded rest area near the line.",
+    "status": "open",
+    "siteId": "plant-1",
+    "areaId": "plant-1.assembly-b",
+    "assetIds": [],
+    "createdAt": "2026-10-14T14:00:00-05:00",
+    "updatedAt": "2026-10-14T14:00:00-05:00",
+    "createdBy": "P-001",
+    "reportedBy": "P-006",
+    "notes": [],
+    "correctiveActions": [
+      {
+        "id": "HAZ-0011-CA1",
+        "title": "Add two pedestal fans at stations 1-4",
+        "ownerRef": "P-015",
+        "dueDate": "2026-10-21",
+        "status": "in_progress",
+        "createdAt": "2026-10-14T14:10:00-05:00",
+        "createdBy": "P-001",
+        "citations": []
+      }
+    ],
+    "links": [
+      {
+        "type": "relatedTo",
+        "targetId": "INC-0005",
+        "createdAt": "2026-10-14T14:00:00-05:00",
+        "createdBy": "P-001"
+      }
+    ],
+    "evidence": [],
+    "history": [
+      {
+        "at": "2026-10-14T14:00:00-05:00",
+        "by": "P-001",
+        "action": "created",
+        "summary": "Record created",
+        "changes": []
+      },
+      {
+        "at": "2026-10-14T14:00:00-05:00",
+        "by": "P-001",
+        "action": "linked",
+        "summary": "Linked to INC-0005",
+        "changes": []
+      }
+    ],
+    "source": "employee_report",
+    "identifiedAt": "2026-10-14T14:00:00-05:00",
+    "category": "heat_stress",
+    "riskLevel": "high"
+  },
+  {
+    "id": "HAZ-0012",
+    "server": "hazards",
+    "recordType": "hazard",
+    "title": "Pedestrian lane markings faded, Dock 3",
+    "description": "Yellow pedestrian lane lines between the Dock 3 bay doors and the time clock are worn through in several places.",
+    "status": "open",
+    "siteId": "plant-1",
+    "areaId": "plant-1.dock-3",
+    "assetIds": [],
+    "createdAt": "2026-10-16T09:10:00-05:00",
+    "updatedAt": "2026-10-16T09:10:00-05:00",
+    "createdBy": "P-001",
+    "notes": [],
+    "correctiveActions": [
+      {
+        "id": "HAZ-0012-CA1",
+        "title": "Repaint pedestrian lane lines at Dock 3",
+        "ownerRef": "P-015",
+        "dueDate": "2026-10-31",
+        "status": "open",
+        "createdAt": "2026-10-16T09:20:00-05:00",
+        "createdBy": "P-001",
+        "citations": []
+      }
+    ],
+    "links": [],
+    "evidence": [],
+    "history": [
+      {
+        "at": "2026-10-16T09:10:00-05:00",
+        "by": "P-001",
+        "action": "created",
+        "summary": "Record created",
+        "changes": []
+      }
+    ],
+    "source": "walkdown",
+    "identifiedAt": "2026-10-16T09:10:00-05:00",
+    "category": "powered_industrial_trucks",
+    "riskLevel": "medium"
+  },
+  {
+    "id": "OBS-0001",
+    "server": "hazards",
+    "recordType": "observation",
+    "title": "Correct lockout on press 4, Line A",
+    "description": "Operator applied personal lock and verified zero energy before clearing a jam.",
+    "status": "closed",
+    "siteId": "plant-1",
+    "areaId": "plant-1.assembly-a",
+    "assetIds": [],
+    "createdAt": "2026-07-22T10:00:00-05:00",
+    "updatedAt": "2026-07-22T10:05:00-05:00",
+    "createdBy": "P-001",
+    "notes": [],
+    "correctiveActions": [],
+    "links": [],
+    "evidence": [],
+    "history": [
+      {
+        "at": "2026-07-22T10:00:00-05:00",
+        "by": "P-001",
+        "action": "created",
+        "summary": "Record created",
+        "changes": []
+      },
+      {
+        "at": "2026-07-22T10:05:00-05:00",
+        "by": "P-001",
+        "action": "status_changed",
+        "summary": "Recognition shared at shift huddle",
+        "changes": [
+          {
+            "path": "status",
+            "after": "closed"
+          }
+        ]
+      }
+    ],
+    "observedAt": "2026-07-22T10:00:00-05:00",
+    "stopWorkInvoked": false,
+    "observationType": "positive",
+    "category": "machine_guarding",
+    "severity": 1
+  },
+  {
+    "id": "OBS-0002",
+    "server": "hazards",
+    "recordType": "observation",
+    "title": "Contractor without hard hat on mezzanine",
+    "description": "Ridgeline Steel worker on the mezzanine deck without a hard hat during overhead steel placement.",
+    "status": "closed",
+    "siteId": "plant-1",
+    "areaId": "plant-1.mezzanine",
+    "assetIds": [],
+    "createdAt": "2026-08-12T09:30:00-05:00",
+    "updatedAt": "2026-08-12T11:00:00-05:00",
+    "createdBy": "P-001",
+    "notes": [],
+    "correctiveActions": [],
+    "links": [],
+    "evidence": [],
+    "history": [
+      {
+        "at": "2026-08-12T09:30:00-05:00",
+        "by": "P-001",
+        "action": "created",
+        "summary": "Record created",
+        "changes": []
+      },
+      {
+        "at": "2026-08-12T11:00:00-05:00",
+        "by": "P-001",
+        "action": "status_changed",
+        "summary": "Foreman briefed crew",
+        "changes": [
+          {
+            "path": "status",
+            "after": "closed"
+          }
+        ]
+      }
+    ],
+    "observedAt": "2026-08-12T09:30:00-05:00",
+    "stopWorkInvoked": false,
+    "observationType": "unsafe_act",
+    "category": "ppe",
+    "severity": 3,
+    "contractorId": "CTR-01",
+    "personObserved": "Ridgeline Steel ironworker",
+    "spokeWithId": "C-001"
+  },
+  {
+    "id": "OBS-0003",
+    "server": "hazards",
+    "recordType": "observation",
+    "title": "Pedestrian outside marked lane, Dock 1",
+    "description": "Employee cut across the forklift aisle at Dock 1 instead of using the marked lane.",
+    "status": "closed",
+    "siteId": "plant-1",
+    "areaId": "plant-1.dock-1",
+    "assetIds": [],
+    "createdAt": "2026-09-09T14:20:00-05:00",
+    "updatedAt": "2026-09-09T14:30:00-05:00",
+    "createdBy": "P-001",
+    "notes": [],
+    "correctiveActions": [],
+    "links": [],
+    "evidence": [],
+    "history": [
+      {
+        "at": "2026-09-09T14:20:00-05:00",
+        "by": "P-001",
+        "action": "created",
+        "summary": "Record created",
+        "changes": []
+      },
+      {
+        "at": "2026-09-09T14:30:00-05:00",
+        "by": "P-002",
+        "action": "status_changed",
+        "summary": "Closed after corrective actions verified",
+        "changes": [
+          {
+            "path": "status",
+            "after": "closed"
+          }
+        ]
+      }
+    ],
+    "observedAt": "2026-09-09T14:20:00-05:00",
+    "stopWorkInvoked": false,
+    "observationType": "unsafe_act",
+    "category": "powered_industrial_trucks",
+    "severity": 3
+  },
+  {
+    "id": "OBS-0004",
+    "server": "hazards",
+    "recordType": "observation",
+    "title": "Respirator stored outside bag, paint booth",
+    "description": "Half-face respirator left hanging on a hook in the booth instead of sealed storage.",
+    "status": "closed",
+    "siteId": "plant-1",
+    "areaId": "plant-1.paint-booth",
+    "assetIds": [],
+    "createdAt": "2026-10-01T08:45:00-05:00",
+    "updatedAt": "2026-10-01T09:00:00-05:00",
+    "createdBy": "P-001",
+    "notes": [],
+    "correctiveActions": [],
+    "links": [],
+    "evidence": [],
+    "history": [
+      {
+        "at": "2026-10-01T08:45:00-05:00",
+        "by": "P-001",
+        "action": "created",
+        "summary": "Record created",
+        "changes": []
+      },
+      {
+        "at": "2026-10-01T09:00:00-05:00",
+        "by": "P-002",
+        "action": "status_changed",
+        "summary": "Closed after corrective actions verified",
+        "changes": [
+          {
+            "path": "status",
+            "after": "closed"
+          }
+        ]
+      }
+    ],
+    "observedAt": "2026-10-01T08:45:00-05:00",
+    "stopWorkInvoked": false,
+    "observationType": "unsafe_condition",
+    "category": "chemical_exposure",
+    "severity": 2
+  },
+  {
+    "id": "OBS-0005",
+    "server": "hazards",
+    "recordType": "observation",
+    "title": "Steel staged near mezzanine deck edge",
+    "description": "Ridgeline Steel staged a bundle of joists within 3 ft of the guarded deck edge.",
+    "status": "open",
+    "siteId": "plant-1",
+    "areaId": "plant-1.mezzanine",
+    "assetIds": [],
+    "createdAt": "2026-10-15T10:30:00-05:00",
+    "updatedAt": "2026-10-15T10:30:00-05:00",
+    "createdBy": "P-001",
+    "notes": [],
+    "correctiveActions": [],
+    "links": [],
+    "evidence": [],
+    "history": [
+      {
+        "at": "2026-10-15T10:30:00-05:00",
+        "by": "P-001",
+        "action": "created",
+        "summary": "Record created",
+        "changes": []
+      }
+    ],
+    "observedAt": "2026-10-15T10:30:00-05:00",
+    "stopWorkInvoked": false,
+    "observationType": "unsafe_condition",
+    "category": "struck_by",
+    "severity": 3,
+    "contractorId": "CTR-01",
+    "spokeWithId": "C-001"
+  }
+]

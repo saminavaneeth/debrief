@@ -1,0 +1,150 @@
+{
+  "id": "S2",
+  "title": "Slip in break room, first aid only",
+  "summary": "Jenna Brooks slipped by the leaking ice machine, bruised knee, ice pack, back to work. No wet floor sign.",
+  "shift": {
+    "id": "SHIFT-2026-10-21",
+    "date": "2026-10-21",
+    "userId": "P-001",
+    "siteId": "plant-1",
+    "startedAt": "2026-10-21T07:00:00-05:00"
+  },
+  "scenarios": [
+    {
+      "id": "SCN-S2",
+      "shiftId": "SHIFT-2026-10-21",
+      "title": "Slip in break room",
+      "status": "ready",
+      "siteId": "plant-1",
+      "areaId": "plant-1.break-room",
+      "createdAt": "2026-10-21T10:15:00-05:00",
+      "updatedAt": "2026-10-21T10:15:00-05:00"
+    }
+  ],
+  "artifacts": [
+    {
+      "shiftId": "SHIFT-2026-10-21",
+      "capturedBy": "P-001",
+      "tags": [],
+      "id": "S2-A1",
+      "scenarioId": "SCN-S2",
+      "modality": "voice",
+      "capturedAt": "2026-10-21T10:15:00-05:00",
+      "siteId": "plant-1",
+      "areaId": "plant-1.break-room",
+      "media": {
+        "mimeType": "audio/webm",
+        "uri": "/demo-assets/s2/voice.webm",
+        "durationMs": 27000
+      }
+    },
+    {
+      "shiftId": "SHIFT-2026-10-21",
+      "capturedBy": "P-001",
+      "tags": [],
+      "id": "S2-A2",
+      "scenarioId": "SCN-S2",
+      "modality": "photo",
+      "capturedAt": "2026-10-21T10:17:00-05:00",
+      "siteId": "plant-1",
+      "areaId": "plant-1.break-room",
+      "media": {
+        "mimeType": "image/jpeg",
+        "uri": "/demo-assets/s2/puddle.jpg",
+        "width": 1600,
+        "height": 1200
+      }
+    },
+    {
+      "shiftId": "SHIFT-2026-10-21",
+      "capturedBy": "P-001",
+      "tags": [],
+      "id": "S2-A3",
+      "scenarioId": "SCN-S2",
+      "modality": "note",
+      "capturedAt": "2026-10-21T10:18:00-05:00",
+      "siteId": "plant-1",
+      "areaId": "plant-1.break-room",
+      "text": "No wet floor sign out."
+    }
+  ],
+  "perception": {
+    "S2-A1": {
+      "kind": "transcript",
+      "text": "Break room, ten fifteen. Jenna Brooks slipped on water by the ice machine and went down on her right knee. Bruised, no cut. We gave her an ice pack and she's back to work. That ice machine has been leaking for a while, the floor is wet there most days.",
+      "language": "en-US"
+    },
+    "S2-A2": {
+      "kind": "image",
+      "findings": [
+        {
+          "id": "S2-A2-F1",
+          "label": "slips_trips",
+          "text": "Water pooled on the floor in front of the ice machine",
+          "box": {
+            "x": 0.2,
+            "y": 0.55,
+            "w": 0.55,
+            "h": 0.35
+          },
+          "confidence": 0.94
+        },
+        {
+          "id": "S2-A2-F2",
+          "label": "spills_releases",
+          "text": "Water trail running from the base of the ice machine",
+          "box": {
+            "x": 0.45,
+            "y": 0.4,
+            "w": 0.15,
+            "h": 0.25
+          },
+          "confidence": 0.82
+        },
+        {
+          "id": "S2-A2-F3",
+          "label": "missing_signage",
+          "text": "No wet floor sign visible in the area",
+          "box": {
+            "x": 0,
+            "y": 0,
+            "w": 1,
+            "h": 1
+          },
+          "confidence": 0.77
+        }
+      ],
+      "ocrText": "IM-01"
+    }
+  },
+  "variants": [
+    {
+      "id": "S2-v2",
+      "description": "'Ice maker', 'fell', 'dripping for weeks'.",
+      "perception": {
+        "S2-A1": {
+          "kind": "transcript",
+          "text": "10:15 in the break room. Jenna Brooks fell by the ice maker, the floor was wet. Banged up her right knee, just a bruise. Ice pack and she went back to work. The ice maker has been dripping for weeks.",
+          "language": "en-US"
+        }
+      },
+      "artifactText": {
+        "S2-A3": "Wet floor sign wasn't out."
+      }
+    },
+    {
+      "id": "S2-v3",
+      "description": "Clinical wording: 'first aid only', 'cold pack', 'returned to normal duty'.",
+      "perception": {
+        "S2-A1": {
+          "kind": "transcript",
+          "text": "Slip and fall at the break room ice machine around 10:15. Jenna Brooks, bruise to the right knee. First aid only, cold pack, returned to normal duty. The machine has had a slow leak for a while now.",
+          "language": "en-US"
+        }
+      },
+      "artifactText": {
+        "S2-A3": "There was no wet-floor sign."
+      }
+    }
+  ]
+}

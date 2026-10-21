@@ -1,0 +1,109 @@
+{
+  "scenarioId": "S2",
+  "demoDate": "2026-10-21",
+  "actions": [
+    {
+      "type": "create",
+      "ref": "a1",
+      "scenarioId": "SCN-S2",
+      "server": "incidents",
+      "recordType": "incident",
+      "fields": {
+        "incidentType": "injury",
+        "severity": 2,
+        "areaId": "plant-1.break-room",
+        "occurredAt": "2026-10-21T10:15:00-05:00",
+        "recordable": false,
+        "injury.treatment": "first_aid",
+        "injury.returnedToWork": true
+      },
+      "fieldsContain": {
+        "injury.bodyPart": "knee"
+      },
+      "includes": [
+        {
+          "path": "involvedPeople",
+          "match": {
+            "personId": "P-004",
+            "role": "injured"
+          }
+        }
+      ]
+    },
+    {
+      "type": "create",
+      "ref": "a2",
+      "scenarioId": "SCN-S2",
+      "server": "hazards",
+      "recordType": "hazard",
+      "fields": {
+        "category": "slips_trips",
+        "areaId": "plant-1.break-room",
+        "assetIds": ["IM-01"],
+        "status": "open"
+      },
+      "fieldsContain": {},
+      "includes": [
+        {
+          "path": "correctiveActions",
+          "match": {
+            "title": "repair",
+            "ownerRef": "role:maintenance_tech",
+            "dueDate": "2026-10-24"
+          }
+        }
+      ]
+    },
+    {
+      "type": "link",
+      "ref": "a3",
+      "scenarioId": "SCN-S2",
+      "from": {
+        "ref": "a1"
+      },
+      "to": {
+        "ref": "a2"
+      },
+      "linkType": "relatedTo"
+    },
+    {
+      "type": "attach",
+      "ref": "a4",
+      "scenarioId": "SCN-S2",
+      "artifactId": "S2-A2",
+      "to": {
+        "ref": "a1"
+      }
+    },
+    {
+      "type": "attach",
+      "ref": "a5",
+      "scenarioId": "SCN-S2",
+      "artifactId": "S2-A2",
+      "to": {
+        "ref": "a2"
+      }
+    }
+  ],
+  "gaps": [],
+  "citations": [
+    {
+      "actionRef": "a1",
+      "fieldPath": "recordable",
+      "docId": "osha-1904-7"
+    },
+    {
+      "actionRef": "a2",
+      "fieldPath": "correctiveActions",
+      "docId": "sop-wet-floor-housekeeping"
+    }
+  ],
+  "sortSuggestions": [],
+  "forbidden": [],
+  "workflows": [
+    {
+      "ruleId": "wf-high-severity-incident",
+      "fires": false
+    }
+  ]
+}

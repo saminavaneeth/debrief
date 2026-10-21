@@ -1,0 +1,92 @@
+{
+  "scenarioId": "S5",
+  "demoDate": "2026-10-21",
+  "actions": [
+    {
+      "type": "create",
+      "ref": "a1",
+      "scenarioId": "SCN-S5",
+      "server": "hazards",
+      "recordType": "observation",
+      "fields": {
+        "observationType": "unsafe_act",
+        "category": "falls_from_height",
+        "areaId": "plant-1.mezzanine",
+        "contractorId": "CTR-01",
+        "stopWorkInvoked": true,
+        "spokeWithId": "C-001"
+      },
+      "fieldsContain": {},
+      "includes": []
+    },
+    {
+      "type": "update",
+      "ref": "a2",
+      "scenarioId": "SCN-S5",
+      "server": "audits",
+      "recordType": "audit",
+      "targetId": "AUD-0004",
+      "fields": {},
+      "fieldsContain": {},
+      "includes": [
+        {
+          "path": "findings",
+          "match": {
+            "severity": 4,
+            "requirementRef": "1926.501",
+            "status": "open",
+            "areaId": "plant-1.mezzanine"
+          }
+        }
+      ]
+    },
+    {
+      "type": "link",
+      "ref": "a3",
+      "scenarioId": "SCN-S5",
+      "from": {
+        "ref": "a1"
+      },
+      "to": {
+        "id": "AUD-0004"
+      },
+      "linkType": "foundDuring"
+    },
+    {
+      "type": "attach",
+      "ref": "a4",
+      "scenarioId": "SCN-S5",
+      "artifactId": "S5-A1",
+      "to": {
+        "ref": "a1"
+      }
+    },
+    {
+      "type": "attach",
+      "ref": "a5",
+      "scenarioId": "SCN-S5",
+      "artifactId": "S5-A1",
+      "to": {
+        "id": "AUD-0004"
+      }
+    }
+  ],
+  "gaps": [],
+  "citations": [
+    {
+      "actionRef": "a2",
+      "fieldPath": "findings",
+      "docId": "osha-1926-501"
+    }
+  ],
+  "sortSuggestions": [],
+  "forbidden": [
+    {
+      "reason": "An unsafe act is an observation; the closed edge hazard HAZ-0003 is not reopened or duplicated.",
+      "server": "hazards",
+      "recordType": "hazard",
+      "maxCreates": 0
+    }
+  ],
+  "workflows": []
+}

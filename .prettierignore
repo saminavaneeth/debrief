@@ -1,0 +1,8 @@
+.next
+node_modules
+package-lock.json
+.data
+evals/results
+public
+CLAUDE.md
+AGENTS.md

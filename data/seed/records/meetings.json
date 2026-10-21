@@ -1,0 +1,275 @@
+[
+  {
+    "id": "MTG-0001",
+    "server": "meetings",
+    "recordType": "safety_meeting",
+    "title": "Toolbox talk: forklift and pedestrian separation",
+    "description": "Covered lane discipline, horn at blind corners, and eye contact before crossing.",
+    "status": "completed",
+    "siteId": "plant-1",
+    "areaId": "plant-1.dock-3",
+    "assetIds": [],
+    "createdAt": "2026-08-04T07:20:00-05:00",
+    "updatedAt": "2026-08-04T07:20:00-05:00",
+    "createdBy": "P-001",
+    "notes": [],
+    "correctiveActions": [],
+    "links": [],
+    "evidence": [],
+    "history": [
+      {
+        "at": "2026-08-04T07:20:00-05:00",
+        "by": "P-001",
+        "action": "created",
+        "summary": "Record created",
+        "changes": []
+      }
+    ],
+    "actionItems": [],
+    "meetingType": "toolbox_talk",
+    "topic": "Forklift and pedestrian separation",
+    "heldAt": "2026-08-04T07:00:00-05:00",
+    "durationMinutes": 15,
+    "facilitatorId": "P-001",
+    "attendees": [
+      {
+        "personId": "P-003",
+        "name": "Luis Ortega"
+      },
+      {
+        "personId": "P-005",
+        "name": "Tom Becker"
+      },
+      {
+        "personId": "P-009",
+        "name": "Grace Kim"
+      },
+      {
+        "personId": "P-014",
+        "name": "Ray Thompson"
+      }
+    ]
+  },
+  {
+    "id": "MTG-0002",
+    "server": "meetings",
+    "recordType": "safety_meeting",
+    "title": "Safety committee, August",
+    "description": "Monthly safety committee: incident review, open actions, contractor onboarding for the mezzanine project.",
+    "status": "completed",
+    "siteId": "plant-1",
+    "assetIds": [],
+    "createdAt": "2026-08-27T14:10:00-05:00",
+    "updatedAt": "2026-08-27T14:10:00-05:00",
+    "createdBy": "P-002",
+    "notes": [],
+    "correctiveActions": [],
+    "links": [],
+    "evidence": [],
+    "history": [
+      {
+        "at": "2026-08-27T14:10:00-05:00",
+        "by": "P-002",
+        "action": "created",
+        "summary": "Record created",
+        "changes": []
+      }
+    ],
+    "actionItems": [
+      {
+        "id": "MTG-0002-A1",
+        "title": "Confirm Ridgeline Steel fall protection plan before deck work",
+        "ownerRef": "P-001",
+        "dueDate": "2026-09-05",
+        "status": "done"
+      }
+    ],
+    "meetingType": "safety_committee",
+    "topic": "Monthly review",
+    "heldAt": "2026-08-27T13:00:00-05:00",
+    "durationMinutes": 60,
+    "facilitatorId": "P-002",
+    "attendees": [
+      {
+        "personId": "P-001",
+        "name": "Maria Chen"
+      },
+      {
+        "personId": "P-002",
+        "name": "Dev Patel"
+      },
+      {
+        "personId": "P-006",
+        "name": "Aisha Rahman"
+      },
+      {
+        "personId": "P-008",
+        "name": "Priya Nair"
+      },
+      {
+        "personId": "P-015",
+        "name": "Kevin Wu"
+      }
+    ]
+  },
+  {
+    "id": "MTG-0003",
+    "server": "meetings",
+    "recordType": "safety_meeting",
+    "title": "Toolbox talk: lockout/tagout refresher, Line B",
+    "description": "Walked through the Line B conveyor lockout points and group lockout box.",
+    "status": "completed",
+    "siteId": "plant-1",
+    "areaId": "plant-1.assembly-b",
+    "assetIds": [],
+    "createdAt": "2026-09-15T07:30:00-05:00",
+    "updatedAt": "2026-09-15T07:30:00-05:00",
+    "createdBy": "P-001",
+    "notes": [],
+    "correctiveActions": [],
+    "links": [],
+    "evidence": [],
+    "history": [
+      {
+        "at": "2026-09-15T07:30:00-05:00",
+        "by": "P-001",
+        "action": "created",
+        "summary": "Record created",
+        "changes": []
+      }
+    ],
+    "actionItems": [],
+    "meetingType": "toolbox_talk",
+    "topic": "Lockout/tagout refresher",
+    "heldAt": "2026-09-15T07:00:00-05:00",
+    "durationMinutes": 20,
+    "facilitatorId": "P-006",
+    "attendees": [
+      {
+        "personId": "P-010",
+        "name": "Marcus Hill"
+      },
+      {
+        "personId": "P-011",
+        "name": "Sofia Alvarez"
+      },
+      {
+        "personId": "P-012",
+        "name": "Ben Okafor"
+      },
+      {
+        "personId": "P-013",
+        "name": "Hannah Weiss"
+      },
+      {
+        "personId": "P-016",
+        "name": "Daniel Reyes"
+      },
+      {
+        "personId": "P-017",
+        "name": "Olivia Grant"
+      }
+    ]
+  },
+  {
+    "id": "MTG-0004",
+    "server": "meetings",
+    "recordType": "safety_meeting",
+    "title": "Safety committee, September",
+    "description": "Monthly safety committee: recordkeeping review results, heat stress follow-up from INC-0005.",
+    "status": "completed",
+    "siteId": "plant-1",
+    "assetIds": [],
+    "createdAt": "2026-09-30T14:05:00-05:00",
+    "updatedAt": "2026-09-30T14:05:00-05:00",
+    "createdBy": "P-002",
+    "notes": [],
+    "correctiveActions": [],
+    "links": [],
+    "evidence": [],
+    "history": [
+      {
+        "at": "2026-09-30T14:05:00-05:00",
+        "by": "P-002",
+        "action": "created",
+        "summary": "Record created",
+        "changes": []
+      }
+    ],
+    "actionItems": [
+      {
+        "id": "MTG-0004-A1",
+        "title": "Review cooling options for Line B",
+        "ownerRef": "P-015",
+        "dueDate": "2026-10-15",
+        "status": "open"
+      }
+    ],
+    "meetingType": "safety_committee",
+    "topic": "Monthly review",
+    "heldAt": "2026-09-30T13:00:00-05:00",
+    "durationMinutes": 60,
+    "facilitatorId": "P-002",
+    "attendees": [
+      {
+        "personId": "P-001",
+        "name": "Maria Chen"
+      },
+      {
+        "personId": "P-002",
+        "name": "Dev Patel"
+      },
+      {
+        "personId": "P-006",
+        "name": "Aisha Rahman"
+      },
+      {
+        "personId": "P-008",
+        "name": "Priya Nair"
+      },
+      {
+        "personId": "P-015",
+        "name": "Kevin Wu"
+      }
+    ]
+  },
+  {
+    "id": "MTG-0005",
+    "server": "meetings",
+    "recordType": "safety_meeting",
+    "title": "Toolbox talk: hand protection and glove selection",
+    "description": "Cut-resistant glove levels for sheet metal handling at Line A.",
+    "status": "completed",
+    "siteId": "plant-1",
+    "areaId": "plant-1.assembly-a",
+    "assetIds": [],
+    "createdAt": "2026-10-07T07:25:00-05:00",
+    "updatedAt": "2026-10-07T07:25:00-05:00",
+    "createdBy": "P-001",
+    "notes": [],
+    "correctiveActions": [],
+    "links": [],
+    "evidence": [],
+    "history": [
+      {
+        "at": "2026-10-07T07:25:00-05:00",
+        "by": "P-001",
+        "action": "created",
+        "summary": "Record created",
+        "changes": []
+      }
+    ],
+    "actionItems": [],
+    "meetingType": "toolbox_talk",
+    "topic": "Hand protection and glove selection",
+    "heldAt": "2026-10-07T07:00:00-05:00",
+    "durationMinutes": 15,
+    "facilitatorId": "P-001",
+    "attendees": [
+      {
+        "personId": "P-004",
+        "name": "Jenna Brooks"
+      }
+    ]
+  }
+]

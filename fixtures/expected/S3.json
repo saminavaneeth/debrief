@@ -1,0 +1,119 @@
+{
+  "scenarioId": "S3",
+  "demoDate": "2026-10-21",
+  "actions": [
+    {
+      "type": "create",
+      "ref": "a1",
+      "scenarioId": "SCN-S3",
+      "server": "meetings",
+      "recordType": "safety_meeting",
+      "fields": {
+        "meetingType": "toolbox_talk",
+        "areaId": "plant-1.assembly-b",
+        "heldAt": "2026-10-21T13:00:00-05:00",
+        "durationMinutes": 15,
+        "facilitatorId": "P-001"
+      },
+      "fieldsContain": {
+        "topic": "heat"
+      },
+      "includes": [
+        {
+          "path": "attendees",
+          "match": {
+            "personId": "P-006"
+          }
+        },
+        {
+          "path": "attendees",
+          "match": {
+            "personId": "P-010"
+          }
+        },
+        {
+          "path": "attendees",
+          "match": {
+            "personId": "P-011"
+          }
+        },
+        {
+          "path": "attendees",
+          "match": {
+            "personId": "P-012"
+          }
+        },
+        {
+          "path": "attendees",
+          "match": {
+            "personId": "P-013"
+          }
+        },
+        {
+          "path": "attendees",
+          "match": {
+            "personId": "P-016"
+          }
+        },
+        {
+          "path": "attendees",
+          "match": {
+            "personId": "P-017"
+          }
+        },
+        {
+          "path": "attendees",
+          "match": {
+            "name": "T. Nguyen"
+          }
+        },
+        {
+          "path": "actionItems",
+          "match": {
+            "title": "water cooler",
+            "ownerRef": "P-006",
+            "dueDate": "2026-10-23"
+          }
+        }
+      ]
+    },
+    {
+      "type": "link",
+      "ref": "a2",
+      "scenarioId": "SCN-S3",
+      "from": {
+        "ref": "a1"
+      },
+      "to": {
+        "id": "HAZ-0011"
+      },
+      "linkType": "relatedTo"
+    },
+    {
+      "type": "attach",
+      "ref": "a3",
+      "scenarioId": "SCN-S3",
+      "artifactId": "S3-A1",
+      "to": {
+        "ref": "a1"
+      }
+    }
+  ],
+  "gaps": [
+    {
+      "actionRef": "a1",
+      "fieldPath": "attendees[T. Nguyen].personId"
+    }
+  ],
+  "citations": [],
+  "sortSuggestions": [],
+  "forbidden": [
+    {
+      "reason": "The cooler is an action item on the meeting; HAZ-0011 already covers the heat hazard.",
+      "server": "hazards",
+      "recordType": "hazard",
+      "maxCreates": 0
+    }
+  ],
+  "workflows": []
+}

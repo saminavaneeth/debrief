@@ -1,0 +1,481 @@
+[
+  {
+    "id": "INC-0001",
+    "server": "incidents",
+    "recordType": "incident",
+    "title": "Hand laceration from sheet metal edge, Line A",
+    "description": "Jenna Brooks cut the back of her left hand on an unfinished sheet metal edge while loading station 3. Cleaned and covered with a bandage; returned to work.",
+    "status": "closed",
+    "siteId": "plant-1",
+    "areaId": "plant-1.assembly-a",
+    "assetIds": [],
+    "createdAt": "2026-06-12T10:45:00-05:00",
+    "updatedAt": "2026-06-29T15:00:00-05:00",
+    "createdBy": "P-001",
+    "reportedBy": "P-004",
+    "notes": [],
+    "correctiveActions": [
+      {
+        "id": "INC-0001-CA1",
+        "title": "Add edge guards to station 3 stock cart",
+        "ownerRef": "P-007",
+        "dueDate": "2026-06-26",
+        "status": "done",
+        "createdAt": "2026-06-12T11:00:00-05:00",
+        "createdBy": "P-001",
+        "citations": []
+      }
+    ],
+    "links": [],
+    "evidence": [],
+    "history": [
+      {
+        "at": "2026-06-12T10:45:00-05:00",
+        "by": "P-001",
+        "action": "created",
+        "summary": "Record created",
+        "changes": []
+      },
+      {
+        "at": "2026-06-29T15:00:00-05:00",
+        "by": "P-002",
+        "action": "status_changed",
+        "summary": "Closed after corrective actions verified",
+        "changes": [
+          {
+            "path": "status",
+            "after": "closed"
+          }
+        ]
+      }
+    ],
+    "involvedPeople": [
+      {
+        "personId": "P-004",
+        "name": "Jenna Brooks",
+        "role": "injured"
+      }
+    ],
+    "immediateActions": ["Wound cleaned and covered", "Edge deburred"],
+    "incidentType": "injury",
+    "severity": 2,
+    "occurredAt": "2026-06-12T10:20:00-05:00",
+    "injury": {
+      "bodyPart": "left hand",
+      "nature": "minor laceration",
+      "treatment": "first_aid",
+      "returnedToWork": true
+    },
+    "recordable": false,
+    "recordabilityBasis": "First aid only: wound cleaning and bandage (29 CFR 1904.7(b)(5)(ii))."
+  },
+  {
+    "id": "INC-0002",
+    "server": "incidents",
+    "recordType": "incident",
+    "title": "FL-03 struck rack upright, Dock 1",
+    "description": "FL-03 contacted a rack upright while turning into aisle 1. Upright bent; rack unloaded and tagged out until inspected. No injuries.",
+    "status": "closed",
+    "siteId": "plant-1",
+    "areaId": "plant-1.dock-1",
+    "assetIds": ["FL-03"],
+    "createdAt": "2026-07-08T14:30:00-05:00",
+    "updatedAt": "2026-07-24T10:00:00-05:00",
+    "createdBy": "P-001",
+    "notes": [],
+    "correctiveActions": [
+      {
+        "id": "INC-0002-CA1",
+        "title": "Replace damaged upright and add column protector",
+        "ownerRef": "P-007",
+        "dueDate": "2026-07-22",
+        "status": "done",
+        "createdAt": "2026-07-08T15:00:00-05:00",
+        "createdBy": "P-001",
+        "citations": []
+      }
+    ],
+    "links": [],
+    "evidence": [],
+    "history": [
+      {
+        "at": "2026-07-08T14:30:00-05:00",
+        "by": "P-001",
+        "action": "created",
+        "summary": "Record created",
+        "changes": []
+      },
+      {
+        "at": "2026-07-24T10:00:00-05:00",
+        "by": "P-002",
+        "action": "status_changed",
+        "summary": "Closed after corrective actions verified",
+        "changes": [
+          {
+            "path": "status",
+            "after": "closed"
+          }
+        ]
+      }
+    ],
+    "involvedPeople": [
+      {
+        "personId": "P-009",
+        "name": "Grace Kim",
+        "role": "operator"
+      }
+    ],
+    "immediateActions": ["Rack bay unloaded and tagged out"],
+    "incidentType": "property_damage",
+    "severity": 2,
+    "occurredAt": "2026-07-08T14:05:00-05:00",
+    "equipmentOperatorId": "P-009"
+  },
+  {
+    "id": "INC-0003",
+    "server": "incidents",
+    "recordType": "incident",
+    "title": "Solvent spill in paint booth, contained",
+    "description": "About 2 gallons of thinner spilled when a drum pump fitting loosened. Contained with booth spill kit; waste drummed for disposal.",
+    "status": "closed",
+    "siteId": "plant-1",
+    "areaId": "plant-1.paint-booth",
+    "assetIds": [],
+    "createdAt": "2026-07-30T10:10:00-05:00",
+    "updatedAt": "2026-08-07T16:00:00-05:00",
+    "createdBy": "P-001",
+    "notes": [],
+    "correctiveActions": [
+      {
+        "id": "INC-0003-CA1",
+        "title": "Replace drum pump fittings and add drip tray",
+        "ownerRef": "P-007",
+        "dueDate": "2026-08-06",
+        "status": "done",
+        "createdAt": "2026-07-30T10:30:00-05:00",
+        "createdBy": "P-001",
+        "citations": []
+      }
+    ],
+    "links": [],
+    "evidence": [],
+    "history": [
+      {
+        "at": "2026-07-30T10:10:00-05:00",
+        "by": "P-001",
+        "action": "created",
+        "summary": "Record created",
+        "changes": []
+      },
+      {
+        "at": "2026-08-07T16:00:00-05:00",
+        "by": "P-002",
+        "action": "status_changed",
+        "summary": "Closed after corrective actions verified",
+        "changes": [
+          {
+            "path": "status",
+            "after": "closed"
+          }
+        ]
+      }
+    ],
+    "involvedPeople": [],
+    "immediateActions": ["Spill contained with absorbent", "Ignition sources isolated"],
+    "incidentType": "environmental",
+    "severity": 2,
+    "occurredAt": "2026-07-30T09:40:00-05:00"
+  },
+  {
+    "id": "INC-0004",
+    "server": "incidents",
+    "recordType": "incident",
+    "title": "Back strain lifting gearbox, Maintenance Shop",
+    "description": "Carlos Mendes strained his lower back lifting a gearbox onto the bench without the hoist. Seen at clinic; prescribed muscle relaxant and two days of restricted duty.",
+    "status": "closed",
+    "siteId": "plant-1",
+    "areaId": "plant-1.maintenance-shop",
+    "assetIds": [],
+    "createdAt": "2026-08-19T14:00:00-05:00",
+    "updatedAt": "2026-09-08T11:00:00-05:00",
+    "createdBy": "P-001",
+    "reportedBy": "P-007",
+    "notes": [],
+    "correctiveActions": [
+      {
+        "id": "INC-0004-CA1",
+        "title": "Refresher on hoist use for loads over 50 lb",
+        "ownerRef": "P-002",
+        "dueDate": "2026-09-05",
+        "status": "done",
+        "createdAt": "2026-08-20T09:00:00-05:00",
+        "createdBy": "P-001",
+        "citations": []
+      }
+    ],
+    "links": [],
+    "evidence": [],
+    "history": [
+      {
+        "at": "2026-08-19T14:00:00-05:00",
+        "by": "P-001",
+        "action": "created",
+        "summary": "Record created",
+        "changes": []
+      },
+      {
+        "at": "2026-09-08T11:00:00-05:00",
+        "by": "P-002",
+        "action": "status_changed",
+        "summary": "Closed after corrective actions verified",
+        "changes": [
+          {
+            "path": "status",
+            "after": "closed"
+          }
+        ]
+      }
+    ],
+    "involvedPeople": [
+      {
+        "personId": "P-007",
+        "name": "Carlos Mendes",
+        "role": "injured"
+      }
+    ],
+    "immediateActions": [],
+    "incidentType": "injury",
+    "severity": 3,
+    "occurredAt": "2026-08-19T13:15:00-05:00",
+    "injury": {
+      "bodyPart": "lower back",
+      "nature": "muscle strain",
+      "treatment": "restricted_work",
+      "returnedToWork": true
+    },
+    "recordable": true,
+    "recordabilityBasis": "Prescription medication and restricted work (29 CFR 1904.7(b)(4), (b)(5))."
+  },
+  {
+    "id": "INC-0005",
+    "server": "incidents",
+    "recordType": "incident",
+    "title": "Heat exhaustion symptoms, Assembly Line B",
+    "description": "Ben Okafor reported dizziness and heavy sweating late in the afternoon shift. Moved to the break room, given water and rest; symptoms resolved and he finished the shift on light duty.",
+    "status": "closed",
+    "siteId": "plant-1",
+    "areaId": "plant-1.assembly-b",
+    "assetIds": [],
+    "createdAt": "2026-09-03T16:00:00-05:00",
+    "updatedAt": "2026-10-14T14:00:00-05:00",
+    "createdBy": "P-001",
+    "notes": [],
+    "correctiveActions": [],
+    "links": [
+      {
+        "type": "relatedTo",
+        "targetId": "HAZ-0011",
+        "createdAt": "2026-10-14T14:00:00-05:00",
+        "createdBy": "P-001"
+      }
+    ],
+    "evidence": [],
+    "history": [
+      {
+        "at": "2026-09-03T16:00:00-05:00",
+        "by": "P-001",
+        "action": "created",
+        "summary": "Record created",
+        "changes": []
+      },
+      {
+        "at": "2026-09-12T10:00:00-05:00",
+        "by": "P-002",
+        "action": "status_changed",
+        "summary": "Closed after corrective actions verified",
+        "changes": [
+          {
+            "path": "status",
+            "after": "closed"
+          }
+        ]
+      },
+      {
+        "at": "2026-10-14T14:00:00-05:00",
+        "by": "P-001",
+        "action": "linked",
+        "summary": "Linked to HAZ-0011",
+        "changes": []
+      }
+    ],
+    "involvedPeople": [
+      {
+        "personId": "P-012",
+        "name": "Ben Okafor",
+        "role": "injured"
+      }
+    ],
+    "immediateActions": ["Moved to cool area", "Fluids and rest"],
+    "incidentType": "illness",
+    "severity": 3,
+    "occurredAt": "2026-09-03T15:30:00-05:00",
+    "injury": {
+      "bodyPart": "whole body",
+      "nature": "heat exhaustion symptoms",
+      "treatment": "first_aid",
+      "returnedToWork": true
+    },
+    "recordable": false,
+    "recordabilityBasis": "First aid only: drinking fluids for relief of heat stress (29 CFR 1904.7(b)(5)(ii))."
+  },
+  {
+    "id": "INC-0006",
+    "server": "incidents",
+    "recordType": "incident",
+    "title": "Pallet load dropped at Dock 3 door 1",
+    "description": "Shrink-wrap failed on a pallet of brackets during unloading and part of the load fell onto the dock. Area cleared; nobody nearby.",
+    "status": "closed",
+    "siteId": "plant-1",
+    "areaId": "plant-1.dock-3",
+    "assetIds": [],
+    "createdAt": "2026-09-24T11:40:00-05:00",
+    "updatedAt": "2026-09-30T09:00:00-05:00",
+    "createdBy": "P-001",
+    "notes": [],
+    "correctiveActions": [],
+    "links": [],
+    "evidence": [],
+    "history": [
+      {
+        "at": "2026-09-24T11:40:00-05:00",
+        "by": "P-001",
+        "action": "created",
+        "summary": "Record created",
+        "changes": []
+      },
+      {
+        "at": "2026-09-30T09:00:00-05:00",
+        "by": "P-002",
+        "action": "status_changed",
+        "summary": "Closed; supplier notified about wrap quality",
+        "changes": [
+          {
+            "path": "status",
+            "after": "closed"
+          }
+        ]
+      }
+    ],
+    "involvedPeople": [],
+    "immediateActions": ["Area cleared and load restacked"],
+    "incidentType": "near_miss",
+    "severity": 2,
+    "occurredAt": "2026-09-24T11:10:00-05:00"
+  },
+  {
+    "id": "INC-0007",
+    "server": "incidents",
+    "recordType": "incident",
+    "title": "FL-09 mast contacted sprinkler pipe, Building A warehouse",
+    "description": "Reach truck FL-09 raised its mast into a sprinkler branch line in aisle 6. Pipe dented, no leak. Fire protection contractor inspected.",
+    "status": "actions_open",
+    "siteId": "building-a",
+    "areaId": "building-a.warehouse",
+    "assetIds": ["FL-09"],
+    "createdAt": "2026-10-06T08:30:00-05:00",
+    "updatedAt": "2026-10-07T09:00:00-05:00",
+    "createdBy": "P-001",
+    "notes": [],
+    "correctiveActions": [
+      {
+        "id": "INC-0007-CA1",
+        "title": "Install mast height warning bars at aisle 6 entry",
+        "ownerRef": "P-015",
+        "dueDate": "2026-10-30",
+        "status": "in_progress",
+        "createdAt": "2026-10-06T10:00:00-05:00",
+        "createdBy": "P-001",
+        "citations": []
+      }
+    ],
+    "links": [],
+    "evidence": [],
+    "history": [
+      {
+        "at": "2026-10-06T08:30:00-05:00",
+        "by": "P-001",
+        "action": "created",
+        "summary": "Record created",
+        "changes": []
+      },
+      {
+        "at": "2026-10-07T09:00:00-05:00",
+        "by": "P-002",
+        "action": "status_changed",
+        "summary": "Investigation complete; actions open",
+        "changes": [
+          {
+            "path": "status",
+            "after": "actions_open"
+          }
+        ]
+      }
+    ],
+    "involvedPeople": [
+      {
+        "personId": "P-014",
+        "name": "Ray Thompson",
+        "role": "operator"
+      }
+    ],
+    "immediateActions": ["Aisle closed until sprinkler line inspected"],
+    "incidentType": "property_damage",
+    "severity": 3,
+    "occurredAt": "2026-10-06T07:55:00-05:00",
+    "equipmentOperatorId": "P-014"
+  },
+  {
+    "id": "INC-0008",
+    "server": "incidents",
+    "recordType": "incident",
+    "title": "Diesel drip during transfer, Loading Rack",
+    "description": "About a quart of diesel dripped from the rack arm coupling during a truck transfer. Caught in the drip pan and cleaned with pads.",
+    "status": "closed",
+    "siteId": "tank-farm",
+    "areaId": "tank-farm.loading-rack",
+    "assetIds": ["V-24"],
+    "createdAt": "2026-10-13T10:50:00-05:00",
+    "updatedAt": "2026-10-15T12:00:00-05:00",
+    "createdBy": "P-001",
+    "notes": [],
+    "correctiveActions": [],
+    "links": [],
+    "evidence": [],
+    "history": [
+      {
+        "at": "2026-10-13T10:50:00-05:00",
+        "by": "P-001",
+        "action": "created",
+        "summary": "Record created",
+        "changes": []
+      },
+      {
+        "at": "2026-10-15T12:00:00-05:00",
+        "by": "P-002",
+        "action": "status_changed",
+        "summary": "Closed after corrective actions verified",
+        "changes": [
+          {
+            "path": "status",
+            "after": "closed"
+          }
+        ]
+      }
+    ],
+    "involvedPeople": [],
+    "immediateActions": ["Drip pan emptied, pads used"],
+    "incidentType": "environmental",
+    "severity": 1,
+    "occurredAt": "2026-10-13T10:25:00-05:00"
+  }
+]

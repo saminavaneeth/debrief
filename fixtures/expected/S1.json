@@ -1,0 +1,117 @@
+{
+  "scenarioId": "S1",
+  "demoDate": "2026-10-21",
+  "actions": [
+    {
+      "type": "create",
+      "ref": "a1",
+      "scenarioId": "SCN-S1",
+      "server": "incidents",
+      "recordType": "incident",
+      "fields": {
+        "incidentType": "near_miss",
+        "siteId": "plant-1",
+        "areaId": "plant-1.dock-3",
+        "assetIds": ["FL-07"],
+        "occurredAt": "2026-10-21T08:40:00-05:00"
+      },
+      "fieldsContain": {},
+      "includes": [
+        {
+          "path": "involvedPeople",
+          "match": {
+            "personId": "P-003",
+            "role": "struck_or_nearly_struck"
+          }
+        },
+        {
+          "path": "immediateActions",
+          "match": "tag"
+        }
+      ]
+    },
+    {
+      "type": "update",
+      "ref": "a2",
+      "scenarioId": "SCN-S1",
+      "server": "hazards",
+      "recordType": "hazard",
+      "targetId": "HAZ-0007",
+      "fields": {
+        "status": "mitigating",
+        "riskLevel": "high"
+      },
+      "fieldsContain": {},
+      "includes": [
+        {
+          "path": "notes",
+          "match": {
+            "text": "near"
+          }
+        }
+      ]
+    },
+    {
+      "type": "link",
+      "ref": "a3",
+      "scenarioId": "SCN-S1",
+      "from": {
+        "ref": "a1"
+      },
+      "to": {
+        "id": "HAZ-0007"
+      },
+      "linkType": "relatedTo"
+    },
+    {
+      "type": "attach",
+      "ref": "a4",
+      "scenarioId": "SCN-S1",
+      "artifactId": "S1-A2",
+      "to": {
+        "ref": "a1"
+      }
+    },
+    {
+      "type": "attach",
+      "ref": "a5",
+      "scenarioId": "SCN-S1",
+      "artifactId": "S1-A2",
+      "to": {
+        "id": "HAZ-0007"
+      }
+    }
+  ],
+  "gaps": [
+    {
+      "actionRef": "a1",
+      "fieldPath": "equipmentOperatorId"
+    }
+  ],
+  "citations": [
+    {
+      "actionRef": "a2",
+      "fieldPath": "riskLevel",
+      "docId": "sop-forklift-pedestrian"
+    }
+  ],
+  "sortSuggestions": [],
+  "forbidden": [
+    {
+      "reason": "The cracked mirror is already HAZ-0007; update it, do not duplicate it.",
+      "server": "hazards",
+      "recordType": "hazard",
+      "maxCreates": 0
+    }
+  ],
+  "workflows": [
+    {
+      "ruleId": "wf-repeat-area-hazards",
+      "fires": true
+    },
+    {
+      "ruleId": "wf-high-severity-incident",
+      "fires": false
+    }
+  ]
+}

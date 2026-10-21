@@ -1,0 +1,171 @@
+{
+  "id": "S4",
+  "title": "Extinguisher inspection, 2 failures",
+  "summary": "Monthly extinguisher inspection of Building A (FE-112 to FE-123): FE-115 gauge in red, FE-119 blocked by pallets.",
+  "shift": {
+    "id": "SHIFT-2026-10-21",
+    "date": "2026-10-21",
+    "userId": "P-001",
+    "siteId": "plant-1",
+    "startedAt": "2026-10-21T07:00:00-05:00"
+  },
+  "scenarios": [
+    {
+      "id": "SCN-S4",
+      "shiftId": "SHIFT-2026-10-21",
+      "title": "Extinguisher inspection, Building A",
+      "status": "ready",
+      "siteId": "building-a",
+      "createdAt": "2026-10-21T14:30:00-05:00",
+      "updatedAt": "2026-10-21T14:30:00-05:00"
+    }
+  ],
+  "artifacts": [
+    {
+      "shiftId": "SHIFT-2026-10-21",
+      "capturedBy": "P-001",
+      "tags": [],
+      "id": "S4-A1",
+      "scenarioId": "SCN-S4",
+      "modality": "document",
+      "capturedAt": "2026-10-21T14:30:00-05:00",
+      "siteId": "building-a",
+      "media": {
+        "mimeType": "application/pdf",
+        "uri": "/demo-assets/s4/extinguisher-checklist.pdf"
+      }
+    },
+    {
+      "shiftId": "SHIFT-2026-10-21",
+      "capturedBy": "P-001",
+      "tags": [],
+      "id": "S4-A2",
+      "scenarioId": "SCN-S4",
+      "modality": "photo",
+      "capturedAt": "2026-10-21T14:35:00-05:00",
+      "siteId": "building-a",
+      "areaId": "building-a.warehouse",
+      "assetTag": "FE-115",
+      "media": {
+        "mimeType": "image/jpeg",
+        "uri": "/demo-assets/s4/fe-115-gauge.jpg",
+        "width": 1200,
+        "height": 1600
+      }
+    },
+    {
+      "shiftId": "SHIFT-2026-10-21",
+      "capturedBy": "P-001",
+      "tags": [],
+      "id": "S4-A3",
+      "scenarioId": "SCN-S4",
+      "modality": "photo",
+      "capturedAt": "2026-10-21T14:40:00-05:00",
+      "siteId": "building-a",
+      "areaId": "building-a.warehouse",
+      "assetTag": "FE-119",
+      "media": {
+        "mimeType": "image/jpeg",
+        "uri": "/demo-assets/s4/fe-119-blocked.jpg",
+        "width": 1200,
+        "height": 1600
+      }
+    }
+  ],
+  "perception": {
+    "S4-A1": {
+      "kind": "document",
+      "source": "pdf",
+      "templateId": "tpl-extinguisher-monthly",
+      "text": "CEDAR VALLEY MANUFACTURING\nMONTHLY PORTABLE FIRE EXTINGUISHER INSPECTION\nSite: Building A    Ref: INS-0021    Date: 10/21/2026    Inspector: Maria Chen\nUNIT | LOCATION | GAUGE | PIN/SEAL | ACCESS | TAG | RESULT | NOTES\nFE-112 | Office lobby | OK | OK | OK | OK | PASS | \nFE-113 | Office corridor north | OK | OK | OK | OK | PASS | \nFE-114 | Office corridor south | OK | OK | OK | OK | PASS | \nFE-115 | Warehouse aisle 2 | RED | OK | OK | OK | FAIL | Gauge in red zone, low pressure\nFE-116 | Warehouse aisle 4 | OK | OK | OK | OK | PASS | \nFE-117 | Warehouse aisle 6 | OK | OK | OK | OK | PASS | \nFE-118 | Warehouse aisle 8 | OK | OK | OK | OK | PASS | \nFE-119 | Warehouse dock door 2 | OK | OK | BLOCKED | OK | FAIL | Blocked by pallets\nFE-120 | Warehouse dock door 4 | OK | OK | OK | OK | PASS | \nFE-121 | Battery charging station | OK | OK | OK | OK | PASS | \nFE-122 | Warehouse east exit | OK | OK | OK | OK | PASS | \nFE-123 | Shipping office | OK | OK | OK | OK | PASS | \nUnits inspected: 12    Passed: 10    Failed: 2\nInspector signature: M. Chen"
+    },
+    "S4-A2": {
+      "kind": "image",
+      "findings": [
+        {
+          "id": "S4-A2-F1",
+          "label": "fire_protection",
+          "text": "Pressure gauge needle in the red (low) zone",
+          "box": {
+            "x": 0.38,
+            "y": 0.22,
+            "w": 0.2,
+            "h": 0.15
+          },
+          "confidence": 0.95
+        },
+        {
+          "id": "S4-A2-F2",
+          "label": "asset_tag",
+          "text": "Extinguisher tag FE-115",
+          "box": {
+            "x": 0.35,
+            "y": 0.55,
+            "w": 0.25,
+            "h": 0.1
+          },
+          "confidence": 0.9
+        }
+      ],
+      "ocrText": "FE-115"
+    },
+    "S4-A3": {
+      "kind": "image",
+      "findings": [
+        {
+          "id": "S4-A3-F1",
+          "label": "fire_protection",
+          "text": "Wrapped pallets stacked in front of the wall-mounted extinguisher",
+          "box": {
+            "x": 0.1,
+            "y": 0.35,
+            "w": 0.8,
+            "h": 0.6
+          },
+          "confidence": 0.92
+        },
+        {
+          "id": "S4-A3-F2",
+          "label": "asset_tag",
+          "text": "Extinguisher sign FE-119 above pallets",
+          "box": {
+            "x": 0.42,
+            "y": 0.08,
+            "w": 0.16,
+            "h": 0.08
+          },
+          "confidence": 0.84
+        }
+      ],
+      "ocrText": "FE-119\nFIRE EXTINGUISHER"
+    }
+  },
+  "variants": [
+    {
+      "id": "S4-v2",
+      "description": "Different failure notes: 'LOW PRESSURE', 'pallets in front, no access'.",
+      "perception": {
+        "S4-A1": {
+          "kind": "document",
+          "source": "pdf",
+          "templateId": "tpl-extinguisher-monthly",
+          "text": "CEDAR VALLEY MANUFACTURING\nMONTHLY PORTABLE FIRE EXTINGUISHER INSPECTION\nSite: Building A    Ref: INS-0021    Date: 10/21/2026    Inspector: Maria Chen\nUNIT | LOCATION | GAUGE | PIN/SEAL | ACCESS | TAG | RESULT | NOTES\nFE-112 | Office lobby | OK | OK | OK | OK | PASS | \nFE-113 | Office corridor north | OK | OK | OK | OK | PASS | \nFE-114 | Office corridor south | OK | OK | OK | OK | PASS | \nFE-115 | Warehouse aisle 2 | RED | OK | OK | OK | FAIL | LOW PRESSURE - needle in red\nFE-116 | Warehouse aisle 4 | OK | OK | OK | OK | PASS | \nFE-117 | Warehouse aisle 6 | OK | OK | OK | OK | PASS | \nFE-118 | Warehouse aisle 8 | OK | OK | OK | OK | PASS | \nFE-119 | Warehouse dock door 2 | OK | OK | BLOCKED | OK | FAIL | Pallets in front, no access\nFE-120 | Warehouse dock door 4 | OK | OK | OK | OK | PASS | \nFE-121 | Battery charging station | OK | OK | OK | OK | PASS | \nFE-122 | Warehouse east exit | OK | OK | OK | OK | PASS | \nFE-123 | Shipping office | OK | OK | OK | OK | PASS | \nUnits inspected: 12    Passed: 10    Failed: 2\nInspector signature: M. Chen"
+        }
+      },
+      "artifactText": {}
+    },
+    {
+      "id": "S4-v3",
+      "description": "Abbreviated notes: 'undercharged', 'obstructed'.",
+      "perception": {
+        "S4-A1": {
+          "kind": "document",
+          "source": "pdf",
+          "templateId": "tpl-extinguisher-monthly",
+          "text": "CEDAR VALLEY MANUFACTURING\nMONTHLY PORTABLE FIRE EXTINGUISHER INSPECTION\nSite: Building A    Ref: INS-0021    Date: 10/21/2026    Inspector: Maria Chen\nUNIT | LOCATION | GAUGE | PIN/SEAL | ACCESS | TAG | RESULT | NOTES\nFE-112 | Office lobby | OK | OK | OK | OK | PASS | \nFE-113 | Office corridor north | OK | OK | OK | OK | PASS | \nFE-114 | Office corridor south | OK | OK | OK | OK | PASS | \nFE-115 | Warehouse aisle 2 | RED | OK | OK | OK | FAIL | Undercharged\nFE-116 | Warehouse aisle 4 | OK | OK | OK | OK | PASS | \nFE-117 | Warehouse aisle 6 | OK | OK | OK | OK | PASS | \nFE-118 | Warehouse aisle 8 | OK | OK | OK | OK | PASS | \nFE-119 | Warehouse dock door 2 | OK | OK | BLOCKED | OK | FAIL | Obstructed by stored pallets\nFE-120 | Warehouse dock door 4 | OK | OK | OK | OK | PASS | \nFE-121 | Battery charging station | OK | OK | OK | OK | PASS | \nFE-122 | Warehouse east exit | OK | OK | OK | OK | PASS | \nFE-123 | Shipping office | OK | OK | OK | OK | PASS | \nUnits inspected: 12    Passed: 10    Failed: 2\nInspector signature: M. Chen"
+        }
+      },
+      "artifactText": {}
+    }
+  ]
+}

@@ -1,0 +1,35 @@
+{
+  "id": "wf-failed-inspection-item-hazard",
+  "name": "Failed inspection item creates a hazard",
+  "description": "Each failed inspection item gets a linked hazard, unless the item already has one (for example, one the agent proposed in the same change set).",
+  "enabled": true,
+  "trigger": {
+    "event": ["record.updated", "record.created"],
+    "server": "inspections",
+    "recordType": "inspection"
+  },
+  "conditions": [],
+  "forEach": {
+    "path": "items",
+    "where": [{ "field": "response", "op": "eq", "value": "fail" }],
+    "unlessLinked": "hazard"
+  },
+  "actions": [
+    {
+      "type": "create_record",
+      "server": "hazards",
+      "recordType": "hazard",
+      "payload": {
+        "title": "Failed inspection item: {{item.label}}",
+        "description": "{{item.notes}}",
+        "siteId": "{{siteId}}",
+        "assetIds": ["{{item.assetId}}"],
+        "category": "fire_protection",
+        "riskLevel": "medium",
+        "source": "inspection",
+        "status": "open"
+      },
+      "linkToTrigger": { "type": "foundDuring" }
+    }
+  ]
+}

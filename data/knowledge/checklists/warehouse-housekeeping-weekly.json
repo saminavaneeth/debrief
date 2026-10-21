@@ -1,0 +1,40 @@
+{
+  "id": "tpl-warehouse-housekeeping-weekly",
+  "name": "Weekly warehouse housekeeping walk",
+  "recordType": "inspection",
+  "frequency": "weekly",
+  "appliesTo": "area",
+  "checks": [
+    {
+      "id": "aisles",
+      "label": "Aisles and pedestrian lanes clear and marked",
+      "failMeans": "Obstructed or faded markings",
+      "hazardCategory": "powered_industrial_trucks"
+    },
+    {
+      "id": "floors",
+      "label": "Floors dry and free of debris",
+      "failMeans": "Wet, oily or cluttered floor",
+      "hazardCategory": "slips_trips"
+    },
+    {
+      "id": "egress",
+      "label": "Exits and extinguishers unobstructed",
+      "failMeans": "Exit or extinguisher blocked",
+      "hazardCategory": "fire_protection"
+    },
+    {
+      "id": "racking",
+      "label": "Racking undamaged, loads stable",
+      "failMeans": "Damaged upright or unstable load",
+      "hazardCategory": "struck_by"
+    },
+    {
+      "id": "panels",
+      "label": "36-inch clearance at electrical panels",
+      "failMeans": "Material within clearance zone",
+      "hazardCategory": "electrical"
+    }
+  ],
+  "knowledgeDocIds": ["sop-wet-floor-housekeeping"]
+}

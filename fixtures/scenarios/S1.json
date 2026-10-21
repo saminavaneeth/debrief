@@ -1,0 +1,135 @@
+{
+  "id": "S1",
+  "title": "Forklift near-miss, Dock 3",
+  "summary": "FL-07 reversing nearly clipped Luis Ortega in the pedestrian lane; the known cracked mirror is still not fixed; truck tagged out.",
+  "shift": {
+    "id": "SHIFT-2026-10-21",
+    "date": "2026-10-21",
+    "userId": "P-001",
+    "siteId": "plant-1",
+    "startedAt": "2026-10-21T07:00:00-05:00"
+  },
+  "scenarios": [
+    {
+      "id": "SCN-S1",
+      "shiftId": "SHIFT-2026-10-21",
+      "title": "Forklift near-miss, Dock 3",
+      "status": "ready",
+      "siteId": "plant-1",
+      "areaId": "plant-1.dock-3",
+      "createdAt": "2026-10-21T08:40:00-05:00",
+      "updatedAt": "2026-10-21T08:40:00-05:00"
+    }
+  ],
+  "artifacts": [
+    {
+      "shiftId": "SHIFT-2026-10-21",
+      "capturedBy": "P-001",
+      "tags": [],
+      "id": "S1-A1",
+      "scenarioId": "SCN-S1",
+      "modality": "voice",
+      "capturedAt": "2026-10-21T08:40:00-05:00",
+      "siteId": "plant-1",
+      "areaId": "plant-1.dock-3",
+      "media": {
+        "mimeType": "audio/webm",
+        "uri": "/demo-assets/s1/voice.webm",
+        "durationMs": 31000
+      }
+    },
+    {
+      "shiftId": "SHIFT-2026-10-21",
+      "capturedBy": "P-001",
+      "tags": [],
+      "id": "S1-A2",
+      "scenarioId": "SCN-S1",
+      "modality": "photo",
+      "capturedAt": "2026-10-21T08:42:00-05:00",
+      "siteId": "plant-1",
+      "areaId": "plant-1.dock-3",
+      "assetTag": "FL-07",
+      "media": {
+        "mimeType": "image/jpeg",
+        "uri": "/demo-assets/s1/mirror.jpg",
+        "width": 1600,
+        "height": 1200
+      }
+    }
+  ],
+  "perception": {
+    "S1-A1": {
+      "kind": "transcript",
+      "text": "Quick one from Dock 3, about eight forty. FL-07 was reversing out of door two and nearly clipped Luis Ortega in the pedestrian lane. He stepped back in time, no contact, he's fine. That right-side mirror on seven is still cracked, so the operator couldn't see him. I've tagged the truck out until the mirror is replaced.",
+      "language": "en-US"
+    },
+    "S1-A2": {
+      "kind": "image",
+      "findings": [
+        {
+          "id": "S1-A2-F1",
+          "label": "powered_industrial_trucks",
+          "text": "Right-side rear-view mirror cracked across the glass",
+          "box": {
+            "x": 0.52,
+            "y": 0.18,
+            "w": 0.3,
+            "h": 0.34
+          },
+          "confidence": 0.93
+        },
+        {
+          "id": "S1-A2-F2",
+          "label": "asset_tag",
+          "text": "Asset tag FL-07 on the mast",
+          "box": {
+            "x": 0.12,
+            "y": 0.6,
+            "w": 0.14,
+            "h": 0.08
+          },
+          "confidence": 0.88
+        },
+        {
+          "id": "S1-A2-F3",
+          "label": "tag_out",
+          "text": "Red Do Not Operate tag on steering wheel",
+          "box": {
+            "x": 0.3,
+            "y": 0.45,
+            "w": 0.12,
+            "h": 0.16
+          },
+          "confidence": 0.81
+        }
+      ],
+      "ocrText": "FL-07\nDO NOT OPERATE"
+    }
+  },
+  "variants": [
+    {
+      "id": "S1-v2",
+      "description": "Casual wording, 'close call' instead of near-miss, numeric time.",
+      "perception": {
+        "S1-A1": {
+          "kind": "transcript",
+          "text": "Dock 3, 8:40 this morning. Close call: forklift seven backing out almost hit Luis Ortega who was walking in the ped lane. Didn't touch him, he's OK. The cracked mirror on the right side still hasn't been fixed, that's why the driver didn't see him. Truck's tagged out now.",
+          "language": "en-US"
+        }
+      },
+      "artifactText": {}
+    },
+    {
+      "id": "S1-v3",
+      "description": "Terse report style, 'out of service' instead of tagged out.",
+      "perception": {
+        "S1-A1": {
+          "kind": "transcript",
+          "text": "Near miss at Dock 3 at 8:40. FL-07 in reverse came within a couple of feet of Luis Ortega in the pedestrian walkway. No injury. Right mirror is still broken from last month. I took the truck out of service and tagged it.",
+          "language": "en-US"
+        }
+      },
+      "artifactText": {}
+    }
+  ]
+}

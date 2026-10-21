@@ -1,0 +1,26 @@
+{
+  "id": "wf-repeat-area-hazards",
+  "name": "Repeat hazards in one area suggest an audit",
+  "description": "When three or more hazards in the same area are raised or updated within 30 days, suggest scheduling an area audit.",
+  "enabled": true,
+  "trigger": {
+    "event": ["record.created", "record.updated"],
+    "server": "hazards",
+    "recordType": "hazard"
+  },
+  "conditions": [{ "field": "areaId", "op": "exists" }],
+  "aggregate": {
+    "groupBy": "areaId",
+    "window": "30d",
+    "activity": "created_or_updated",
+    "count": { "op": "gte", "value": 3 }
+  },
+  "actions": [
+    {
+      "type": "suggest",
+      "title": "Schedule an audit of {{area}}",
+      "template": "{{count}} hazards in {{area}} in the last 30 days ({{recordIds}}). Schedule a focused area audit.",
+      "proposal": { "server": "audits", "recordType": "audit", "auditType": "internal_ehs" }
+    }
+  ]
+}

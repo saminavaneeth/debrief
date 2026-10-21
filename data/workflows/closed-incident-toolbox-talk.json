@@ -1,0 +1,20 @@
+{
+  "id": "wf-closed-incident-toolbox-talk",
+  "name": "Closed incident suggests a toolbox talk",
+  "description": "When an incident is closed, suggest its lessons as a topic for the next safety meeting in that area.",
+  "enabled": true,
+  "trigger": { "event": "record.updated", "server": "incidents", "recordType": "incident" },
+  "conditions": [{ "field": "status", "op": "eq", "value": "closed" }],
+  "actions": [
+    {
+      "type": "suggest",
+      "title": "Toolbox talk on {{title}}",
+      "template": "Incident {{id}} was closed. Share what happened and the corrective actions at the next {{area}} toolbox talk.",
+      "proposal": {
+        "server": "meetings",
+        "recordType": "safety_meeting",
+        "meetingType": "toolbox_talk"
+      }
+    }
+  ]
+}

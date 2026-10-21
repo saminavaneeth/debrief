@@ -1,0 +1,117 @@
+{
+  "id": "S6",
+  "title": "Leaking valve, morning and afternoon",
+  "summary": "07:50 Inbox note about V-22 dripping; 16:10 photo of oil sheen under V-22 in scenario 'Tank farm leak'. One hazard, no duplicate.",
+  "shift": {
+    "id": "SHIFT-2026-10-21",
+    "date": "2026-10-21",
+    "userId": "P-001",
+    "siteId": "plant-1",
+    "startedAt": "2026-10-21T07:00:00-05:00"
+  },
+  "scenarios": [
+    {
+      "id": "SCN-S6",
+      "shiftId": "SHIFT-2026-10-21",
+      "title": "Tank farm leak",
+      "status": "ready",
+      "siteId": "tank-farm",
+      "areaId": "tank-farm.tank-row",
+      "createdAt": "2026-10-21T16:08:00-05:00",
+      "updatedAt": "2026-10-21T16:08:00-05:00"
+    }
+  ],
+  "artifacts": [
+    {
+      "shiftId": "SHIFT-2026-10-21",
+      "capturedBy": "P-001",
+      "tags": [],
+      "id": "S6-A1",
+      "scenarioId": null,
+      "modality": "note",
+      "capturedAt": "2026-10-21T07:50:00-05:00",
+      "siteId": "tank-farm",
+      "text": "V-22 dripping at the tank farm, maybe hydraulic oil. Check later."
+    },
+    {
+      "shiftId": "SHIFT-2026-10-21",
+      "capturedBy": "P-001",
+      "tags": [],
+      "id": "S6-A2",
+      "scenarioId": "SCN-S6",
+      "modality": "photo",
+      "capturedAt": "2026-10-21T16:10:00-05:00",
+      "siteId": "tank-farm",
+      "areaId": "tank-farm.tank-row",
+      "assetTag": "V-22",
+      "media": {
+        "mimeType": "image/jpeg",
+        "uri": "/demo-assets/s6/v22-sheen.jpg",
+        "width": 1600,
+        "height": 1200
+      }
+    }
+  ],
+  "perception": {
+    "S6-A2": {
+      "kind": "image",
+      "findings": [
+        {
+          "id": "S6-A2-F1",
+          "label": "spills_releases",
+          "text": "Oil sheen on the containment floor beneath the valve",
+          "box": {
+            "x": 0.15,
+            "y": 0.6,
+            "w": 0.7,
+            "h": 0.3
+          },
+          "confidence": 0.91
+        },
+        {
+          "id": "S6-A2-F2",
+          "label": "spills_releases",
+          "text": "Drip forming at the valve stem packing",
+          "box": {
+            "x": 0.46,
+            "y": 0.28,
+            "w": 0.08,
+            "h": 0.1
+          },
+          "confidence": 0.79
+        },
+        {
+          "id": "S6-A2-F3",
+          "label": "asset_tag",
+          "text": "Valve tag V-22",
+          "box": {
+            "x": 0.55,
+            "y": 0.2,
+            "w": 0.1,
+            "h": 0.06
+          },
+          "confidence": 0.87
+        }
+      ],
+      "ocrText": "V-22"
+    }
+  },
+  "variants": [
+    {
+      "id": "S6-v2",
+      "description": "'Leaking a bit', 'hydraulic fluid'.",
+      "perception": {},
+      "artifactText": {
+        "S6-A1": "Tank farm: valve V-22 is leaking a bit, looks like hydraulic fluid."
+      }
+    },
+    {
+      "id": "S6-v3",
+      "description": "Unhyphenated tag 'V22', 'tank row'.",
+      "perception": {},
+      "artifactText": {
+        "S6-A1": "Drip under V22 at tank row, possibly hydraulic oil. Come back to it."
+      }
+    }
+  ]
+}

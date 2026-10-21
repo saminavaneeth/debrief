@@ -1,0 +1,240 @@
+[
+  {
+    "id": "AUD-0001",
+    "server": "audits",
+    "recordType": "audit",
+    "title": "Q2 internal EHS audit, Plant 1",
+    "description": "Quarterly internal audit of Plant 1 programs: LOTO, PPE, hazard communication, housekeeping.",
+    "status": "closed",
+    "siteId": "plant-1",
+    "assetIds": [],
+    "createdAt": "2026-04-01T09:00:00-05:00",
+    "updatedAt": "2026-05-15T10:00:00-05:00",
+    "createdBy": "P-002",
+    "notes": [],
+    "correctiveActions": [],
+    "links": [],
+    "evidence": [],
+    "history": [
+      {
+        "at": "2026-04-01T09:00:00-05:00",
+        "by": "P-002",
+        "action": "created",
+        "summary": "Record created",
+        "changes": []
+      },
+      {
+        "at": "2026-05-15T10:00:00-05:00",
+        "by": "P-002",
+        "action": "status_changed",
+        "summary": "Closed after corrective actions verified",
+        "changes": [
+          {
+            "path": "status",
+            "after": "closed"
+          }
+        ]
+      }
+    ],
+    "findings": [
+      {
+        "id": "AUD-0001-F1",
+        "correctiveActions": [],
+        "title": "SDS binder out of date in paint booth",
+        "description": "Three products in use had no SDS on file.",
+        "severity": 2,
+        "requirementRef": "29 CFR 1910.1200(g)",
+        "areaId": "plant-1.paint-booth",
+        "observedAt": "2026-04-22T10:30:00-05:00",
+        "status": "closed"
+      }
+    ],
+    "auditType": "internal_ehs",
+    "scope": "Plant 1: LOTO, PPE, HazCom, housekeeping",
+    "leadAuditorId": "P-002",
+    "scheduledDate": "2026-04-22"
+  },
+  {
+    "id": "AUD-0002",
+    "server": "audits",
+    "recordType": "audit",
+    "title": "Housekeeping audit, Building A",
+    "description": "Housekeeping and egress walkthrough of Building A offices and warehouse.",
+    "status": "closed",
+    "siteId": "building-a",
+    "assetIds": [],
+    "createdAt": "2026-07-01T09:00:00-05:00",
+    "updatedAt": "2026-07-30T10:00:00-05:00",
+    "createdBy": "P-001",
+    "notes": [],
+    "correctiveActions": [],
+    "links": [],
+    "evidence": [],
+    "history": [
+      {
+        "at": "2026-07-01T09:00:00-05:00",
+        "by": "P-001",
+        "action": "created",
+        "summary": "Record created",
+        "changes": []
+      },
+      {
+        "at": "2026-07-30T10:00:00-05:00",
+        "by": "P-002",
+        "action": "status_changed",
+        "summary": "Closed after corrective actions verified",
+        "changes": [
+          {
+            "path": "status",
+            "after": "closed"
+          }
+        ]
+      }
+    ],
+    "findings": [
+      {
+        "id": "AUD-0002-F1",
+        "correctiveActions": [],
+        "title": "Pallets stored in front of electrical panel",
+        "description": "Panel EP-3 had pallets within the 36-inch clearance.",
+        "severity": 3,
+        "requirementRef": "29 CFR 1910.303(g)",
+        "areaId": "building-a.warehouse",
+        "observedAt": "2026-07-16T10:15:00-05:00",
+        "status": "closed"
+      }
+    ],
+    "auditType": "housekeeping",
+    "scope": "Building A: aisles, egress, storage",
+    "leadAuditorId": "P-001",
+    "scheduledDate": "2026-07-16"
+  },
+  {
+    "id": "AUD-0003",
+    "server": "audits",
+    "recordType": "audit",
+    "title": "OSHA recordkeeping readiness review",
+    "description": "Review of 2026 injury and illness logs against case files.",
+    "status": "completed",
+    "siteId": "plant-1",
+    "assetIds": [],
+    "createdAt": "2026-09-01T09:00:00-05:00",
+    "updatedAt": "2026-09-18T16:00:00-05:00",
+    "createdBy": "P-002",
+    "notes": [],
+    "correctiveActions": [],
+    "links": [],
+    "evidence": [],
+    "history": [
+      {
+        "at": "2026-09-01T09:00:00-05:00",
+        "by": "P-002",
+        "action": "created",
+        "summary": "Record created",
+        "changes": []
+      },
+      {
+        "at": "2026-09-18T16:00:00-05:00",
+        "by": "P-002",
+        "action": "status_changed",
+        "summary": "Review completed, no findings",
+        "changes": [
+          {
+            "path": "status",
+            "after": "completed"
+          }
+        ]
+      }
+    ],
+    "findings": [],
+    "auditType": "regulatory_readiness",
+    "scope": "OSHA 300/301 logs, first-aid determinations",
+    "leadAuditorId": "P-002",
+    "scheduledDate": "2026-09-18"
+  },
+  {
+    "id": "AUD-0004",
+    "server": "audits",
+    "recordType": "audit",
+    "title": "Contractor safety audit: Ridgeline Steel, mezzanine expansion",
+    "description": "Field audit of Ridgeline Steel Contractors during the Plant 1 mezzanine expansion, covering fall protection, JHAs, ladders, housekeeping and PPE.",
+    "status": "in_progress",
+    "siteId": "plant-1",
+    "areaId": "plant-1.mezzanine",
+    "assetIds": [],
+    "createdAt": "2026-10-12T09:00:00-05:00",
+    "updatedAt": "2026-10-19T10:20:00-05:00",
+    "createdBy": "P-001",
+    "notes": [],
+    "correctiveActions": [],
+    "links": [],
+    "evidence": [],
+    "history": [
+      {
+        "at": "2026-10-12T09:00:00-05:00",
+        "by": "P-001",
+        "action": "created",
+        "summary": "Record created",
+        "changes": []
+      },
+      {
+        "at": "2026-10-19T09:00:00-05:00",
+        "by": "P-001",
+        "action": "status_changed",
+        "summary": "Audit started",
+        "changes": [
+          {
+            "path": "status",
+            "after": "in_progress"
+          }
+        ]
+      },
+      {
+        "at": "2026-10-19T10:20:00-05:00",
+        "by": "P-001",
+        "action": "updated",
+        "summary": "Added findings F1 and F2",
+        "changes": []
+      }
+    ],
+    "findings": [
+      {
+        "id": "AUD-0004-F1",
+        "correctiveActions": [],
+        "title": "Daily JHA not posted at access point",
+        "description": "Monday JHA was completed but not posted at the mezzanine stair access.",
+        "severity": 2,
+        "areaId": "plant-1.mezzanine",
+        "observedAt": "2026-10-19T09:40:00-05:00",
+        "status": "closed"
+      },
+      {
+        "id": "AUD-0004-F2",
+        "correctiveActions": [
+          {
+            "id": "AUD-0004-CA1",
+            "title": "Inspect and tag all Ridgeline ladders on site",
+            "ownerRef": "C-001",
+            "dueDate": "2026-10-22",
+            "status": "open",
+            "createdAt": "2026-10-19T10:20:00-05:00",
+            "createdBy": "P-001",
+            "citations": []
+          }
+        ],
+        "title": "Extension ladder missing inspection tag",
+        "description": "One 24 ft extension ladder had no current inspection tag.",
+        "severity": 3,
+        "requirementRef": "29 CFR 1926.1053(b)(15)",
+        "areaId": "plant-1.mezzanine",
+        "observedAt": "2026-10-19T10:10:00-05:00",
+        "status": "open"
+      }
+    ],
+    "auditType": "contractor_safety",
+    "contractorId": "CTR-01",
+    "scope": "Ridgeline Steel, mezzanine expansion: fall protection, JHA, ladders, housekeeping, PPE",
+    "leadAuditorId": "P-001",
+    "scheduledDate": "2026-10-19"
+  }
+]

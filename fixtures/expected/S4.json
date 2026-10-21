@@ -1,0 +1,149 @@
+{
+  "scenarioId": "S4",
+  "demoDate": "2026-10-21",
+  "actions": [
+    {
+      "type": "update",
+      "ref": "a1",
+      "scenarioId": "SCN-S4",
+      "server": "inspections",
+      "recordType": "inspection",
+      "targetId": "INS-0021",
+      "fields": {
+        "status": "completed",
+        "result": "fail",
+        "items[FE-112].response": "pass",
+        "items[FE-115].response": "fail",
+        "items[FE-119].response": "fail",
+        "items[FE-123].response": "pass"
+      },
+      "fieldsContain": {
+        "items[FE-119].notes": "pallets"
+      },
+      "includes": []
+    },
+    {
+      "type": "create",
+      "ref": "a2",
+      "scenarioId": "SCN-S4",
+      "server": "hazards",
+      "recordType": "hazard",
+      "fields": {
+        "category": "fire_protection",
+        "assetIds": ["FE-115"],
+        "siteId": "building-a",
+        "areaId": "building-a.warehouse",
+        "source": "inspection",
+        "status": "open"
+      },
+      "fieldsContain": {
+        "title": "FE-115"
+      },
+      "includes": []
+    },
+    {
+      "type": "create",
+      "ref": "a3",
+      "scenarioId": "SCN-S4",
+      "server": "hazards",
+      "recordType": "hazard",
+      "fields": {
+        "category": "fire_protection",
+        "assetIds": ["FE-119"],
+        "siteId": "building-a",
+        "areaId": "building-a.warehouse",
+        "source": "inspection",
+        "status": "open"
+      },
+      "fieldsContain": {
+        "title": "FE-119"
+      },
+      "includes": []
+    },
+    {
+      "type": "link",
+      "ref": "a4",
+      "scenarioId": "SCN-S4",
+      "from": {
+        "id": "INS-0021"
+      },
+      "fromItemId": "FE-115",
+      "to": {
+        "ref": "a2"
+      },
+      "linkType": "resultedIn"
+    },
+    {
+      "type": "link",
+      "ref": "a5",
+      "scenarioId": "SCN-S4",
+      "from": {
+        "id": "INS-0021"
+      },
+      "fromItemId": "FE-119",
+      "to": {
+        "ref": "a3"
+      },
+      "linkType": "resultedIn"
+    },
+    {
+      "type": "attach",
+      "ref": "a6",
+      "scenarioId": "SCN-S4",
+      "artifactId": "S4-A1",
+      "to": {
+        "id": "INS-0021"
+      }
+    },
+    {
+      "type": "attach",
+      "ref": "a7",
+      "scenarioId": "SCN-S4",
+      "artifactId": "S4-A2",
+      "to": {
+        "ref": "a2"
+      }
+    },
+    {
+      "type": "attach",
+      "ref": "a8",
+      "scenarioId": "SCN-S4",
+      "artifactId": "S4-A3",
+      "to": {
+        "ref": "a3"
+      }
+    }
+  ],
+  "gaps": [],
+  "citations": [
+    {
+      "actionRef": "a2",
+      "fieldPath": "category",
+      "docId": "osha-1910-157"
+    },
+    {
+      "actionRef": "a3",
+      "fieldPath": "category",
+      "docId": "osha-1910-157"
+    }
+  ],
+  "sortSuggestions": [],
+  "forbidden": [
+    {
+      "reason": "Workflow rule 2 must not duplicate the agent's two hazards.",
+      "server": "hazards",
+      "recordType": "hazard",
+      "maxCreates": 2
+    }
+  ],
+  "workflows": [
+    {
+      "ruleId": "wf-failed-inspection-item-hazard",
+      "fires": false
+    },
+    {
+      "ruleId": "wf-repeat-area-hazards",
+      "fires": false
+    }
+  ]
+}

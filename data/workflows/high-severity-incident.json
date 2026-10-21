@@ -1,0 +1,30 @@
+{
+  "id": "wf-high-severity-incident",
+  "name": "High-severity incident escalation",
+  "description": "Notify the site EHS manager and open an investigation action for any incident with severity 4 or 5.",
+  "enabled": true,
+  "trigger": { "event": "record.created", "server": "incidents", "recordType": "incident" },
+  "conditions": [{ "field": "severity", "op": "gte", "value": 4 }],
+  "actions": [
+    {
+      "type": "notify",
+      "to": "role:site_manager",
+      "template": "High-severity incident {{id}} at {{area}}"
+    },
+    {
+      "type": "update_record",
+      "target": "trigger",
+      "patch": [
+        {
+          "op": "append",
+          "path": "correctiveActions",
+          "value": {
+            "title": "Complete investigation",
+            "ownerRef": "role:site_manager",
+            "dueInDays": 7
+          }
+        }
+      ]
+    }
+  ]
+}

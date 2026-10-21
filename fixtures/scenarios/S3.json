@@ -1,0 +1,98 @@
+{
+  "id": "S3",
+  "title": "Heat-stress toolbox talk, Line B",
+  "summary": "Toolbox talk on heat stress with the Line B crew; paper sign-in sheet with 8 names; action item for a second water cooler by Friday.",
+  "shift": {
+    "id": "SHIFT-2026-10-21",
+    "date": "2026-10-21",
+    "userId": "P-001",
+    "siteId": "plant-1",
+    "startedAt": "2026-10-21T07:00:00-05:00"
+  },
+  "scenarios": [
+    {
+      "id": "SCN-S3",
+      "shiftId": "SHIFT-2026-10-21",
+      "title": "Heat-stress toolbox talk, Line B",
+      "status": "ready",
+      "siteId": "plant-1",
+      "areaId": "plant-1.assembly-b",
+      "createdAt": "2026-10-21T13:00:00-05:00",
+      "updatedAt": "2026-10-21T13:00:00-05:00"
+    }
+  ],
+  "artifacts": [
+    {
+      "shiftId": "SHIFT-2026-10-21",
+      "capturedBy": "P-001",
+      "tags": [],
+      "id": "S3-A1",
+      "scenarioId": "SCN-S3",
+      "modality": "document",
+      "capturedAt": "2026-10-21T13:20:00-05:00",
+      "siteId": "plant-1",
+      "areaId": "plant-1.assembly-b",
+      "media": {
+        "mimeType": "image/jpeg",
+        "uri": "/demo-assets/s3/sign-in-sheet.jpg",
+        "width": 1700,
+        "height": 2200
+      }
+    },
+    {
+      "shiftId": "SHIFT-2026-10-21",
+      "capturedBy": "P-001",
+      "tags": [],
+      "id": "S3-A2",
+      "scenarioId": "SCN-S3",
+      "modality": "voice",
+      "capturedAt": "2026-10-21T13:22:00-05:00",
+      "siteId": "plant-1",
+      "areaId": "plant-1.assembly-b",
+      "media": {
+        "mimeType": "audio/webm",
+        "uri": "/demo-assets/s3/voice.webm",
+        "durationMs": 22000
+      }
+    }
+  ],
+  "perception": {
+    "S3-A1": {
+      "kind": "document",
+      "source": "image",
+      "templateId": "form-meeting-sign-in",
+      "text": "CEDAR VALLEY MANUFACTURING\nSAFETY MEETING SIGN-IN SHEET\nDate: 10/21/2026    Time: 1:00 PM    Location: Assembly Line B\nTopic: Heat Stress - Recognize, Hydrate, Rest\nPresenter: Maria Chen\n#  PRINT NAME        SIGNATURE\n1  Aisha Rahman      A. Rahman\n2  M. Hill           M Hill\n3  Sofia Alvarez     S. Alvarez\n4  Ben Okafor        B Okafor\n5  Hannah Weiss      H. Weiss\n6  D. Reyes          D Reyes\n7  Olivia Grant      O. Grant\n8  T. Nguyen         T Nguyen"
+    },
+    "S3-A2": {
+      "kind": "transcript",
+      "text": "Just wrapped the heat stress toolbox talk with the Line B crew, about fifteen minutes. We went over the signs of heat exhaustion, water, rest and shade. Action item: Aisha is getting a second water cooler out to the line by Friday.",
+      "language": "en-US"
+    }
+  },
+  "variants": [
+    {
+      "id": "S3-v2",
+      "description": "Owner named after the action; numeric duration.",
+      "perception": {
+        "S3-A2": {
+          "kind": "transcript",
+          "text": "Heat stress talk with Line B is done, ran about 15 minutes. Covered heat illness symptoms and drinking water often. One action: a second water cooler on Line B by Friday, Aisha owns it.",
+          "language": "en-US"
+        }
+      },
+      "artifactText": {}
+    },
+    {
+      "id": "S3-v3",
+      "description": "Full owner name, 'another cooler', 'follow-up' instead of action item.",
+      "perception": {
+        "S3-A2": {
+          "kind": "transcript",
+          "text": "Toolbox talk done. Topic was heat stress, Line B crew, 15 minutes. Follow-up: Aisha Rahman to get another water cooler for the line by Friday.",
+          "language": "en-US"
+        }
+      },
+      "artifactText": {}
+    }
+  ]
+}

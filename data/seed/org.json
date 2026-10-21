@@ -1,0 +1,591 @@
+{
+  "id": "cedar-valley",
+  "name": "Cedar Valley Manufacturing",
+  "timezone": "America/Chicago",
+  "utcOffset": "-05:00",
+  "sites": [
+    {
+      "id": "plant-1",
+      "name": "Plant 1",
+      "aliases": ["plant one", "main plant"],
+      "areas": [
+        {
+          "id": "plant-1.dock-1",
+          "name": "Dock 1",
+          "aliases": ["dock one", "D1"]
+        },
+        {
+          "id": "plant-1.dock-2",
+          "name": "Dock 2",
+          "aliases": ["dock two", "D2"]
+        },
+        {
+          "id": "plant-1.dock-3",
+          "name": "Dock 3",
+          "aliases": ["dock three", "D3"]
+        },
+        {
+          "id": "plant-1.dock-4",
+          "name": "Dock 4",
+          "aliases": ["dock four", "D4"]
+        },
+        {
+          "id": "plant-1.assembly-a",
+          "name": "Assembly Line A",
+          "aliases": ["line A", "line a", "assembly A"]
+        },
+        {
+          "id": "plant-1.assembly-b",
+          "name": "Assembly Line B",
+          "aliases": ["line B", "line b", "assembly B"]
+        },
+        {
+          "id": "plant-1.paint-booth",
+          "name": "Paint Booth",
+          "aliases": ["paint shop", "booth"]
+        },
+        {
+          "id": "plant-1.break-room",
+          "name": "Break Room",
+          "aliases": ["breakroom", "lunch room", "canteen"]
+        },
+        {
+          "id": "plant-1.maintenance-shop",
+          "name": "Maintenance Shop",
+          "aliases": ["maintenance", "maint shop"]
+        },
+        {
+          "id": "plant-1.mezzanine",
+          "name": "Mezzanine",
+          "aliases": ["mezz", "mezzanine expansion", "mezzanine deck"]
+        }
+      ]
+    },
+    {
+      "id": "tank-farm",
+      "name": "Tank Farm",
+      "aliases": ["tank yard", "tanks"],
+      "areas": [
+        {
+          "id": "tank-farm.tank-row",
+          "name": "Tank Row",
+          "aliases": ["tank row", "tank line"]
+        },
+        {
+          "id": "tank-farm.loading-rack",
+          "name": "Loading Rack",
+          "aliases": ["truck rack", "loading bay"]
+        }
+      ]
+    },
+    {
+      "id": "building-a",
+      "name": "Building A",
+      "aliases": ["bldg A", "building a"],
+      "areas": [
+        {
+          "id": "building-a.offices",
+          "name": "Offices",
+          "aliases": ["office", "front office"]
+        },
+        {
+          "id": "building-a.warehouse",
+          "name": "Warehouse",
+          "aliases": ["warehouse floor", "building A warehouse"]
+        }
+      ]
+    }
+  ],
+  "assets": [
+    {
+      "id": "FL-03",
+      "type": "forklift",
+      "name": "Forklift FL-03 (sit-down, LPG)",
+      "siteId": "plant-1",
+      "areaId": "plant-1.dock-1",
+      "aliases": ["forklift 3", "truck 3", "lift 3"]
+    },
+    {
+      "id": "FL-07",
+      "type": "forklift",
+      "name": "Forklift FL-07 (sit-down, electric)",
+      "siteId": "plant-1",
+      "areaId": "plant-1.dock-3",
+      "aliases": ["forklift 7", "truck 7", "lift 7", "seven"]
+    },
+    {
+      "id": "FL-09",
+      "type": "forklift",
+      "name": "Forklift FL-09 (reach truck)",
+      "siteId": "building-a",
+      "areaId": "building-a.warehouse",
+      "aliases": ["forklift 9", "truck 9", "reach truck"]
+    },
+    {
+      "id": "FE-112",
+      "type": "fire_extinguisher",
+      "name": "Fire extinguisher FE-112",
+      "siteId": "building-a",
+      "areaId": "building-a.offices",
+      "location": "Office lobby",
+      "aliases": ["extinguisher 112"]
+    },
+    {
+      "id": "FE-113",
+      "type": "fire_extinguisher",
+      "name": "Fire extinguisher FE-113",
+      "siteId": "building-a",
+      "areaId": "building-a.offices",
+      "location": "Office corridor north",
+      "aliases": ["extinguisher 113"]
+    },
+    {
+      "id": "FE-114",
+      "type": "fire_extinguisher",
+      "name": "Fire extinguisher FE-114",
+      "siteId": "building-a",
+      "areaId": "building-a.offices",
+      "location": "Office corridor south",
+      "aliases": ["extinguisher 114"]
+    },
+    {
+      "id": "FE-115",
+      "type": "fire_extinguisher",
+      "name": "Fire extinguisher FE-115",
+      "siteId": "building-a",
+      "areaId": "building-a.warehouse",
+      "location": "Warehouse aisle 2",
+      "aliases": ["extinguisher 115"]
+    },
+    {
+      "id": "FE-116",
+      "type": "fire_extinguisher",
+      "name": "Fire extinguisher FE-116",
+      "siteId": "building-a",
+      "areaId": "building-a.warehouse",
+      "location": "Warehouse aisle 4",
+      "aliases": ["extinguisher 116"]
+    },
+    {
+      "id": "FE-117",
+      "type": "fire_extinguisher",
+      "name": "Fire extinguisher FE-117",
+      "siteId": "building-a",
+      "areaId": "building-a.warehouse",
+      "location": "Warehouse aisle 6",
+      "aliases": ["extinguisher 117"]
+    },
+    {
+      "id": "FE-118",
+      "type": "fire_extinguisher",
+      "name": "Fire extinguisher FE-118",
+      "siteId": "building-a",
+      "areaId": "building-a.warehouse",
+      "location": "Warehouse aisle 8",
+      "aliases": ["extinguisher 118"]
+    },
+    {
+      "id": "FE-119",
+      "type": "fire_extinguisher",
+      "name": "Fire extinguisher FE-119",
+      "siteId": "building-a",
+      "areaId": "building-a.warehouse",
+      "location": "Warehouse dock door 2",
+      "aliases": ["extinguisher 119"]
+    },
+    {
+      "id": "FE-120",
+      "type": "fire_extinguisher",
+      "name": "Fire extinguisher FE-120",
+      "siteId": "building-a",
+      "areaId": "building-a.warehouse",
+      "location": "Warehouse dock door 4",
+      "aliases": ["extinguisher 120"]
+    },
+    {
+      "id": "FE-121",
+      "type": "fire_extinguisher",
+      "name": "Fire extinguisher FE-121",
+      "siteId": "building-a",
+      "areaId": "building-a.warehouse",
+      "location": "Battery charging station",
+      "aliases": ["extinguisher 121"]
+    },
+    {
+      "id": "FE-122",
+      "type": "fire_extinguisher",
+      "name": "Fire extinguisher FE-122",
+      "siteId": "building-a",
+      "areaId": "building-a.warehouse",
+      "location": "Warehouse east exit",
+      "aliases": ["extinguisher 122"]
+    },
+    {
+      "id": "FE-123",
+      "type": "fire_extinguisher",
+      "name": "Fire extinguisher FE-123",
+      "siteId": "building-a",
+      "areaId": "building-a.warehouse",
+      "location": "Shipping office",
+      "aliases": ["extinguisher 123"]
+    },
+    {
+      "id": "FE-124",
+      "type": "fire_extinguisher",
+      "name": "Fire extinguisher FE-124",
+      "siteId": "plant-1",
+      "areaId": "plant-1.dock-1",
+      "location": "Dock 1 column C2",
+      "aliases": ["extinguisher 124"]
+    },
+    {
+      "id": "FE-125",
+      "type": "fire_extinguisher",
+      "name": "Fire extinguisher FE-125",
+      "siteId": "plant-1",
+      "areaId": "plant-1.dock-3",
+      "location": "Dock 3 column C6",
+      "aliases": ["extinguisher 125"]
+    },
+    {
+      "id": "FE-126",
+      "type": "fire_extinguisher",
+      "name": "Fire extinguisher FE-126",
+      "siteId": "plant-1",
+      "areaId": "plant-1.assembly-a",
+      "location": "Line A station 4",
+      "aliases": ["extinguisher 126"]
+    },
+    {
+      "id": "FE-127",
+      "type": "fire_extinguisher",
+      "name": "Fire extinguisher FE-127",
+      "siteId": "plant-1",
+      "areaId": "plant-1.assembly-b",
+      "location": "Line B station 2",
+      "aliases": ["extinguisher 127"]
+    },
+    {
+      "id": "FE-128",
+      "type": "fire_extinguisher",
+      "name": "Fire extinguisher FE-128",
+      "siteId": "plant-1",
+      "areaId": "plant-1.paint-booth",
+      "location": "Paint booth entry",
+      "aliases": ["extinguisher 128"]
+    },
+    {
+      "id": "FE-129",
+      "type": "fire_extinguisher",
+      "name": "Fire extinguisher FE-129",
+      "siteId": "plant-1",
+      "areaId": "plant-1.maintenance-shop",
+      "location": "Maintenance shop door",
+      "aliases": ["extinguisher 129"]
+    },
+    {
+      "id": "FE-130",
+      "type": "fire_extinguisher",
+      "name": "Fire extinguisher FE-130",
+      "siteId": "plant-1",
+      "areaId": "plant-1.break-room",
+      "location": "Break room exit",
+      "aliases": ["extinguisher 130"]
+    },
+    {
+      "id": "V-20",
+      "type": "valve",
+      "name": "Valve V-20",
+      "siteId": "tank-farm",
+      "areaId": "tank-farm.tank-row",
+      "location": "Tank 1 outlet",
+      "aliases": ["valve 20", "V20"]
+    },
+    {
+      "id": "V-21",
+      "type": "valve",
+      "name": "Valve V-21",
+      "siteId": "tank-farm",
+      "areaId": "tank-farm.tank-row",
+      "location": "Tank 2 outlet",
+      "aliases": ["valve 21", "V21"]
+    },
+    {
+      "id": "V-22",
+      "type": "valve",
+      "name": "Valve V-22",
+      "siteId": "tank-farm",
+      "areaId": "tank-farm.tank-row",
+      "location": "Tank 3 outlet",
+      "aliases": ["valve 22", "V22"]
+    },
+    {
+      "id": "V-23",
+      "type": "valve",
+      "name": "Valve V-23",
+      "siteId": "tank-farm",
+      "areaId": "tank-farm.tank-row",
+      "location": "Tank 4 outlet",
+      "aliases": ["valve 23", "V23"]
+    },
+    {
+      "id": "V-24",
+      "type": "valve",
+      "name": "Valve V-24",
+      "siteId": "tank-farm",
+      "areaId": "tank-farm.loading-rack",
+      "location": "Rack arm 1",
+      "aliases": ["valve 24", "V24"]
+    },
+    {
+      "id": "V-25",
+      "type": "valve",
+      "name": "Valve V-25",
+      "siteId": "tank-farm",
+      "areaId": "tank-farm.loading-rack",
+      "location": "Rack arm 2",
+      "aliases": ["valve 25", "V25"]
+    },
+    {
+      "id": "IM-01",
+      "type": "ice_machine",
+      "name": "Ice machine IM-01",
+      "siteId": "plant-1",
+      "areaId": "plant-1.break-room",
+      "location": "Break room, north wall",
+      "aliases": ["ice machine", "ice maker"]
+    }
+  ],
+  "roles": [
+    {
+      "id": "ehs_specialist",
+      "name": "EHS Specialist"
+    },
+    {
+      "id": "site_manager",
+      "name": "Site EHS Manager"
+    },
+    {
+      "id": "plant_manager",
+      "name": "Plant Manager"
+    },
+    {
+      "id": "maintenance_tech",
+      "name": "Maintenance Technician"
+    },
+    {
+      "id": "forklift_operator",
+      "name": "Forklift Operator"
+    },
+    {
+      "id": "material_handler",
+      "name": "Material Handler"
+    },
+    {
+      "id": "line_lead",
+      "name": "Line Lead"
+    },
+    {
+      "id": "assembler",
+      "name": "Assembler"
+    },
+    {
+      "id": "quality_tech",
+      "name": "Quality Technician"
+    },
+    {
+      "id": "warehouse_lead",
+      "name": "Warehouse Lead"
+    },
+    {
+      "id": "facilities",
+      "name": "Facilities Coordinator"
+    },
+    {
+      "id": "ehs_admin",
+      "name": "EHS Administrator"
+    },
+    {
+      "id": "contractor_foreman",
+      "name": "Contractor Foreman"
+    },
+    {
+      "id": "contractor_worker",
+      "name": "Contractor Worker"
+    }
+  ],
+  "people": [
+    {
+      "id": "P-001",
+      "name": "Maria Chen",
+      "title": "EHS Specialist",
+      "roles": ["ehs_specialist"],
+      "siteId": "plant-1",
+      "aliases": ["Maria"]
+    },
+    {
+      "id": "P-002",
+      "name": "Dev Patel",
+      "title": "Site EHS Manager",
+      "roles": ["site_manager", "ehs_admin"],
+      "siteId": "plant-1",
+      "aliases": ["Dev"]
+    },
+    {
+      "id": "P-003",
+      "name": "Luis Ortega",
+      "title": "Material Handler",
+      "roles": ["material_handler"],
+      "siteId": "plant-1",
+      "homeAreaId": "plant-1.dock-3",
+      "aliases": ["Luis", "L. Ortega"]
+    },
+    {
+      "id": "P-004",
+      "name": "Jenna Brooks",
+      "title": "Assembler",
+      "roles": ["assembler"],
+      "siteId": "plant-1",
+      "homeAreaId": "plant-1.assembly-a",
+      "aliases": ["Jenna", "J. Brooks"]
+    },
+    {
+      "id": "P-005",
+      "name": "Tom Becker",
+      "title": "Forklift Operator",
+      "roles": ["forklift_operator"],
+      "siteId": "plant-1",
+      "homeAreaId": "plant-1.dock-3",
+      "aliases": ["Tom", "T. Becker"]
+    },
+    {
+      "id": "P-006",
+      "name": "Aisha Rahman",
+      "title": "Line Lead, Assembly Line B",
+      "roles": ["line_lead"],
+      "siteId": "plant-1",
+      "homeAreaId": "plant-1.assembly-b",
+      "aliases": ["Aisha", "A. Rahman"]
+    },
+    {
+      "id": "P-007",
+      "name": "Carlos Mendes",
+      "title": "Maintenance Technician",
+      "roles": ["maintenance_tech"],
+      "siteId": "plant-1",
+      "homeAreaId": "plant-1.maintenance-shop",
+      "aliases": ["Carlos", "C. Mendes"]
+    },
+    {
+      "id": "P-008",
+      "name": "Priya Nair",
+      "title": "Plant Manager",
+      "roles": ["plant_manager"],
+      "siteId": "plant-1",
+      "aliases": ["Priya"]
+    },
+    {
+      "id": "P-009",
+      "name": "Grace Kim",
+      "title": "Forklift Operator",
+      "roles": ["forklift_operator"],
+      "siteId": "plant-1",
+      "homeAreaId": "plant-1.dock-1",
+      "aliases": ["Grace", "G. Kim"]
+    },
+    {
+      "id": "P-010",
+      "name": "Marcus Hill",
+      "title": "Assembler",
+      "roles": ["assembler"],
+      "siteId": "plant-1",
+      "homeAreaId": "plant-1.assembly-b",
+      "aliases": ["Marcus", "M. Hill"]
+    },
+    {
+      "id": "P-011",
+      "name": "Sofia Alvarez",
+      "title": "Assembler",
+      "roles": ["assembler"],
+      "siteId": "plant-1",
+      "homeAreaId": "plant-1.assembly-b",
+      "aliases": ["Sofia", "S. Alvarez"]
+    },
+    {
+      "id": "P-012",
+      "name": "Ben Okafor",
+      "title": "Assembler",
+      "roles": ["assembler"],
+      "siteId": "plant-1",
+      "homeAreaId": "plant-1.assembly-b",
+      "aliases": ["Ben", "B. Okafor"]
+    },
+    {
+      "id": "P-013",
+      "name": "Hannah Weiss",
+      "title": "Quality Technician",
+      "roles": ["quality_tech"],
+      "siteId": "plant-1",
+      "homeAreaId": "plant-1.assembly-b",
+      "aliases": ["Hannah", "H. Weiss"]
+    },
+    {
+      "id": "P-014",
+      "name": "Ray Thompson",
+      "title": "Warehouse Lead",
+      "roles": ["warehouse_lead"],
+      "siteId": "building-a",
+      "homeAreaId": "building-a.warehouse",
+      "aliases": ["Ray", "R. Thompson"]
+    },
+    {
+      "id": "P-015",
+      "name": "Kevin Wu",
+      "title": "Facilities Coordinator",
+      "roles": ["facilities"],
+      "siteId": "plant-1",
+      "aliases": ["Kevin", "K. Wu"]
+    },
+    {
+      "id": "P-016",
+      "name": "Daniel Reyes",
+      "title": "Assembler",
+      "roles": ["assembler"],
+      "siteId": "plant-1",
+      "homeAreaId": "plant-1.assembly-b",
+      "aliases": ["Danny", "D. Reyes"]
+    },
+    {
+      "id": "P-017",
+      "name": "Olivia Grant",
+      "title": "Assembler",
+      "roles": ["assembler"],
+      "siteId": "plant-1",
+      "homeAreaId": "plant-1.assembly-b",
+      "aliases": ["Liv", "O. Grant"]
+    },
+    {
+      "id": "C-001",
+      "name": "Mike Dunn",
+      "title": "Foreman, Ridgeline Steel Contractors",
+      "roles": ["contractor_foreman"],
+      "contractorId": "CTR-01",
+      "aliases": ["Mike", "the foreman", "M. Dunn"]
+    },
+    {
+      "id": "C-002",
+      "name": "Jake Sorensen",
+      "title": "Ironworker, Ridgeline Steel Contractors",
+      "roles": ["contractor_worker"],
+      "contractorId": "CTR-01",
+      "aliases": ["Jake"]
+    }
+  ],
+  "contractors": [
+    {
+      "id": "CTR-01",
+      "name": "Ridgeline Steel Contractors",
+      "aliases": ["Ridgeline", "Ridgeline Steel", "the steel crew"]
+    }
+  ]
+}

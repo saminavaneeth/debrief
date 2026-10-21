@@ -1,0 +1,779 @@
+[
+  {
+    "id": "INS-0016",
+    "server": "inspections",
+    "recordType": "inspection",
+    "title": "Monthly fire extinguisher inspection, Building A (2026-06)",
+    "description": "Monthly visual inspection of portable extinguishers FE-112 to FE-123.",
+    "status": "completed",
+    "siteId": "building-a",
+    "assetIds": [],
+    "createdAt": "2026-06-22T08:00:00-05:00",
+    "updatedAt": "2026-06-22T15:00:00-05:00",
+    "createdBy": "P-001",
+    "notes": [],
+    "correctiveActions": [],
+    "links": [],
+    "evidence": [],
+    "history": [
+      {
+        "at": "2026-06-22T08:00:00-05:00",
+        "by": "P-001",
+        "action": "created",
+        "summary": "Record created",
+        "changes": []
+      },
+      {
+        "at": "2026-06-22T15:00:00-05:00",
+        "by": "P-001",
+        "action": "status_changed",
+        "summary": "Completed, all units pass",
+        "changes": [
+          {
+            "path": "status",
+            "after": "completed"
+          }
+        ]
+      }
+    ],
+    "inspectionType": "Monthly portable fire extinguisher inspection",
+    "templateId": "tpl-extinguisher-monthly",
+    "scheduledDate": "2026-06-22",
+    "inspectorId": "P-001",
+    "result": "pass",
+    "items": [
+      {
+        "id": "FE-112",
+        "label": "FE-112 · Office lobby",
+        "assetId": "FE-112",
+        "location": "Office lobby",
+        "response": "pass",
+        "correctiveActions": []
+      },
+      {
+        "id": "FE-113",
+        "label": "FE-113 · Office corridor north",
+        "assetId": "FE-113",
+        "location": "Office corridor north",
+        "response": "pass",
+        "correctiveActions": []
+      },
+      {
+        "id": "FE-114",
+        "label": "FE-114 · Office corridor south",
+        "assetId": "FE-114",
+        "location": "Office corridor south",
+        "response": "pass",
+        "correctiveActions": []
+      },
+      {
+        "id": "FE-115",
+        "label": "FE-115 · Warehouse aisle 2",
+        "assetId": "FE-115",
+        "location": "Warehouse aisle 2",
+        "response": "pass",
+        "correctiveActions": []
+      },
+      {
+        "id": "FE-116",
+        "label": "FE-116 · Warehouse aisle 4",
+        "assetId": "FE-116",
+        "location": "Warehouse aisle 4",
+        "response": "pass",
+        "correctiveActions": []
+      },
+      {
+        "id": "FE-117",
+        "label": "FE-117 · Warehouse aisle 6",
+        "assetId": "FE-117",
+        "location": "Warehouse aisle 6",
+        "response": "pass",
+        "correctiveActions": []
+      },
+      {
+        "id": "FE-118",
+        "label": "FE-118 · Warehouse aisle 8",
+        "assetId": "FE-118",
+        "location": "Warehouse aisle 8",
+        "response": "pass",
+        "correctiveActions": []
+      },
+      {
+        "id": "FE-119",
+        "label": "FE-119 · Warehouse dock door 2",
+        "assetId": "FE-119",
+        "location": "Warehouse dock door 2",
+        "response": "pass",
+        "correctiveActions": []
+      },
+      {
+        "id": "FE-120",
+        "label": "FE-120 · Warehouse dock door 4",
+        "assetId": "FE-120",
+        "location": "Warehouse dock door 4",
+        "response": "pass",
+        "correctiveActions": []
+      },
+      {
+        "id": "FE-121",
+        "label": "FE-121 · Battery charging station",
+        "assetId": "FE-121",
+        "location": "Battery charging station",
+        "response": "pass",
+        "correctiveActions": []
+      },
+      {
+        "id": "FE-122",
+        "label": "FE-122 · Warehouse east exit",
+        "assetId": "FE-122",
+        "location": "Warehouse east exit",
+        "response": "pass",
+        "correctiveActions": []
+      },
+      {
+        "id": "FE-123",
+        "label": "FE-123 · Shipping office",
+        "assetId": "FE-123",
+        "location": "Shipping office",
+        "response": "pass",
+        "correctiveActions": []
+      }
+    ],
+    "completedAt": "2026-06-22T15:00:00-05:00"
+  },
+  {
+    "id": "INS-0017",
+    "server": "inspections",
+    "recordType": "inspection",
+    "title": "Monthly fire extinguisher inspection, Building A (2026-07)",
+    "description": "Monthly visual inspection of portable extinguishers FE-112 to FE-123.",
+    "status": "completed",
+    "siteId": "building-a",
+    "assetIds": [],
+    "createdAt": "2026-07-21T08:00:00-05:00",
+    "updatedAt": "2026-07-21T15:00:00-05:00",
+    "createdBy": "P-001",
+    "notes": [],
+    "correctiveActions": [],
+    "links": [],
+    "evidence": [],
+    "history": [
+      {
+        "at": "2026-07-21T08:00:00-05:00",
+        "by": "P-001",
+        "action": "created",
+        "summary": "Record created",
+        "changes": []
+      },
+      {
+        "at": "2026-07-21T15:00:00-05:00",
+        "by": "P-001",
+        "action": "status_changed",
+        "summary": "Completed, all units pass",
+        "changes": [
+          {
+            "path": "status",
+            "after": "completed"
+          }
+        ]
+      }
+    ],
+    "inspectionType": "Monthly portable fire extinguisher inspection",
+    "templateId": "tpl-extinguisher-monthly",
+    "scheduledDate": "2026-07-21",
+    "inspectorId": "P-001",
+    "result": "pass",
+    "items": [
+      {
+        "id": "FE-112",
+        "label": "FE-112 · Office lobby",
+        "assetId": "FE-112",
+        "location": "Office lobby",
+        "response": "pass",
+        "correctiveActions": []
+      },
+      {
+        "id": "FE-113",
+        "label": "FE-113 · Office corridor north",
+        "assetId": "FE-113",
+        "location": "Office corridor north",
+        "response": "pass",
+        "correctiveActions": []
+      },
+      {
+        "id": "FE-114",
+        "label": "FE-114 · Office corridor south",
+        "assetId": "FE-114",
+        "location": "Office corridor south",
+        "response": "pass",
+        "correctiveActions": []
+      },
+      {
+        "id": "FE-115",
+        "label": "FE-115 · Warehouse aisle 2",
+        "assetId": "FE-115",
+        "location": "Warehouse aisle 2",
+        "response": "pass",
+        "correctiveActions": []
+      },
+      {
+        "id": "FE-116",
+        "label": "FE-116 · Warehouse aisle 4",
+        "assetId": "FE-116",
+        "location": "Warehouse aisle 4",
+        "response": "pass",
+        "correctiveActions": []
+      },
+      {
+        "id": "FE-117",
+        "label": "FE-117 · Warehouse aisle 6",
+        "assetId": "FE-117",
+        "location": "Warehouse aisle 6",
+        "response": "pass",
+        "correctiveActions": []
+      },
+      {
+        "id": "FE-118",
+        "label": "FE-118 · Warehouse aisle 8",
+        "assetId": "FE-118",
+        "location": "Warehouse aisle 8",
+        "response": "pass",
+        "correctiveActions": []
+      },
+      {
+        "id": "FE-119",
+        "label": "FE-119 · Warehouse dock door 2",
+        "assetId": "FE-119",
+        "location": "Warehouse dock door 2",
+        "response": "pass",
+        "correctiveActions": []
+      },
+      {
+        "id": "FE-120",
+        "label": "FE-120 · Warehouse dock door 4",
+        "assetId": "FE-120",
+        "location": "Warehouse dock door 4",
+        "response": "pass",
+        "correctiveActions": []
+      },
+      {
+        "id": "FE-121",
+        "label": "FE-121 · Battery charging station",
+        "assetId": "FE-121",
+        "location": "Battery charging station",
+        "response": "pass",
+        "correctiveActions": []
+      },
+      {
+        "id": "FE-122",
+        "label": "FE-122 · Warehouse east exit",
+        "assetId": "FE-122",
+        "location": "Warehouse east exit",
+        "response": "pass",
+        "correctiveActions": []
+      },
+      {
+        "id": "FE-123",
+        "label": "FE-123 · Shipping office",
+        "assetId": "FE-123",
+        "location": "Shipping office",
+        "response": "pass",
+        "correctiveActions": []
+      }
+    ],
+    "completedAt": "2026-07-21T15:00:00-05:00"
+  },
+  {
+    "id": "INS-0018",
+    "server": "inspections",
+    "recordType": "inspection",
+    "title": "Monthly fire extinguisher inspection, Building A (2026-08)",
+    "description": "Monthly visual inspection of portable extinguishers FE-112 to FE-123.",
+    "status": "completed",
+    "siteId": "building-a",
+    "assetIds": [],
+    "createdAt": "2026-08-19T08:00:00-05:00",
+    "updatedAt": "2026-08-19T15:00:00-05:00",
+    "createdBy": "P-001",
+    "notes": [],
+    "correctiveActions": [],
+    "links": [],
+    "evidence": [],
+    "history": [
+      {
+        "at": "2026-08-19T08:00:00-05:00",
+        "by": "P-001",
+        "action": "created",
+        "summary": "Record created",
+        "changes": []
+      },
+      {
+        "at": "2026-08-19T15:00:00-05:00",
+        "by": "P-001",
+        "action": "status_changed",
+        "summary": "Completed, all units pass",
+        "changes": [
+          {
+            "path": "status",
+            "after": "completed"
+          }
+        ]
+      }
+    ],
+    "inspectionType": "Monthly portable fire extinguisher inspection",
+    "templateId": "tpl-extinguisher-monthly",
+    "scheduledDate": "2026-08-19",
+    "inspectorId": "P-001",
+    "result": "pass",
+    "items": [
+      {
+        "id": "FE-112",
+        "label": "FE-112 · Office lobby",
+        "assetId": "FE-112",
+        "location": "Office lobby",
+        "response": "pass",
+        "correctiveActions": []
+      },
+      {
+        "id": "FE-113",
+        "label": "FE-113 · Office corridor north",
+        "assetId": "FE-113",
+        "location": "Office corridor north",
+        "response": "pass",
+        "correctiveActions": []
+      },
+      {
+        "id": "FE-114",
+        "label": "FE-114 · Office corridor south",
+        "assetId": "FE-114",
+        "location": "Office corridor south",
+        "response": "pass",
+        "correctiveActions": []
+      },
+      {
+        "id": "FE-115",
+        "label": "FE-115 · Warehouse aisle 2",
+        "assetId": "FE-115",
+        "location": "Warehouse aisle 2",
+        "response": "pass",
+        "correctiveActions": []
+      },
+      {
+        "id": "FE-116",
+        "label": "FE-116 · Warehouse aisle 4",
+        "assetId": "FE-116",
+        "location": "Warehouse aisle 4",
+        "response": "pass",
+        "correctiveActions": []
+      },
+      {
+        "id": "FE-117",
+        "label": "FE-117 · Warehouse aisle 6",
+        "assetId": "FE-117",
+        "location": "Warehouse aisle 6",
+        "response": "pass",
+        "correctiveActions": []
+      },
+      {
+        "id": "FE-118",
+        "label": "FE-118 · Warehouse aisle 8",
+        "assetId": "FE-118",
+        "location": "Warehouse aisle 8",
+        "response": "pass",
+        "correctiveActions": []
+      },
+      {
+        "id": "FE-119",
+        "label": "FE-119 · Warehouse dock door 2",
+        "assetId": "FE-119",
+        "location": "Warehouse dock door 2",
+        "response": "pass",
+        "correctiveActions": []
+      },
+      {
+        "id": "FE-120",
+        "label": "FE-120 · Warehouse dock door 4",
+        "assetId": "FE-120",
+        "location": "Warehouse dock door 4",
+        "response": "pass",
+        "correctiveActions": []
+      },
+      {
+        "id": "FE-121",
+        "label": "FE-121 · Battery charging station",
+        "assetId": "FE-121",
+        "location": "Battery charging station",
+        "response": "pass",
+        "correctiveActions": []
+      },
+      {
+        "id": "FE-122",
+        "label": "FE-122 · Warehouse east exit",
+        "assetId": "FE-122",
+        "location": "Warehouse east exit",
+        "response": "pass",
+        "correctiveActions": []
+      },
+      {
+        "id": "FE-123",
+        "label": "FE-123 · Shipping office",
+        "assetId": "FE-123",
+        "location": "Shipping office",
+        "response": "pass",
+        "correctiveActions": []
+      }
+    ],
+    "completedAt": "2026-08-19T15:00:00-05:00"
+  },
+  {
+    "id": "INS-0019",
+    "server": "inspections",
+    "recordType": "inspection",
+    "title": "Monthly forklift condition check, Plant 1 (2026-09)",
+    "description": "Monthly condition check of Plant 1 forklifts FL-03 and FL-07.",
+    "status": "completed",
+    "siteId": "plant-1",
+    "assetIds": [],
+    "createdAt": "2026-09-10T07:30:00-05:00",
+    "updatedAt": "2026-09-10T08:15:00-05:00",
+    "createdBy": "P-001",
+    "notes": [],
+    "correctiveActions": [],
+    "links": [
+      {
+        "type": "resultedIn",
+        "targetId": "HAZ-0007",
+        "itemId": "FL-07",
+        "createdAt": "2026-09-10T08:15:00-05:00",
+        "createdBy": "P-001"
+      }
+    ],
+    "evidence": [],
+    "history": [
+      {
+        "at": "2026-09-10T07:30:00-05:00",
+        "by": "P-001",
+        "action": "created",
+        "summary": "Record created",
+        "changes": []
+      },
+      {
+        "at": "2026-09-10T08:15:00-05:00",
+        "by": "P-001",
+        "action": "status_changed",
+        "summary": "Completed, 1 item failed",
+        "changes": [
+          {
+            "path": "status",
+            "after": "completed"
+          },
+          {
+            "path": "result",
+            "after": "fail"
+          }
+        ]
+      },
+      {
+        "at": "2026-09-10T08:15:00-05:00",
+        "by": "P-001",
+        "action": "linked",
+        "summary": "FL-07 item linked to HAZ-0007",
+        "changes": []
+      }
+    ],
+    "inspectionType": "Monthly forklift condition check",
+    "templateId": "tpl-forklift-monthly",
+    "scheduledDate": "2026-09-10",
+    "completedAt": "2026-09-10T08:15:00-05:00",
+    "inspectorId": "P-001",
+    "result": "fail",
+    "items": [
+      {
+        "id": "FL-03",
+        "label": "FL-03 · Dock 1",
+        "assetId": "FL-03",
+        "response": "pass",
+        "correctiveActions": []
+      },
+      {
+        "id": "FL-07",
+        "label": "FL-07 · Dock 3",
+        "assetId": "FL-07",
+        "response": "fail",
+        "notes": "Right-side mirror cracked.",
+        "correctiveActions": []
+      }
+    ]
+  },
+  {
+    "id": "INS-0020",
+    "server": "inspections",
+    "recordType": "inspection",
+    "title": "Monthly fire extinguisher inspection, Building A (2026-09)",
+    "description": "Monthly visual inspection of portable extinguishers FE-112 to FE-123.",
+    "status": "completed",
+    "siteId": "building-a",
+    "assetIds": [],
+    "createdAt": "2026-09-22T08:00:00-05:00",
+    "updatedAt": "2026-09-22T15:00:00-05:00",
+    "createdBy": "P-001",
+    "notes": [],
+    "correctiveActions": [],
+    "links": [],
+    "evidence": [],
+    "history": [
+      {
+        "at": "2026-09-22T08:00:00-05:00",
+        "by": "P-001",
+        "action": "created",
+        "summary": "Record created",
+        "changes": []
+      },
+      {
+        "at": "2026-09-22T15:00:00-05:00",
+        "by": "P-001",
+        "action": "status_changed",
+        "summary": "Completed, all units pass",
+        "changes": [
+          {
+            "path": "status",
+            "after": "completed"
+          }
+        ]
+      }
+    ],
+    "inspectionType": "Monthly portable fire extinguisher inspection",
+    "templateId": "tpl-extinguisher-monthly",
+    "scheduledDate": "2026-09-22",
+    "inspectorId": "P-001",
+    "result": "pass",
+    "items": [
+      {
+        "id": "FE-112",
+        "label": "FE-112 · Office lobby",
+        "assetId": "FE-112",
+        "location": "Office lobby",
+        "response": "pass",
+        "correctiveActions": []
+      },
+      {
+        "id": "FE-113",
+        "label": "FE-113 · Office corridor north",
+        "assetId": "FE-113",
+        "location": "Office corridor north",
+        "response": "pass",
+        "correctiveActions": []
+      },
+      {
+        "id": "FE-114",
+        "label": "FE-114 · Office corridor south",
+        "assetId": "FE-114",
+        "location": "Office corridor south",
+        "response": "pass",
+        "correctiveActions": []
+      },
+      {
+        "id": "FE-115",
+        "label": "FE-115 · Warehouse aisle 2",
+        "assetId": "FE-115",
+        "location": "Warehouse aisle 2",
+        "response": "pass",
+        "correctiveActions": []
+      },
+      {
+        "id": "FE-116",
+        "label": "FE-116 · Warehouse aisle 4",
+        "assetId": "FE-116",
+        "location": "Warehouse aisle 4",
+        "response": "pass",
+        "correctiveActions": []
+      },
+      {
+        "id": "FE-117",
+        "label": "FE-117 · Warehouse aisle 6",
+        "assetId": "FE-117",
+        "location": "Warehouse aisle 6",
+        "response": "pass",
+        "correctiveActions": []
+      },
+      {
+        "id": "FE-118",
+        "label": "FE-118 · Warehouse aisle 8",
+        "assetId": "FE-118",
+        "location": "Warehouse aisle 8",
+        "response": "pass",
+        "correctiveActions": []
+      },
+      {
+        "id": "FE-119",
+        "label": "FE-119 · Warehouse dock door 2",
+        "assetId": "FE-119",
+        "location": "Warehouse dock door 2",
+        "response": "pass",
+        "correctiveActions": []
+      },
+      {
+        "id": "FE-120",
+        "label": "FE-120 · Warehouse dock door 4",
+        "assetId": "FE-120",
+        "location": "Warehouse dock door 4",
+        "response": "pass",
+        "correctiveActions": []
+      },
+      {
+        "id": "FE-121",
+        "label": "FE-121 · Battery charging station",
+        "assetId": "FE-121",
+        "location": "Battery charging station",
+        "response": "pass",
+        "correctiveActions": []
+      },
+      {
+        "id": "FE-122",
+        "label": "FE-122 · Warehouse east exit",
+        "assetId": "FE-122",
+        "location": "Warehouse east exit",
+        "response": "pass",
+        "correctiveActions": []
+      },
+      {
+        "id": "FE-123",
+        "label": "FE-123 · Shipping office",
+        "assetId": "FE-123",
+        "location": "Shipping office",
+        "response": "pass",
+        "correctiveActions": []
+      }
+    ],
+    "completedAt": "2026-09-22T15:00:00-05:00"
+  },
+  {
+    "id": "INS-0021",
+    "server": "inspections",
+    "recordType": "inspection",
+    "title": "Monthly fire extinguisher inspection, Building A (2026-10)",
+    "description": "Monthly visual inspection of portable extinguishers FE-112 to FE-123.",
+    "status": "scheduled",
+    "siteId": "building-a",
+    "assetIds": [],
+    "createdAt": "2026-10-01T08:00:00-05:00",
+    "updatedAt": "2026-10-01T08:00:00-05:00",
+    "createdBy": "system",
+    "notes": [],
+    "correctiveActions": [],
+    "links": [],
+    "evidence": [],
+    "history": [
+      {
+        "at": "2026-10-01T08:00:00-05:00",
+        "by": "system",
+        "action": "created",
+        "summary": "Scheduled from monthly inspection plan",
+        "changes": []
+      }
+    ],
+    "inspectionType": "Monthly portable fire extinguisher inspection",
+    "templateId": "tpl-extinguisher-monthly",
+    "scheduledDate": "2026-10-21",
+    "inspectorId": "P-001",
+    "result": "pending",
+    "items": [
+      {
+        "id": "FE-112",
+        "label": "FE-112 · Office lobby",
+        "assetId": "FE-112",
+        "location": "Office lobby",
+        "response": null,
+        "correctiveActions": []
+      },
+      {
+        "id": "FE-113",
+        "label": "FE-113 · Office corridor north",
+        "assetId": "FE-113",
+        "location": "Office corridor north",
+        "response": null,
+        "correctiveActions": []
+      },
+      {
+        "id": "FE-114",
+        "label": "FE-114 · Office corridor south",
+        "assetId": "FE-114",
+        "location": "Office corridor south",
+        "response": null,
+        "correctiveActions": []
+      },
+      {
+        "id": "FE-115",
+        "label": "FE-115 · Warehouse aisle 2",
+        "assetId": "FE-115",
+        "location": "Warehouse aisle 2",
+        "response": null,
+        "correctiveActions": []
+      },
+      {
+        "id": "FE-116",
+        "label": "FE-116 · Warehouse aisle 4",
+        "assetId": "FE-116",
+        "location": "Warehouse aisle 4",
+        "response": null,
+        "correctiveActions": []
+      },
+      {
+        "id": "FE-117",
+        "label": "FE-117 · Warehouse aisle 6",
+        "assetId": "FE-117",
+        "location": "Warehouse aisle 6",
+        "response": null,
+        "correctiveActions": []
+      },
+      {
+        "id": "FE-118",
+        "label": "FE-118 · Warehouse aisle 8",
+        "assetId": "FE-118",
+        "location": "Warehouse aisle 8",
+        "response": null,
+        "correctiveActions": []
+      },
+      {
+        "id": "FE-119",
+        "label": "FE-119 · Warehouse dock door 2",
+        "assetId": "FE-119",
+        "location": "Warehouse dock door 2",
+        "response": null,
+        "correctiveActions": []
+      },
+      {
+        "id": "FE-120",
+        "label": "FE-120 · Warehouse dock door 4",
+        "assetId": "FE-120",
+        "location": "Warehouse dock door 4",
+        "response": null,
+        "correctiveActions": []
+      },
+      {
+        "id": "FE-121",
+        "label": "FE-121 · Battery charging station",
+        "assetId": "FE-121",
+        "location": "Battery charging station",
+        "response": null,
+        "correctiveActions": []
+      },
+      {
+        "id": "FE-122",
+        "label": "FE-122 · Warehouse east exit",
+        "assetId": "FE-122",
+        "location": "Warehouse east exit",
+        "response": null,
+        "correctiveActions": []
+      },
+      {
+        "id": "FE-123",
+        "label": "FE-123 · Shipping office",
+        "assetId": "FE-123",
+        "location": "Shipping office",
+        "response": null,
+        "correctiveActions": []
+      }
+    ]
+  }
+]

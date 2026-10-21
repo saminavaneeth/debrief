@@ -1,0 +1,46 @@
+{
+  "id": "tpl-forklift-monthly",
+  "name": "Monthly forklift condition check",
+  "recordType": "inspection",
+  "frequency": "monthly",
+  "appliesTo": "forklift",
+  "checks": [
+    {
+      "id": "mirrors",
+      "label": "Mirrors intact and adjusted",
+      "failMeans": "Mirror cracked, missing or loose",
+      "hazardCategory": "powered_industrial_trucks"
+    },
+    {
+      "id": "horn_alarm",
+      "label": "Horn and reverse alarm work",
+      "failMeans": "Horn or backup alarm inoperative",
+      "hazardCategory": "powered_industrial_trucks"
+    },
+    {
+      "id": "lights",
+      "label": "Headlights and blue spot light work",
+      "failMeans": "Lights out",
+      "hazardCategory": "powered_industrial_trucks"
+    },
+    {
+      "id": "forks_chains",
+      "label": "Forks, chains and mast free of damage",
+      "failMeans": "Cracks, wear or bent components",
+      "hazardCategory": "struck_by"
+    },
+    {
+      "id": "brakes",
+      "label": "Service and parking brakes hold",
+      "failMeans": "Brakes weak or not holding",
+      "hazardCategory": "powered_industrial_trucks"
+    },
+    {
+      "id": "leaks",
+      "label": "No hydraulic, fuel or battery leaks",
+      "failMeans": "Visible leak",
+      "hazardCategory": "spills_releases"
+    }
+  ],
+  "knowledgeDocIds": ["sop-forklift-pedestrian", "osha-1910-178"]
+}
