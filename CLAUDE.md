@@ -176,11 +176,17 @@ One mock MCP server per module, built with the official MCP TypeScript SDK
 Corrective actions are child items (`correctiveActions[]`) on incidents, hazards, observations,
 audit findings and inspection items, appended via `update_record`.
 
-Each server is a factory (`createIncidentsServer(store)`) that can be mounted two ways:
+Each server is a factory (`createIncidentsServer(deps)`) that can be mounted three ways:
 
-- **Streamable HTTP** at `/api/mcp/[server]` (used by the app's gateway)
+- **In-process** (the app's gateway, by default): real MCP protocol over the SDK's linked
+  in-memory transport, so the app never calls itself over HTTP
+- **Streamable HTTP** at `/api/mcp/[server]` (stateless) for MCP Inspector, IDEs and other clients;
+  shares the app's store
 - **stdio** via `npm run mcp -- incidents` so any MCP client (MCP Inspector, Claude Desktop, IDEs)
-  can connect to the same mock systems
+  can connect to the same mock systems (starts from the app snapshot, read-only unless `--persist`)
+
+Each server's transport is set in `mcp.config.json` (`in-process`, `http` + url, `stdio` +
+command), so the gateway can be pointed at HTTP or stdio servers without code changes.
 
 ### Uniform tool contract (every server)
 
@@ -452,11 +458,11 @@ accepted without edit; duplicate record rate; follow-up questions per record; we
 users; unsupported-field rate (target 0).
 
 ### Phase 2 — Mock EHS systems over MCP
-- [ ] Repository interface + MemoryStore (seed, snapshot to `.data/`, reset)
-- [ ] Five servers with the uniform tool contract and resources (§5); `training` server disabled
-- [ ] `/api/mcp/[server]` Streamable HTTP route; `npm run mcp -- <server>` stdio launcher
-- [ ] Gateway: registry, discovery, policy, validate→execute, idempotency, audit log, event bus
-- [ ] EHS console UI (`/console`)
+- [x] Repository interface + MemoryStore (seed, snapshot to `.data/`, reset)
+- [x] Five servers with the uniform tool contract and resources (§5); `training` server disabled
+- [x] `/api/mcp/[server]` Streamable HTTP route; `npm run mcp -- <server>` stdio launcher
+- [x] Gateway: registry, discovery, policy, validate→execute, idempotency, audit log, event bus
+- [x] EHS console UI (`/console`)
 - **Done when:** MCP Inspector (`npx @modelcontextprotocol/inspector`) connects to each server and
   every tool works; console shows seeded records; tool unit tests pass.
 
@@ -506,7 +512,7 @@ npm run lint
 npm run seed         # (re)build .data/ from data/seed
 npm run index        # precompute RAG indexes/embeddings
 npm run eval         # run the S1–S6 eval suite
-npm run mcp -- incidents   # run one mock server over stdio
+npm run mcp -- incidents   # run one mock server over stdio (MCP clients: npm run --silent mcp -- incidents)
 ```
 
 ---
@@ -554,3 +560,21 @@ npm run mcp -- incidents   # run one mock server over stdio
   Next 16 docs in `node_modules/next/dist/docs/`.
   **Next:** Phase 2 — repository interface + MemoryStore, five MCP servers, `/api/mcp/[server]`,
   stdio launcher, gateway, `/console`.
+- **2026-10-21** — **Phase 2 done.** Async `RecordRepository` + `MemoryStore` (seed, `.data/store.json`
+  snapshot, reset, server-side idempotency, change feed). One generic MCP server factory + six module
+  definitions (manifests with routing and matching hints); uniform 7 tools, manifest / schema /
+  picklist resources; schemas are create-payload JSON Schemas with `x-*` metadata. Transports:
+  in-process (gateway default — decided with user, CLAUDE.md §5 updated), stateless Streamable HTTP
+  at `/api/mcp/[server]`, stdio via `npm run mcp -- <server>` (read-only snapshot unless `--persist`).
+  Gateway: registry (`mcp.config.json`), connection pool, discovery, policy (`data/policy.json`),
+  validate→execute, idempotency `changeSetId:actionId`, audit log, event bus, cross-server links
+  written on both sides, `executeChangeSet` with dependency order / approval / partial failure /
+  retry. `/console` with live SSE updates and Reset demo. ESLint blocks `src/agents` importing
+  servers or the store. New deps: `@modelcontextprotocol/sdk`, `minisearch`, `tsx` (approved),
+  shadcn tabs/badge/card. 81 tests. Verified with MCP Inspector CLI over stdio and HTTP (all six
+  servers, reads and writes). Decisions D-014…D-023. S4 expected links flipped to
+  hazard `foundDuring` inspection item (D-016).
+  Notes: shadcn's registry keeps adding a bogus `cn` package — remove it and point imports at
+  `@/lib/utils` after every `shadcn add`. Console UI was checked via API/SSE, not visually.
+  **Next:** Phase 3 — PWA shell, Today / Scenario / Inbox, five capture modalities with Dexie,
+  offline, Load demo day / Reset demo.

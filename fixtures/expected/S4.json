@@ -65,26 +65,26 @@
       "ref": "a4",
       "scenarioId": "SCN-S4",
       "from": {
-        "id": "INS-0021"
-      },
-      "fromItemId": "FE-115",
-      "to": {
         "ref": "a2"
       },
-      "linkType": "resultedIn"
+      "to": {
+        "id": "INS-0021"
+      },
+      "linkType": "foundDuring",
+      "toItemId": "FE-115"
     },
     {
       "type": "link",
       "ref": "a5",
       "scenarioId": "SCN-S4",
       "from": {
-        "id": "INS-0021"
-      },
-      "fromItemId": "FE-119",
-      "to": {
         "ref": "a3"
       },
-      "linkType": "resultedIn"
+      "to": {
+        "id": "INS-0021"
+      },
+      "linkType": "foundDuring",
+      "toItemId": "FE-119"
     },
     {
       "type": "attach",

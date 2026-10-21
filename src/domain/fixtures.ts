@@ -131,6 +131,7 @@ export const ExpectedAction = z.discriminatedUnion("type", [
     to: ExpectedRef,
     linkType: LinkType,
     fromItemId: z.string().optional(),
+    toItemId: z.string().optional(),
   }),
   z.strictObject({
     type: z.literal("attach"),

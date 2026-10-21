@@ -6,7 +6,9 @@ import { parseFrontmatter } from "./frontmatter";
 
 export const PROJECT_ROOT = process.cwd();
 
-export const dataPath = (...segments: string[]) => path.join(PROJECT_ROOT, ...segments);
+// Data files are read at runtime from the checkout; the app runs as one long-lived Node process.
+export const dataPath = (...segments: string[]) =>
+  path.join(/*turbopackIgnore: true*/ PROJECT_ROOT, ...segments);
 
 export function readJson(file: string): unknown {
   return JSON.parse(fs.readFileSync(file, "utf8"));

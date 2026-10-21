@@ -1,0 +1,10 @@
+{
+  "servers": [
+    { "id": "incidents", "enabled": true, "transport": { "type": "in-process" } },
+    { "id": "audits", "enabled": true, "transport": { "type": "in-process" } },
+    { "id": "meetings", "enabled": true, "transport": { "type": "in-process" } },
+    { "id": "hazards", "enabled": true, "transport": { "type": "in-process" } },
+    { "id": "inspections", "enabled": true, "transport": { "type": "in-process" } },
+    { "id": "training", "enabled": false, "transport": { "type": "in-process" } }
+  ]
+}

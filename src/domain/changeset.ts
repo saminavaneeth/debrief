@@ -87,6 +87,7 @@ export const LinkAction = z.strictObject({
   to: RecordRef,
   linkType: LinkType,
   fromItemId: z.string().optional(),
+  toItemId: z.string().optional(),
 });
 
 export const AttachAction = z.strictObject({

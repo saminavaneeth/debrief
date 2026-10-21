@@ -1,0 +1,43 @@
+{
+  "roles": {
+    "ehs_specialist": ["*"],
+    "site_manager": ["*"],
+    "ehs_admin": ["*"],
+    "plant_manager": ["*.search_records", "*.get_record", "*.validate_record"],
+    "workflow": [
+      "*.search_records",
+      "*.get_record",
+      "*.validate_record",
+      "*.create_record",
+      "*.update_record",
+      "*.link_records"
+    ],
+    "viewer": ["*.search_records", "*.get_record"]
+  },
+  "autonomy": [
+    {
+      "action": "attach",
+      "target": "existing",
+      "level": "auto",
+      "note": "Adding a photo or document to an existing record needs no approval."
+    },
+    {
+      "action": "attach",
+      "target": "new",
+      "level": "auto",
+      "note": "Evidence on a record created in the same change set follows that record's approval."
+    },
+    {
+      "action": "create",
+      "server": "incidents",
+      "level": "approve",
+      "note": "Incidents may carry regulatory weight; a person approves each one."
+    },
+    {
+      "action": "link",
+      "target": "existing",
+      "level": "approve"
+    }
+  ],
+  "defaultAutonomy": "approve"
+}

@@ -359,6 +359,7 @@
       {
         "type": "foundDuring",
         "targetId": "INS-0019",
+        "targetItemId": "FL-07",
         "createdAt": "2026-09-10T08:15:00-05:00",
         "createdBy": "P-001"
       }

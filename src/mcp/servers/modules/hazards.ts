@@ -1,0 +1,127 @@
+import type { ModuleDefinition } from "../core/module";
+
+export const hazardsModule: ModuleDefinition = {
+  manifest: {
+    server: "hazards",
+    displayName: "Hazards & Observations",
+    description:
+      "Hazardous conditions to be fixed, and safety observations of behaviour and conditions.",
+    version: "1.0.0",
+    recordTypes: [
+      {
+        recordType: "hazard",
+        displayName: "Hazard",
+        idPrefix: "HAZ",
+        description:
+          "A lasting unsafe condition that needs a fix: damaged equipment, leaks, blocked equipment, trip points.",
+        routing: {
+          keywords: [
+            "cracked",
+            "broken",
+            "damaged",
+            "leak",
+            "leaking",
+            "dripping",
+            "puddle",
+            "wet floor",
+            "sheen",
+            "blocked",
+            "obstructed",
+            "faded",
+            "missing guard",
+            "still",
+            "hasn't been fixed",
+            "needs repair",
+            "corroded",
+            "frayed",
+            "trip hazard",
+          ],
+          exampleSituations: [
+            "Forklift mirror is cracked",
+            "Ice machine leaking onto the floor",
+            "Extinguisher blocked by pallets",
+            "Oil sheen under a valve",
+          ],
+          useWhen:
+            "A condition exists that could hurt someone until it is fixed, whether or not anything has happened yet.",
+          categories: [
+            "powered_industrial_trucks",
+            "slips_trips",
+            "falls_from_height",
+            "heat_stress",
+            "fire_protection",
+            "spills_releases",
+            "machine_guarding",
+            "electrical",
+            "struck_by",
+            "chemical_exposure",
+            "ergonomics",
+            "ppe",
+          ],
+        },
+        matching: {
+          strategy: "condition",
+          openStatuses: ["open", "mitigating"],
+          signals: ["assetIds", "areaId", "category"],
+        },
+        childCollections: ["correctiveActions"],
+      },
+      {
+        recordType: "observation",
+        displayName: "Safety observation",
+        idPrefix: "OBS",
+        description:
+          "Something a person was seen doing, safe or unsafe, including contractors; or a short-lived unsafe condition.",
+        routing: {
+          keywords: [
+            "not tied off",
+            "tie-off",
+            "no harness",
+            "without",
+            "walking outside",
+            "cut across",
+            "no hard hat",
+            "stopped work",
+            "stop work",
+            "spoke to",
+            "talked with",
+            "foreman",
+            "contractor",
+            "doing it right",
+          ],
+          exampleSituations: [
+            "Contractor working at height without tie-off; stopped work",
+            "Pedestrian walking outside the marked lane",
+            "Operator applied lockout correctly",
+          ],
+          useWhen:
+            "The point is what someone was doing (unsafe act or positive behaviour), not a lasting condition to repair.",
+          categories: ["falls_from_height", "ppe", "powered_industrial_trucks"],
+        },
+        matching: {
+          strategy: "event",
+          openStatuses: ["open"],
+          signals: ["areaId", "contractorId", "observedAt"],
+          windowHours: 2,
+        },
+        childCollections: ["correctiveActions"],
+      },
+    ],
+    linkTypes: ["relatedTo", "causedBy", "resultedIn", "foundDuring"],
+  },
+  initialStatus: { hazard: "open", observation: "open" },
+  picklists: {
+    observationType: [
+      { value: "unsafe_act", label: "Unsafe act" },
+      { value: "unsafe_condition", label: "Unsafe condition" },
+      { value: "positive", label: "Positive" },
+    ],
+    hazardSource: [
+      { value: "walkdown", label: "Walkdown" },
+      { value: "inspection", label: "Inspection" },
+      { value: "incident", label: "Incident" },
+      { value: "audit", label: "Audit" },
+      { value: "employee_report", label: "Employee report" },
+    ],
+  },
+};

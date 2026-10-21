@@ -178,16 +178,55 @@ metadata travels as JSON Schema extension keywords:
 
 ## 5. MCP contract
 
-Each module is an MCP server built with `@modelcontextprotocol/sdk`, created by a factory
-(`createIncidentsServer(store)`) and mounted over Streamable HTTP at `/api/mcp/[server]` or over
-stdio via `npm run mcp -- <server>`.
+Each module is an MCP server built with `@modelcontextprotocol/sdk` by one generic factory
+(`src/mcp/servers/core/create-server.ts`) from a module definition (`src/mcp/servers/modules/*`):
+manifest, initial statuses and picklists. Every server has the same tools and resources; only the
+definition differs.
 
-**Tools (every server):** `search_records`, `get_record`, `create_record`, `update_record` (patch
-ops `set` / `append` / `remove`), `attach_evidence`, `link_records`, `validate_record`. Writes
-require an `idempotencyKey`.
+| Transport       | Used by                              | Notes                                                                     |
+| --------------- | ------------------------------------ | ------------------------------------------------------------------------- |
+| In-process      | The app's gateway (default)          | Linked in-memory transport; full MCP protocol, no network                 |
+| Streamable HTTP | MCP Inspector, IDEs, remote gateways | `/api/mcp/[server]`, stateless, shares the app's store                    |
+| stdio           | Claude Desktop, Inspector, IDEs      | `npm run --silent mcp -- <server>`; read-only snapshot unless `--persist` |
 
-**Resources (every server):** `ehs://{server}/manifest`, `ehs://{server}/schema/{recordType}`,
-`ehs://{server}/picklists`.
+Each server's transport is configured in `mcp.config.json`.
+
+### Tools
+
+| Tool              | Arguments                                                                                                                                                    | Result                                  |
+| ----------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------ | --------------------------------------- |
+| `search_records`  | `query`, `recordType`, `siteId`, `areaId`, `assetId` (also matches child items), `status` (one or many), `from` / `to` (event time), `updatedSince`, `limit` | Ranked summaries with `score`           |
+| `get_record`      | `id`                                                                                                                                                         | Full record                             |
+| `create_record`   | `recordType`, `payload`, `idempotencyKey`, `actor`, `changeSetId`                                                                                            | `{ record, replayed }`                  |
+| `update_record`   | `id`, `patch` (`set` / `append` / `remove`), `summary`, `idempotencyKey`, `actor`, `changeSetId`                                                             | `{ record, replayed, changes }`         |
+| `attach_evidence` | `recordId`, `artifactId`, `modality`, `uri`, `caption`, `provenance`, `idempotencyKey`, `actor`                                                              | `{ record, replayed }`                  |
+| `link_records`    | `recordId`, `targetId`, `linkType`, `itemId`, `targetItemId`, `idempotencyKey`, `actor`                                                                      | `{ record, replayed }` (this side only) |
+| `validate_record` | `mode: create` + `recordType`, `payload`; or `mode: update` + `id`, `patch`                                                                                  | `{ valid, errors[], preview }`          |
+
+Patch paths use dots and `[selector]` for list items, where the selector matches an item's `id`,
+then its `name`, then an index: `items[FE-115].response`, `findings`, `attendees[T. Nguyen].personId`.
+`id`, `server`, `recordType`, timestamps, `history`, `links` and `evidence` cannot be patched.
+
+Writes are idempotent per server and key: a retry with the same arguments returns the first result
+with `replayed: true`; the same key with different arguments is an error. Errors come back as
+`isError` results with `{ error, fieldErrors[] }`.
+
+On create and append the server fills child-item ids (`HAZ-0013-CA1`, `AUD-0004-F3`,
+`MTG-0006-A1`), timestamps, default statuses and `dueInDays` → `dueDate`, then validates the whole
+record against its schema and against organization data (sites, areas in the record's site, assets,
+people, roles, contractors, hazard categories). Every write appends a history entry with
+before/after values for each changed path.
+
+### Resources
+
+- `ehs://{server}/manifest` — record types with display name, id prefix, **routing hints**
+  (keywords, example situations, "use when", taxonomy categories), **matching hints** (strategy
+  `condition` / `event` / `scheduled`, open statuses, signal fields, time window), child
+  collections, and allowed link types.
+- `ehs://{server}/schema/{recordType}` — the **create-payload** JSON Schema: no server-managed
+  fields, `status` defaulted, child items in input form, `x-*` extraction metadata on fields.
+- `ehs://{server}/picklists` — severity, risk level, hazard categories, statuses per record type,
+  and module enumerations.
 
 ## 6. Gateway
 
@@ -199,22 +238,42 @@ sequenceDiagram
   participant L as Audit log
   participant B as Event bus
 
-  C->>G: execute(action, actor, changeSetId)
-  G->>G: policy check (role → tool, autonomy)
-  G->>S: validate_record (dry run)
-  S-->>G: ok / field errors
-  G->>S: create/update/link/attach (idempotencyKey = changeSetId:actionId)
-  S-->>G: result (record id)
-  G->>L: who, when, tool, args hash, result, latency
-  G->>B: record.created / record.updated / record.linked
+  C->>G: executeChangeSet(changeSet, actor)
+  loop each action in dependency order
+    G->>G: policy: role may call tool? autonomy auto / approve / blocked
+    G->>S: validate_record (dry run, create/update)
+    S-->>G: ok / field errors
+    G->>S: write (idempotencyKey = changeSetId:actionId)
+    S-->>G: record (or replayed result)
+    G->>L: who, when, tool, args hash, result, latency
+    G->>B: record.created / record.updated / record.linked (not on replay)
+  end
+  G-->>C: per-action results + updated change set
 ```
 
-- **Registry** from `mcp.config.json`: server id, transport, URL or command, enabled flag.
-- **Discovery** lists tools and reads manifests and schemas from enabled servers; tools are
-  namespaced (`incidents.create_record`).
-- **Policy**: role → allowed tools; autonomy per action type (`auto`, `approve`, `blocked`).
-- **Execution**: validate, then execute in dependency order; independent actions continue when one
-  fails; failures are reported and retryable; idempotency keys make retries safe.
+| Part        | File                                     | Role                                                                                                                                   |
+| ----------- | ---------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------- |
+| Registry    | `gateway/registry.ts`                    | Servers from `mcp.config.json`; enable/disable at runtime                                                                              |
+| Connections | `gateway/connections.ts`                 | One MCP client per server over its configured transport                                                                                |
+| Discovery   | `gateway/discovery.ts`                   | Tools (namespaced `incidents.create_record`), manifests, schemas, picklists of enabled servers; cache dropped when a server is toggled |
+| Policy      | `gateway/policy.ts` + `data/policy.json` | Role → tool patterns; ordered autonomy rules by action, server, record type, existing/new target                                       |
+| Audit log   | `gateway/audit-log.ts`                   | Every call, including refusals and validation                                                                                          |
+| Event bus   | `gateway/event-bus.ts`                   | Awaited handlers; workflow writes finish before the triggering call returns                                                            |
+| Gateway     | `gateway/gateway.ts`                     | `call()`, record helpers, `link()`, `executeChangeSet()`                                                                               |
+
+- **Record routing.** `serverFor(id)` maps an id prefix to a server using the enabled servers'
+  manifests, so no prefix table is hard-coded in the gateway.
+- **Links.** `link()` checks the target exists, then writes the forward link on the source's
+  server and the inverse link on the target's server (`relatedTo`↔`relatedTo`,
+  `causedBy`↔`resultedIn`, `foundDuring`→`resultedIn`), with item ids carried across.
+- **Change sets.** Actions run in topological order of `dependsOn` plus `{ actionId }`
+  references, which are resolved to the created record ids. Approve-level actions run only when
+  approved; actions waiting on approval are skipped with their dependents; dependents of a failed
+  action fail; independent actions continue. The change set comes back with action statuses and
+  `resultRecordId`s, and running it again retries only what did not execute.
+
+The EHS console reads the store directly (it is the mock systems' own UI) and subscribes to the
+store's change feed over SSE, so it also reflects writes from external MCP clients.
 
 ## 7. RAG
 

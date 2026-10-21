@@ -55,9 +55,22 @@ export const RecordLink = z.strictObject({
   targetId: RecordId,
   /** Child item on this record the link starts from (inspection item, audit finding). */
   itemId: z.string().optional(),
+  /** Child item on the target record the link points at. */
+  targetItemId: z.string().optional(),
   createdAt: IsoDateTime,
   createdBy: Actor,
 });
+
+/**
+ * Link type written on the target record when a link is created. `resultedIn` has two possible
+ * inverses (`causedBy`, `foundDuring`); callers that need `foundDuring` link from the other side.
+ */
+export const LINK_INVERSE = {
+  relatedTo: "relatedTo",
+  causedBy: "resultedIn",
+  foundDuring: "resultedIn",
+  resultedIn: "causedBy",
+} as const;
 
 export const AttachedEvidence = z.strictObject({
   artifactId: z.string(),

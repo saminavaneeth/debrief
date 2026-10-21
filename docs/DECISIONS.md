@@ -112,6 +112,102 @@ wording robustness without new images.
 **Decision.** Expected actions list type, target and key fields: `fields` (exact after
 normalization), `fieldsContain` (case-insensitive substring) and `includes` (an array element must
 match). `forbidden` caps creates of a record type (duplicate prevention); `workflows` states which
-rules must and must not act. Link direction in S1–S3 uses `relatedTo`; inspection items link to
-their hazards with `resultedIn`; observations link to audits with `foundDuring`.
+rules must and must not act. Link direction in S1–S3 uses `relatedTo`; hazards and observations link to the inspection item or
+audit they were found during with `foundDuring` (see D-016).
 **Consequences.** One expected file applies to all paraphrase variants of a scenario.
+
+## D-014 · The gateway reaches servers in-process by default — 2026-10-21
+
+**Context.** The brief had the app's gateway call the servers over the Streamable HTTP route. That
+means the app calls itself over HTTP: it needs to know its own URL and port, fails during build and
+tests, and adds latency.
+**Decision.** Each server's transport is set in `mcp.config.json`. The default is `in-process`: the
+gateway gets an MCP `Client` connected to a freshly built server over the SDK's linked in-memory
+transport — the full MCP protocol, no network. `http` (url) and `stdio` (command) are supported per
+server. The HTTP route stays available for MCP Inspector, IDEs and other clients.
+**Consequences.** Tests, scripts and the app use the same code path. Pointing the gateway at a
+remote or stdio server is a config change.
+
+## D-015 · Stateless HTTP route; stdio starts read-only — 2026-10-21
+
+**Decision.** `/api/mcp/[server]` builds a new server instance per request (stateless Streamable
+HTTP, JSON responses) over the process-wide store. `npm run mcp -- <server>` loads the latest
+`.data/store.json` (or seed) and keeps writes in its own process unless `--persist` is passed.
+**Consequences.** HTTP clients see and change the same records as the app. A stdio server cannot
+silently overwrite the app's snapshot. MCP clients should launch it with `npm run --silent mcp --`
+(or `npx tsx scripts/mcp.ts`), because `npm run` prints a banner on stdout.
+
+## D-016 · Cross-module links: the gateway writes both sides — 2026-10-21
+
+**Context.** A link between an incident and a hazard spans two servers; a server should only write
+its own records.
+**Decision.** `link_records` writes one side only (`recordId`, `targetId`, optional `itemId` and
+`targetItemId`). The gateway's `link()` checks the target exists, then writes the forward link on
+the source server and the inverse on the target server (`LINK_INVERSE`: relatedTo↔relatedTo,
+causedBy↔resultedIn, foundDuring→resultedIn). Idempotency keys are `key` and `key:inverse`.
+Because `resultedIn` has two possible inverses, links are created from the side whose type is
+unambiguous: a hazard is `foundDuring` an inspection item (the inspection gets `resultedIn` with
+`itemId`). The S4 expected change set and the HAZ-0007 seed link follow this.
+**Consequences.** No server writes another module's records. The failed-item workflow rule can see
+an inspection item's hazard through `itemId`.
+
+## D-017 · Published schemas are create-payload schemas — 2026-10-21
+
+**Decision.** `ehs://{server}/schema/{recordType}` is the record schema without server-managed
+fields (id, server, recordType, timestamps, createdBy, history, links, evidence), with `status`
+defaulted to the module's initial status, and child items in input form: corrective actions,
+findings, action items and notes may omit ids, timestamps and default statuses, and corrective
+actions may give `dueInDays` instead of `dueDate`. The server fills these on create and on
+`append`, then validates the whole record (schema, then references to sites, areas, assets, people,
+roles, contractors and hazard categories).
+**Consequences.** The drafter fills exactly what the schema asks for. Workflow rules can use
+relative due dates.
+
+## D-018 · Tool argument schemas keep payloads and patch values free-form — 2026-10-21
+
+**Context.** MCP Inspector's strict mode warns that `create_record.payload` and patch `value`
+accept any value.
+**Decision.** Keep them free-form in the tool input schema. The contract for a payload is the
+published record schema, checked by the server and by `validate_record`; Zod's `z.json()` would
+render as recursive `$defs`, which is less portable than the warning.
+**Consequences.** Four strict-mode warnings across three tools; no errors.
+
+## D-019 · Policy file and approval semantics — 2026-10-21
+
+**Decision.** `data/policy.json` holds role → tool patterns (`*`, `server.*`, `*.tool`) and ordered
+autonomy rules matched on action type, server, record type and whether the target is existing or
+new; `defaultAutonomy` is `approve`. Attach is `auto`; creating an incident and everything else is
+`approve`. The executor re-checks policy for every action: `blocked` fails, `approve` runs only
+when the action's status is `approved`, `auto` runs either way. Actions awaiting approval are
+skipped, and so are their dependents; dependents of a failed action fail. Re-running the returned
+change set retries only what did not execute.
+**Consequences.** The planner's autonomy label is advisory; the gateway enforces.
+
+## D-020 · Gateway events and the console's change feed are separate — 2026-10-21
+
+**Decision.** The gateway emits `record.created / updated / linked` for its own writes (not for
+idempotent replays); workflows subscribe to these. The EHS console is the mock systems' own UI: it
+reads the store directly and listens to the store's change feed over SSE
+(`/api/console/events`), so it also updates when an external MCP client writes through the HTTP
+route.
+**Consequences.** Writes made directly over HTTP or stdio do not trigger workflows; agent and
+workflow writes do.
+
+## D-021 · `tsx` for scripts — 2026-10-21
+
+**Decision.** Added `tsx` (dev) to run `scripts/*.ts` with the project's `@/` path aliases on
+Node 20+ (`npm run seed`, `npm run mcp`, later `index` and `eval`).
+
+## D-022 · `search_records` builds a MiniSearch index per call — 2026-10-21
+
+**Decision.** Each call filters the server's records by the structured filters, then ranks them
+with a MiniSearch index (prefix + fuzzy, title and asset tags boosted) built for that call.
+**Consequences.** Always consistent with the store, cheap at demo scale. The cross-server records
+index with embeddings (Phase 4) lives in `src/rag` and is separate.
+
+## D-023 · Audit log is in memory — 2026-10-21
+
+**Decision.** The audit log keeps the last 5,000 gateway calls in memory and is cleared by "Reset
+demo". It is not written to `.data/`.
+**Consequences.** Restarting the app clears the audit log but not the records. Persisting it is a
+small change if needed.
