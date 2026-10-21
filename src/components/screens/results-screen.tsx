@@ -3,8 +3,19 @@
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
-import { ArrowLeft, CheckCircle2, CircleAlert, CircleSlash, ExternalLink } from "lucide-react";
-import type { EhsRecord } from "@/domain";
+import { ArrowLeft, CheckCircle2, CircleAlert, CircleSlash, ExternalLink, Zap } from "lucide-react";
+import type {
+  EhsRecord,
+  WorkflowNotification,
+  WorkflowRunEntry,
+  WorkflowSuggestion,
+} from "@/domain";
+
+interface WorkflowActivity {
+  runs: WorkflowRunEntry[];
+  notifications: WorkflowNotification[];
+  suggestions: WorkflowSuggestion[];
+}
 import { useRun } from "@/capture/hooks";
 import { Button } from "@/components/ui/button";
 import { refLabel } from "@/components/review/action-card";
@@ -24,6 +35,18 @@ export function ResultsScreen() {
   const id = useSearchParams().get("cs");
   const run = useRun(id);
   const [records, setRecords] = useState<EhsRecord[] | null>(null);
+  const [activity, setActivity] = useState<WorkflowActivity | null>(null);
+  useEffect(() => {
+    if (!id) return;
+    let cancelled = false;
+    fetch(`/api/platform?changeSet=${encodeURIComponent(id)}`, { cache: "no-store" })
+      .then((r) => r.json() as Promise<WorkflowActivity>)
+      .then((a) => !cancelled && setActivity(a))
+      .catch(() => {});
+    return () => {
+      cancelled = true;
+    };
+  }, [id, run?.results?.length]);
   const touchedIds = [
     ...new Set(
       (run?.changeSet.actions ?? [])
@@ -98,6 +121,49 @@ export function ResultsScreen() {
               }
             />
           )
+        )}
+      </section>
+
+      <section aria-labelledby="wf-title" className="space-y-2">
+        <h2 id="wf-title" className="text-lg font-semibold">
+          Workflows
+        </h2>
+        {!activity ? (
+          <p className="text-muted-foreground">Loading…</p>
+        ) : activity.runs.filter((r) => r.fired).length === 0 ? (
+          <p className="text-muted-foreground">No workflow rule acted on these records.</p>
+        ) : (
+          <ul className="space-y-2">
+            {activity.runs
+              .filter((r) => r.fired)
+              .map((r) => (
+                <li key={r.id} className="bg-card rounded-xl border p-3 text-sm">
+                  <p className="flex items-center gap-1.5 font-medium">
+                    <Zap className="size-4 text-amber-600" aria-hidden />
+                    {r.ruleName}
+                  </p>
+                  <p className="text-muted-foreground">
+                    On {r.recordId}:{" "}
+                    {r.actions
+                      .filter((a) => a.ok)
+                      .map(
+                        (a) =>
+                          `${a.type.replace("_", " ")}${a.recordId ? ` ${a.recordId}` : ""}${a.detail ? ` (${a.detail})` : ""}`,
+                      )
+                      .join("; ")}
+                  </p>
+                </li>
+              ))}
+          </ul>
+        )}
+        {activity && (activity.suggestions.length > 0 || activity.notifications.length > 0) && (
+          <Link
+            href="/platform?tab=activity"
+            className="inline-flex min-h-11 items-center text-sm font-medium underline-offset-4 hover:underline"
+          >
+            {activity.suggestions.length} suggestion(s) and {activity.notifications.length}{" "}
+            notification(s) in the activity feed →
+          </Link>
         )}
       </section>
 

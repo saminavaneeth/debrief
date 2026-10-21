@@ -7,8 +7,12 @@ import {
   loadPolicy,
   loadSeedRecords,
   loadTaxonomy,
+  loadWorkflowRules,
 } from "@/lib/seed";
 import { type Clock, systemClock } from "@/lib/time";
+import { WorkflowEngine } from "@/workflows/engine";
+import { WorkflowFeed } from "@/workflows/feed";
+import type { RuleProposal } from "@/workflows/proposals";
 import {
   AuditLog,
   ConnectionPool,
@@ -34,6 +38,12 @@ export interface Runtime {
   gateway: Gateway;
   events: EventBus;
   audit: AuditLog;
+  clock: Clock;
+  policy: Policy;
+  workflows: WorkflowEngine;
+  feed: WorkflowFeed;
+  /** Rules the agent proposed from patterns, waiting for an admin. */
+  proposals: RuleProposal[];
 }
 
 /** `DEBRIEF_SNAPSHOT` overrides the snapshot file (end-to-end tests use their own). */
@@ -64,17 +74,35 @@ export function createRuntime(options: RuntimeOptions = {}): Runtime {
   const discovery = new Discovery(registry, pool);
   const events = new EventBus();
   const audit = new AuditLog();
+  const policy = new Policy(loadPolicy());
   const gateway = new Gateway({
     registry,
     pool,
     discovery,
-    policy: new Policy(loadPolicy()),
+    policy,
     audit,
     events,
     clock,
     utcOffset: org.utcOffset,
   });
-  return { store, org, serverDeps, registry, pool, gateway, events, audit };
+  const feed = new WorkflowFeed();
+  const workflows = new WorkflowEngine({ gateway, org, clock, feed }, loadWorkflowRules());
+  workflows.attach(events);
+  return {
+    store,
+    org,
+    serverDeps,
+    registry,
+    pool,
+    gateway,
+    events,
+    audit,
+    clock,
+    policy,
+    workflows,
+    feed,
+    proposals: [],
+  };
 }
 
 const globalForRuntime = globalThis as unknown as { __debriefRuntime?: Runtime };
@@ -84,9 +112,17 @@ export function getRuntime(): Runtime {
   return globalForRuntime.__debriefRuntime;
 }
 
-/** "Reset demo": seed records back, audit log and event history cleared. */
+/**
+ * "Reset demo": seed records back; audit log, events, workflow feed and proposals cleared;
+ * servers, policy and rules back to their configuration.
+ */
 export async function resetDemo(runtime = getRuntime()): Promise<void> {
   await runtime.store.reset();
   runtime.audit.clear();
   runtime.events.clearHistory();
+  runtime.feed.clear();
+  runtime.workflows.reset();
+  runtime.registry.reset();
+  runtime.policy.reset();
+  runtime.proposals.splice(0);
 }

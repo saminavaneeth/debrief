@@ -10,7 +10,15 @@ function matches(pattern: string, server: string, tool: string): boolean {
 
 /** Role → tool permissions and per-action autonomy levels. */
 export class Policy {
-  constructor(private config: PolicyConfig) {}
+  private readonly initial: PolicyConfig;
+
+  constructor(private config: PolicyConfig) {
+    this.initial = structuredClone(config);
+  }
+
+  reset() {
+    this.config = structuredClone(this.initial);
+  }
 
   get rules(): PolicyConfig {
     return structuredClone(this.config);

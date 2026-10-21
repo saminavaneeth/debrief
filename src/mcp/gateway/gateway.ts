@@ -417,6 +417,15 @@ export class Gateway {
     ctx: Omit<CallContext, "changeSetId" | "actionId">,
     options: { artifacts?: Record<string, ArtifactInfo> } = {},
   ): Promise<ExecutionReport> {
+    // Record events are delivered (to workflows) once the whole change set has been applied.
+    return this.deps.events.batch(() => this.runChangeSet(changeSet, ctx, options));
+  }
+
+  private async runChangeSet(
+    changeSet: ChangeSet,
+    ctx: Omit<CallContext, "changeSetId" | "actionId">,
+    options: { artifacts?: Record<string, ArtifactInfo> },
+  ): Promise<ExecutionReport> {
     const cs = structuredClone(changeSet);
     const ordered = orderActions(cs.actions);
     const results = new Map<string, ActionResult>();

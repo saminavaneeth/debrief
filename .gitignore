@@ -49,3 +49,6 @@ next-env.d.ts
 
 # vendored at install time (scripts/vendor-assets.mjs)
 /public/vendor/
+
+# eval output
+/evals/results/*.json

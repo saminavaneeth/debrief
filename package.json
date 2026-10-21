@@ -17,7 +17,8 @@
     "demo-assets": "tsx scripts/generate-demo-assets.ts",
     "dev:https": "next dev --experimental-https --hostname 0.0.0.0",
     "test:e2e": "playwright test",
-    "postinstall": "node scripts/vendor-assets.mjs"
+    "postinstall": "node scripts/vendor-assets.mjs",
+    "eval": "tsx evals/run.ts"
   },
   "dependencies": {
     "@modelcontextprotocol/sdk": "^1.32.1",

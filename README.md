@@ -35,6 +35,7 @@ npm run dev        # http://localhost:3000
 | `npm run format`          | Prettier                                                            |
 | `npm run seed`            | Rebuild `.data/store.json` from `data/seed` (same as Reset demo)    |
 | `npm run mcp -- <server>` | Run one mock EHS server over stdio                                  |
+| `npm run eval`            | Score the demo scenarios and variants; writes `evals/results/`      |
 
 ## Capture app
 
@@ -67,6 +68,20 @@ and a graph of the linked records; each record opens in the EHS console.
 
 Your own photos, paper forms and PDFs are read on the device (tesseract.js OCR, pdf.js text)
 before processing. The OCR and PDF assets are copied into `public/vendor/` by `npm install`.
+
+## Platform
+
+[http://localhost:3000/platform](http://localhost:3000/platform) is the admin view:
+
+- **Systems** — connected MCP servers and their discovered tools. Connect `training` and the next
+  forklift incident proposes a training assignment.
+- **Workflows** — the JSON rules in `data/workflows/`, what each one did recently, and rules the
+  agent proposes from patterns in the records (**Find patterns**).
+- **Activity** — notifications and suggestion cards from rules (also behind the header bell).
+- **Policy** — autonomy level (auto / approve / blocked) per action type.
+- **Audit** — every gateway call by the agent, a workflow or a person.
+- **Runs** — run traces of past processing runs on this device.
+- **Evals** — the latest eval report, and a button to run it again.
 
 ## Mock EHS systems
 

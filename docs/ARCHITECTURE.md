@@ -43,18 +43,18 @@ same interface.
 
 ## 2. Components
 
-| Component                      | Location                                                 | Responsibility                                                                       |
-| ------------------------------ | -------------------------------------------------------- | ------------------------------------------------------------------------------------ |
-| Capture app                    | `src/app/(app)`, `src/capture`                           | Capture artifacts offline, group into scenarios, review and approve change sets      |
-| Domain                         | `src/domain`                                             | Types and Zod schemas shared by every layer                                          |
-| Ingestion                      | `src/agents/*` (perception methods)                      | Turn each artifact into `Evidence[]`                                                 |
-| Orchestrator                   | `src/agents/orchestrator`                                | Route, match, draft, find gaps, plan a `ChangeSet`                                   |
-| RAG                            | `src/rag`                                                | Hybrid search over records and knowledge                                             |
-| Gateway                        | `src/mcp/gateway`                                        | The only path for writes: policy, validation, idempotency, audit, events             |
-| Mock EHS servers               | `src/mcp/servers`                                        | One MCP server per module over a shared store                                        |
-| Store                          | `src/mcp/store`                                          | Repository interface; `MemoryStore` seeded from `data/seed`, snapshotted to `.data/` |
-| Workflow engine                | `src/workflows`                                          | Evaluate JSON rules on record events; act through the gateway                        |
-| Console / Platform / Presenter | `src/app/console`, `src/app/platform`, `src/app/present` | Inspect the mock systems and the platform                                            |
+| Component                      | Location                                                       | Responsibility                                                                       |
+| ------------------------------ | -------------------------------------------------------------- | ------------------------------------------------------------------------------------ |
+| Capture app                    | `src/app/(app)`, `src/capture`                                 | Capture artifacts offline, group into scenarios, review and approve change sets      |
+| Domain                         | `src/domain`                                                   | Types and Zod schemas shared by every layer                                          |
+| Ingestion                      | `src/agents/*` (perception methods)                            | Turn each artifact into `Evidence[]`                                                 |
+| Orchestrator                   | `src/agents/orchestrator`                                      | Route, match, draft, find gaps, plan a `ChangeSet`                                   |
+| RAG                            | `src/rag`                                                      | Hybrid search over records and knowledge                                             |
+| Gateway                        | `src/mcp/gateway`                                              | The only path for writes: policy, validation, idempotency, audit, events             |
+| Mock EHS servers               | `src/mcp/servers`                                              | One MCP server per module over a shared store                                        |
+| Store                          | `src/mcp/store`                                                | Repository interface; `MemoryStore` seeded from `data/seed`, snapshotted to `.data/` |
+| Workflow engine                | `src/workflows`                                                | Evaluate JSON rules on record events; act through the gateway                        |
+| Console / Platform / Presenter | `src/app/console`, `src/app/(app)/platform`, `src/app/present` | Inspect the mock systems and the platform                                            |
 
 **Boundary rule:** `src/agents/*` never imports from `src/mcp/servers/*`. The agent layer knows a
 module only through what the gateway discovers at runtime.
@@ -338,7 +338,55 @@ sequenceDiagram
 
 Rule actions go through the gateway like agent actions, so they are permissioned and audited.
 
-## 9. End-to-end sequence
+Engine semantics (`src/workflows/engine.ts`):
+
+- **Batched events.** While a change set is pushed, gateway events are held and delivered after
+  the last action, so rules see the finished state (an inspection item and the hazard the agent
+  linked to it arrive together). Writes made by rule handlers are delivered immediately.
+- **Fresh reads.** Conditions are evaluated on the record as read through the gateway at delivery
+  time, not on the event payload.
+- **Chains.** A rule's write can trigger further rules, up to a depth of 4. Every firing is tagged
+  with the change set that started the chain, so Results can show what each push caused.
+- **Idempotency.** Rule writes use `wf:<rule>:<record>:<item>:<action>:<origin>` keys; repeated
+  deliveries do not duplicate records.
+- **Suggestions** carry a key (for aggregates, `<rule>:<group value>`); an open suggestion with
+  the same key is not repeated.
+- **Feed.** Notifications (resolved to people by role), suggestion cards and an evaluation log
+  (fired or the reason it did not) live in `WorkflowFeed` and appear on the Platform screen and
+  the header bell.
+
+**Rule proposals** (`src/workflows/proposals.ts`) scan the last 60 days of records for patterns:
+three or more hazards in one category, or one asset in two or more record types on different
+days. Each proposal is a complete, disabled rule with its rationale and the records behind it;
+an admin enables it from the Platform screen.
+
+## 9. Platform and evals
+
+`/api/platform` (GET state, POST actions) backs the Platform screen: connected servers and their
+discovered tools, server toggles, autonomy levels per action type, workflow rules with their
+recent evaluations, proposals, the notification and suggestion feed, the gateway audit log, and
+the latest eval report. Run traces are read from the device (IndexedDB).
+
+The eval runner (`src/evals/run-evals.ts`, `npm run eval`) runs each scenario and paraphrase
+variant on a fresh in-memory runtime: process → compare with the expected change set → approve
+all → push → check expected workflow outcomes. Metrics:
+
+| Metric                    | Measures                                                         |
+| ------------------------- | ---------------------------------------------------------------- |
+| Routing accuracy          | Modules and record types touched match exactly                   |
+| Action precision / recall | Create / update / link / attach actions and their target records |
+| Field accuracy            | Expected field values (normalized)                               |
+| Unsupported fields        | Drafted values without evidence or schema default (target 0)     |
+| Gap precision / recall    | Questions asked only, and always, for missing required values    |
+| Citation recall           | Expected SOP and regulation citations present                    |
+| Sort precision / recall   | Inbox sort suggestions                                           |
+| Duplicate records         | Forbidden duplicate creates (target 0)                           |
+| Workflow outcomes         | Expected rules fired or did not fire                             |
+| Push success              | Approved actions executed                                        |
+
+Reports are written to `evals/results/<timestamp>.json` and `latest.json` (not committed).
+
+## 10. End-to-end sequence
 
 ```mermaid
 sequenceDiagram
@@ -366,15 +414,18 @@ sequenceDiagram
   App-->>U: Results: records, link graph, workflows fired
 ```
 
-## 10. Adding a module
+## 11. Adding a module
 
 1. Implement a server factory with the uniform tools and resources.
 2. Publish a manifest with routing hints and a schema per record type.
 3. Register it in `mcp.config.json` (or enable it on the Platform screen).
 
-The router, matcher and drafter pick it up from discovery on the next run.
+The router, matcher and drafter pick it up from discovery on the next run. Example: enabling
+`training` makes the next forklift incident propose a linked training assignment (course from
+the manifest's drafting hints, due date from the schema's `trainingDue` fill rule, assignee as a
+gap question) with no change to the orchestrator.
 
-## 11. Data and fixtures layout
+## 12. Data and fixtures layout
 
 | Path                                    | Contents                                                 | Validated by        |
 | --------------------------------------- | -------------------------------------------------------- | ------------------- |

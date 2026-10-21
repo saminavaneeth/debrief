@@ -534,6 +534,7 @@ export const TrainingAssignment = RecordBase.extend({
     meta({
       description: "Complete by.",
       "x-gapQuestion": "When should the training be completed?",
+      "x-fill": { kind: "rule", rule: "trainingDue" },
     }),
   ),
   reason: z

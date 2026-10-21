@@ -5,8 +5,13 @@ export class Registry {
   private entries: Map<ServerId, RegistryEntry>;
   private listeners = new Set<(id: ServerId, enabled: boolean) => void>();
 
-  constructor(config: McpConfig) {
+  constructor(private readonly config: McpConfig) {
     this.entries = new Map(config.servers.map((s) => [s.id, structuredClone(s)]));
+  }
+
+  /** Back to the enabled flags in mcp.config.json. */
+  reset(): void {
+    for (const s of this.config.servers) this.setEnabled(s.id, s.enabled);
   }
 
   list(): RegistryEntry[] {

@@ -1,43 +1,7 @@
 import type { GapQuestion } from "@/domain";
+import { holds } from "@/lib/conditions";
 import type { DraftRecord, GapSeed, ScenarioContext } from "../types";
 import { enumOf, type JsonSchema } from "./drafter";
-
-function holds(
-  cond: { field: string; op: string; value?: unknown },
-  payload: Record<string, unknown>,
-): boolean {
-  const v = payload[cond.field];
-  switch (cond.op) {
-    case "eq":
-      return v === cond.value;
-    case "neq":
-      return v !== cond.value;
-    case "in":
-      return Array.isArray(cond.value) && cond.value.includes(v);
-    case "notIn":
-      return Array.isArray(cond.value) && !cond.value.includes(v);
-    case "exists":
-      return v !== undefined && v !== null;
-    case "notExists":
-      return v === undefined || v === null;
-    case "notEmpty":
-      return Array.isArray(v) ? v.length > 0 : v !== undefined && v !== null && v !== "";
-    case "gt":
-      return Number(v) > Number(cond.value);
-    case "gte":
-      return Number(v) >= Number(cond.value);
-    case "lt":
-      return Number(v) < Number(cond.value);
-    case "lte":
-      return Number(v) <= Number(cond.value);
-    case "contains":
-      return Array.isArray(v)
-        ? v.includes(cond.value)
-        : String(v ?? "").includes(String(cond.value));
-    default:
-      return false;
-  }
-}
 
 const isPersonField = (p: JsonSchema) =>
   [p.pattern, p.items?.pattern, ...(p.anyOf ?? []).map((a) => a.pattern)].some((x) =>

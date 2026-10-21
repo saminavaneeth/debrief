@@ -107,3 +107,54 @@ describe("pushing the demo day", () => {
     expect(s6.map((r) => r.assetIds)).toEqual([["V-22"]]);
   });
 });
+
+describe("plugging in a module", () => {
+  it("enabling the training server makes the next near miss propose a training assignment", async () => {
+    const s1 = fixtures.find((f) => f.id === "S1")!;
+    const env = createAgentEnv();
+    const before = await runFixture(s1, undefined, env);
+    expect(before.changeSet.actions.some((a) => "server" in a && a.server === "training")).toBe(
+      false,
+    );
+
+    env.runtime.registry.setEnabled("training", true);
+    for (const variant of [undefined, "S1-v2", "S1-v3"]) {
+      const { changeSet } = await runFixture(s1, variant, env);
+      const training = changeSet.actions.find(
+        (a) => a.type === "create" && a.recordType === "training_assignment",
+      );
+      expect(training, variant).toBeDefined();
+      if (training?.type !== "create") throw new Error("expected a create");
+      expect(training.payload).toMatchObject({
+        course: "Forklift operator refresher (29 CFR 1910.178(l))",
+        dueDate: "2026-11-04",
+      });
+      const incident = changeSet.actions.find(
+        (a) => a.type === "create" && a.recordType === "incident",
+      )!;
+      expect(changeSet.actions).toContainEqual(
+        expect.objectContaining({
+          type: "link",
+          from: { actionId: incident.id },
+          to: { actionId: training.id },
+        }),
+      );
+      expect(changeSet.gaps.map((g) => `${g.actionId}:${g.fieldPath}`)).toContain(
+        `${training.id}:assigneeIds`,
+      );
+    }
+
+    // Other scenarios are not about training.
+    for (const id of ["S2", "S3", "S4", "S5", "S6"]) {
+      const { changeSet } = await runFixture(
+        fixtures.find((f) => f.id === id)!,
+        undefined,
+        env,
+      );
+      expect(
+        changeSet.actions.some((a) => "server" in a && a.server === "training"),
+        id,
+      ).toBe(false);
+    }
+  });
+});

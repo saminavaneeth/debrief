@@ -53,6 +53,7 @@ export const FillDirective = z.discriminatedUnion("kind", [
       "injury",
       "recordability",
       "recordabilityBasis",
+      "trainingDue",
     ]),
   }),
   /** Sentences describing actions already taken. */

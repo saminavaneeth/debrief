@@ -453,6 +453,11 @@ function fillOne(
           const r = riskFromCategory(ctx, payload.category as string | undefined);
           return r && { value: r.value, support: ev(support.category?.evidenceIds ?? [], r.rule) };
         }
+        case "trainingDue":
+          return {
+            value: addDays(ctx.date, 14),
+            support: ev([], "standard 14-day completion window for assigned training"),
+          };
         case "severityFromCategory": {
           const category = (payload.category as string | undefined) ?? instance.categories[0];
           const r = severityFromCategory(ctx, category, evidence);

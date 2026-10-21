@@ -357,3 +357,53 @@ the gateway. Scenarios are processed oldest first, so record numbers follow the 
 Fields are edited inline only for free text and numbers; people, places and times change through
 gap questions or re-processing. Review cards are collapsed with a one-line summary.
 **Consequences.** A review survives reloads. Processing needs a connection; captures do not.
+
+## D-037 · Gateway events are delivered after a change set finishes — 2026-10-21
+
+**Decision.** During `executeChangeSet`, `record.*` events are queued (AsyncLocalStorage) and
+delivered once all actions have run. Writes made by event handlers are delivered immediately.
+**Consequences.** Rules see the complete result of a push. The failed-inspection-item rule sees
+the hazards the agent already linked, so it does not create duplicates.
+
+## D-038 · Workflow engine semantics — 2026-10-21
+
+**Decision.** Conditions are evaluated on a fresh read of the record through the gateway. Rule
+writes run as actor `workflow:<rule id>` with idempotency keys derived from rule, record, item,
+action and originating change set. Rules can chain to a depth of 4; each firing records the
+change set that started the chain. Suggestions with the same key (aggregates: rule + group value)
+are not repeated while one is open. Notifications are resolved from roles to people in the org.
+**Consequences.** Results can list the workflows a push caused; repeated events are harmless.
+
+## D-039 · Rule proposals are heuristic and disabled until enabled — 2026-10-21
+
+**Decision.** In demo mode the agent proposes rules from two patterns over the last 60 days: 3+
+hazards in one taxonomy category, and one asset appearing in 2+ record types on different days.
+A proposal is a complete rule, stored disabled, with its rationale and source records; an admin
+enables or dismisses it on the Platform screen.
+**Consequences.** No rule goes live without a person; an LLM provider can replace the heuristics
+behind the same proposal shape.
+
+## D-040 · Training plugs in through its manifest and schema only — 2026-10-21
+
+**Decision.** The training server's manifest carries the routing keywords and drafting hints; its
+schema's `dueDate` uses a new generic fill rule, `trainingDue` (+14 days). The assignee is a gap
+question. The orchestrator has no training-specific code.
+**Consequences.** Enabling `training` makes the next forklift incident propose a linked training
+assignment (unit and e2e tested); other scenarios are unaffected.
+
+## D-041 · Evals run the full pipeline and push — 2026-10-21
+
+**Decision.** `npm run eval` runs each scenario and paraphrase variant on a fresh in-memory
+runtime, compares with the expected change set, approves all, pushes, and checks expected
+workflow outcomes. Reports go to `evals/results/` and are not committed; the Platform screen shows
+`latest.json` and can rerun the suite.
+**Consequences.** The variants check robustness to wording; they were written alongside the rules,
+so they are not a held-out test set.
+
+## D-042 · Platform API — 2026-10-21
+
+**Decision.** One route, `/api/platform`: GET returns the full admin state (or a small summary for
+the header bell, or the workflow activity of one change set); POST takes a typed action (toggle a
+server or rule, set an autonomy level, scan or enable proposals, resolve suggestions, mark
+notifications read, run evals). Reset demo also restores server flags, policy and rules.
+**Consequences.** The Platform screen, the header bell and Results share one source of state.

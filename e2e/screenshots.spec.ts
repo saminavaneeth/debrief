@@ -72,3 +72,35 @@ test("agent screens", async ({ page, request }) => {
   await page.getByRole("img", { name: /Link graph/ }).waitFor();
   await page.screenshot({ path: `${out}/15-results.png`, fullPage: true });
 });
+
+test("platform screens", async ({ page, request }) => {
+  test.setTimeout(120_000);
+  const out = process.env.SCREENSHOTS_DIR ?? "test-results/screens";
+  page.on("dialog", (d) => void d.accept());
+  await request.post("/api/demo/reset");
+  await page.goto("/");
+  await page.getByRole("button", { name: "Menu" }).click();
+  await page.getByRole("menuitem", { name: "Load demo day" }).click();
+  await page.locator('a[href^="/scenario?id="]').first().waitFor();
+  await page.goto("/process?scenarios=SCN-S1,SCN-S2&run=1");
+  await page.waitForURL(/\/review\?cs=/, { timeout: 60_000 });
+  await page.getByRole("button", { name: "Approve all" }).click();
+  await page.getByRole("button", { name: /^Push \d+$/ }).click();
+  await page.waitForURL(/\/results\?cs=/, { timeout: 60_000 });
+  await page.getByRole("heading", { name: "Workflows" }).waitFor();
+  await page.screenshot({ path: `${out}/20-results-workflows.png`, fullPage: true });
+  await page.goto("/platform?tab=systems");
+  await page.getByRole("switch", { name: "Connect Training" }).waitFor();
+  await page.screenshot({ path: `${out}/21-systems.png`, fullPage: true });
+  await page.goto("/platform?tab=workflows");
+  await page.getByRole("button", { name: "Find patterns" }).click();
+  await page.getByText(/Flag new incidents involving FL-07/).waitFor();
+  await page.screenshot({ path: `${out}/22-workflows.png`, fullPage: true });
+  await page.goto("/platform?tab=activity");
+  await page.getByText("Schedule an audit of Dock 3", { exact: true }).waitFor();
+  await page.screenshot({ path: `${out}/23-activity.png`, fullPage: true });
+  await page.goto("/platform?tab=evals");
+  await page.getByRole("button", { name: "Run evals" }).click();
+  await page.getByText(/cases fully correct/).waitFor({ timeout: 60_000 });
+  await page.screenshot({ path: `${out}/24-evals.png`, fullPage: true });
+});

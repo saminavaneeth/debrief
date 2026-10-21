@@ -110,3 +110,58 @@ export const GatewayEvent = z.strictObject({
   record: z.record(z.string(), z.unknown()),
 });
 export type GatewayEvent = z.infer<typeof GatewayEvent>;
+
+/* ------------------------------------------------------------------ workflows */
+
+export const WorkflowNotification = z.strictObject({
+  id: z.string(),
+  at: IsoDateTime,
+  ruleId: z.string(),
+  ruleName: z.string(),
+  to: z.string(),
+  recipients: z.array(z.string()),
+  text: z.string(),
+  recordId: z.string(),
+  read: z.boolean(),
+  changeSetId: z.string().optional(),
+});
+export type WorkflowNotification = z.infer<typeof WorkflowNotification>;
+
+export const WorkflowSuggestion = z.strictObject({
+  id: z.string(),
+  at: IsoDateTime,
+  ruleId: z.string(),
+  ruleName: z.string(),
+  title: z.string(),
+  text: z.string(),
+  recordIds: z.array(z.string()),
+  proposal: z.record(z.string(), z.unknown()).optional(),
+  status: z.enum(["open", "accepted", "dismissed"]),
+  /** Same key = same suggestion; it is not repeated while open. */
+  key: z.string(),
+  changeSetId: z.string().optional(),
+});
+export type WorkflowSuggestion = z.infer<typeof WorkflowSuggestion>;
+
+export const WorkflowRunEntry = z.strictObject({
+  id: z.string(),
+  at: IsoDateTime,
+  ruleId: z.string(),
+  ruleName: z.string(),
+  event: z.string(),
+  recordId: z.string(),
+  /** The change set whose push (directly or through other rules) triggered this evaluation. */
+  changeSetId: z.string().optional(),
+  fired: z.boolean(),
+  reason: z.string(),
+  actions: z.array(
+    z.strictObject({
+      type: z.string(),
+      ok: z.boolean(),
+      recordId: z.string().optional(),
+      detail: z.string().optional(),
+      error: z.string().optional(),
+    }),
+  ),
+});
+export type WorkflowRunEntry = z.infer<typeof WorkflowRunEntry>;

@@ -25,6 +25,10 @@ export const trainingModule: ModuleDefinition = {
             "unsafe driving",
             "re-evaluate",
             "not trained",
+            "backing",
+            "reversing",
+            "in reverse",
+            "driver",
           ],
           exampleSituations: [
             "Forklift operator involved in a near miss needs refresher training",

@@ -483,9 +483,9 @@ users; unsupported-field rate (target 0).
   console with correct links.
 
 ### Phase 5 — Platform capabilities
-- [ ] Workflow engine + four starter rules + rule admin UI + notifications feed
-- [ ] Platform screen: servers/tools, enable `training`, autonomy policy, audit log, run traces
-- [ ] Evals runner + paraphrase variants + results view
+- [x] Workflow engine + four starter rules + rule admin UI + notifications feed
+- [x] Platform screen: servers/tools, enable `training`, autonomy policy, audit log, run traces
+- [x] Evals runner + paraphrase variants + results view
 - **Done when:** enabling `training` makes the next incident propose a training assignment with no
   code change; `npm run eval` reports all metrics.
 
@@ -615,3 +615,16 @@ npm run mcp -- incidents   # run one mock server over stdio (MCP clients: npm ru
   Workflow expectations in `fixtures/expected` are not checked yet (Phase 5).
   **Next:** Phase 5 — workflow engine + four rules + notifications, Platform screen (servers,
   enable `training`, policy, audit log, run traces), `npm run eval` with metrics.
+- **2026-10-21** — Phase 5 done. Workflow engine (`src/workflows/`): four starter rules from
+  `data/workflows/`, fresh-read conditions, aggregate/forEach/unlessLinked, rule writes through
+  the gateway as `workflow:<id>`, chain depth 4 tagged with the originating change set,
+  suggestion dedupe, notification/suggestion/evaluation feed. Gateway events are batched until a
+  change set finishes (so rule 2 never duplicates S4's hazards). Heuristic rule proposals
+  (category and asset patterns, disabled until enabled). Training plugs in with no orchestrator
+  change (manifest keywords + generic `trainingDue` fill rule). `/api/platform` + Platform screen
+  (Systems, Workflows, Activity, Policy, Audit, Runs, Evals), header notification bell, Results
+  "Workflows" section. `npm run eval`: 18/18 cases, every metric 100%, 0 unsupported fields, 0
+  duplicates (variants are a robustness check, not a held-out set). 118 unit tests, 9 e2e.
+  Decisions D-037…D-042.
+  **Next:** Phase 6 — presenter view, README screenshots + `docs/DEMO_SCRIPT.md`, accessibility
+  and Lighthouse PWA pass, empty/error states, deploy (single long-running Node process).

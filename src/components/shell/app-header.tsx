@@ -2,6 +2,7 @@ import Link from "next/link";
 import { OfflineBanner } from "@/components/capture/offline-banner";
 import { AppMenu } from "@/components/shell/app-menu";
 import { DemoEngineBadge } from "@/components/shell/demo-engine-badge";
+import { NotificationBell } from "@/components/shell/notification-bell";
 
 export function AppHeader() {
   return (
@@ -12,6 +13,7 @@ export function AppHeader() {
         </Link>
         <div className="flex items-center gap-1">
           <DemoEngineBadge />
+          <NotificationBell />
           <AppMenu />
         </div>
       </div>
