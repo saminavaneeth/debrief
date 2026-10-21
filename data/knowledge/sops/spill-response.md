@@ -27,5 +27,7 @@ Valve and flange leaks at the tank farm are checked against the secondary contai
 
 ## Corrective action guidance
 
-- Leaking valve or fitting: place drip pan and absorbent now; maintenance repair or replace within 3 days.
-- Sheen in containment: clean the same day; inspect the source weekly until repaired.
+Each line: situation → action | owner | due | keywords.
+
+- Leaking valve or fitting → Repair or replace the leaking valve; keep a drip pan and absorbent under it until then | owner: role:maintenance_tech | due: 3 days | keywords: valve, leak, leaking, dripping, drip, fitting, hydraulic
+- Sheen or oil in containment → Clean the containment the same day and inspect the source weekly until repaired | owner: role:maintenance_tech | due: 0 days | keywords: sheen, oil, containment, spill

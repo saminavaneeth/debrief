@@ -1,6 +1,46 @@
 import { z } from "zod";
 import { LinkType, RecordType, ServerId } from "./common";
 
+/** How new evidence changes a matched record. */
+export const UpdateMode = z.discriminatedUnion("mode", [
+  /** Change fields that carry an `x-update` directive. */
+  z.strictObject({ mode: z.literal("patch") }),
+  /** Add the evidence as a new child item (e.g. an audit finding), drafted from the item schema. */
+  z.strictObject({ mode: z.literal("append_child"), collection: z.string() }),
+  /**
+   * Fill in a checklist from a completed form: each form row is matched to a child item by
+   * `itemKey`; `set` gives values for the record (`$captureTime`, `$aggregate` = fail if any
+   * item fails, else pass).
+   */
+  z.strictObject({
+    mode: z.literal("complete_checklist"),
+    collection: z.string(),
+    itemKey: z.string(),
+    responseField: z.string(),
+    notesField: z.string(),
+    set: z.record(z.string(), z.string()),
+  }),
+]);
+export type UpdateMode = z.infer<typeof UpdateMode>;
+
+export const DraftingHints = z.strictObject({
+  /**
+   * Headline template. `{field}` inserts a drafted value (picklist label when there is one),
+   * `{primary}` the key finding or statement, `{area}` the area name.
+   */
+  title: z.string(),
+  /** Title template for a child item appended in `append_child` mode. */
+  childTitle: z.string().optional(),
+});
+
+export const LinkingHints = z.strictObject({
+  /**
+   * Records of this type contain other findings (inspections, audits): other records in the same
+   * change set link to them with `foundDuring`.
+   */
+  container: z.boolean().default(false),
+});
+
 /** How the matcher decides whether new evidence updates an existing record of this type. */
 export const MatchingHints = z.strictObject({
   /**
@@ -15,6 +55,7 @@ export const MatchingHints = z.strictObject({
   /** Structured fields that raise the match score when they agree. */
   signals: z.array(z.string()).default([]),
   windowHours: z.number().int().positive().optional(),
+  update: UpdateMode.default({ mode: "patch" }),
 });
 
 export const RoutingHints = z.strictObject({
@@ -34,6 +75,8 @@ export const ManifestRecordType = z.strictObject({
   matching: MatchingHints,
   /** Array fields holding child items, e.g. inspection `items`. */
   childCollections: z.array(z.string()).default([]),
+  drafting: DraftingHints,
+  linking: LinkingHints.default({ container: false }),
 });
 
 /** Published at `ehs://{server}/manifest`. Everything the orchestrator knows about a module. */

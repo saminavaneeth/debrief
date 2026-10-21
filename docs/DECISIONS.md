@@ -275,3 +275,85 @@ work after accepting the certificate warning, but browsers do not register servi
 certificate error, so offline testing on a phone uses either USB port forwarding
 (`chrome://inspect` → localhost) or a certificate the phone trusts (mkcert with the LAN IP, passed
 via `--experimental-https-key/-cert`).
+
+## D-030 · Module knowledge lives in schema directives and manifests — 2026-10-21
+
+**Context.** The orchestrator must have zero module-specific code, yet it has to know that a
+near miss needs an operator, that a hazard update may raise its risk, or that an audit gains a
+finding.
+**Decision.** Each record schema field can carry `x-fill` (how to fill it on create) and
+`x-update` (how new evidence changes it), from a fixed vocabulary in `src/domain/drafting.ts`:
+title, statements, site, area, assets, contractor, capturer, eventTime, enumKeywords, flag,
+person, people, category, rule, actions, context, guidance, regulation, documentField, duration,
+roster, actionItems; and enumKeywords, raiseIfLinked, note for updates. Each manifest record type
+declares its title template, its update mode (`patch`, `append_child`, `complete_checklist`) and
+whether it is a link container (`foundDuring` target). The drafter interprets these; named EHS
+rules (severity, injury, recordability, risk) live in `src/agents/orchestrator/rules.ts` and know
+nothing about modules.
+**Consequences.** A new module brings its own drafting behaviour through its schema and manifest.
+Tests check that directives survive into the published JSON Schemas.
+
+## D-031 · Routing, instances and matching — 2026-10-21
+
+**Decision.** A record type is proposed when at least two distinct routing keywords from its
+manifest match non-negated evidence. Condition records (hazards, open audits) get one instance per
+subject asset; when there is a single subject (or the scenario mentions exactly one asset), the
+whole scenario is in scope. Events and scheduled records get one instance per scenario. Matching
+searches each server's open records and scores structured signals (same asset 0.55, area 0.2,
+category 0.2, contractor 0.45, keyword rank 0.15; scheduled date 0.4 + share of checklist assets
+0.5; events must fall inside the manifest's time window). Score ≥ 0.6 updates, otherwise creates.
+Open condition records in the same area and category that the scenario does not already touch are
+proposed as links only (S3 → HAZ-0011).
+**Consequences.** Find-and-update and duplicate prevention come from structured signals, so
+paraphrased transcripts still match. Thresholds are constants in the router and matcher.
+
+## D-032 · Planning: hubs, containers and attachments — 2026-10-21
+
+**Decision.** If a container record (inspection, audit) is in the scenario, every other record
+links to it with `foundDuring`, naming the matching child item (`toItemId`). Otherwise the first
+new event record (incident, observation, meeting) is the hub and links `relatedTo` everything
+else and any related open records. Photos and videos attach to every record that cites them; a
+document attaches to the record that cites most of it. Creates, then updates, then links, then
+attachments; references to new records use `actionId`.
+**Consequences.** S1–S6 produce their expected links, including inspection item links that the
+failed-item workflow rule can see.
+
+## D-033 · Hybrid search without embeddings for now — 2026-10-21
+
+**Context.** The brief lists optional MiniLM embeddings via `@huggingface/transformers`.
+**Decision (agreed with the user).** The records and knowledge indexes use MiniSearch (BM25,
+prefix and fuzzy) plus metadata filters, behind an `Embedder` interface and a `hybridScore` that
+already blends vector similarity when one is supplied. No model is downloaded.
+**Consequences.** Fully offline and deterministic. Adding embeddings is a new `Embedder`
+implementation.
+
+## D-034 · Knowledge guidance lines are structured — 2026-10-21
+
+**Decision.** Each SOP's "Corrective action guidance" section is a list of
+`situation → action | owner: … | due: N days | keywords: …` lines. The drafter proposes the
+best-matching line for the record's category plus any other line matching at least two of its
+keywords (max three), with a real due date and the line as citation. Regulation references come
+from the regulation section whose heading names a paragraph (e.g. 1926.501(b)(1)).
+**Consequences.** Corrective actions and requirement references are traceable to a specific line
+or paragraph.
+
+## D-035 · Perception for the user's own captures runs on the device — 2026-10-21
+
+**Decision (agreed with the user).** Photos and photographed forms are read with tesseract.js;
+PDFs with pdf.js (lines with three or more wide gaps become `a | b | c` table rows); videos give
+four keyframes (stored as blobs on the device); quick tags and captions become findings. Results
+are cached in IndexedDB and sent with the scenario. Worker, wasm cores, the `best_int` English
+model and the pdf.js worker are copied into `public/vendor/` by a `postinstall` script (not
+committed, served locally, no CDN).
+**Consequences.** Own captures produce evidence beyond transcripts and notes (tested end to end:
+a PDF checklist completes INS-0021; an OCR'd asset plate matches HAZ-0007).
+
+## D-036 · Processing, review and push flow — 2026-10-21
+
+**Decision.** `POST /api/agent/process` streams the run trace as SSE and returns the change set,
+evidence and cited knowledge titles; the client stores them as a run in IndexedDB, where review
+edits, gap answers and approvals are saved. `POST /api/agent/push` executes the change set through
+the gateway. Scenarios are processed oldest first, so record numbers follow the order of events.
+Fields are edited inline only for free text and numbers; people, places and times change through
+gap questions or re-processing. Review cards are collapsed with a one-line summary.
+**Consequences.** A review survives reloads. Processing needs a connection; captures do not.

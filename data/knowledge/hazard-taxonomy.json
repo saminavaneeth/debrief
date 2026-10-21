@@ -36,7 +36,12 @@
         "dock plate",
         "hose across",
         "no wet floor sign",
-        "spill on floor"
+        "spill on floor",
+        "fell",
+        "fall",
+        "floor was wet",
+        "pooled",
+        "water on the floor"
       ],
       "defaultRisk": "medium",
       "knowledgeDocIds": ["sop-wet-floor-housekeeping", "osha-1910-28"]
@@ -58,7 +63,9 @@
         "feet up",
         "ft up",
         "fall protection",
-        "mezzanine edge"
+        "mezzanine edge",
+        "edge",
+        "ft drop"
       ],
       "defaultRisk": "critical",
       "knowledgeDocIds": ["sop-fall-protection", "osha-1926-501", "osha-1910-28"]
@@ -77,7 +84,9 @@
         "heat exhaustion",
         "cooling",
         "fans",
-        "shade"
+        "shade",
+        "heat stress",
+        "heat illness"
       ],
       "defaultRisk": "high",
       "knowledgeDocIds": ["sop-heat-stress"]
@@ -96,7 +105,11 @@
         "blocked",
         "obstructed",
         "sprinkler",
-        "oily rags"
+        "oily rags",
+        "undercharged",
+        "no access",
+        "needle in red",
+        "pallets"
       ],
       "defaultRisk": "high",
       "knowledgeDocIds": ["sop-extinguisher-inspection", "osha-1910-157"]
@@ -116,7 +129,9 @@
         "spill",
         "diesel",
         "valve",
-        "containment"
+        "containment",
+        "hydraulic oil",
+        "hydraulic fluid"
       ],
       "defaultRisk": "medium",
       "knowledgeDocIds": ["sop-spill-response"]

@@ -10,3 +10,4 @@ export * from "./fixtures";
 export * from "./run-trace";
 export * from "./manifest";
 export * from "./platform";
+export * from "./drafting";

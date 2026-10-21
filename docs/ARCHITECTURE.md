@@ -148,49 +148,51 @@ app routes and their assets on install; see D-024.
 
 ```mermaid
 flowchart LR
-  A[Artifacts] --> P["Perception\ntranscribe · analyzeImage · analyzeVideo · extractDocument"]
-  P --> E[Evidence]
-  E --> R["Route\nscore evidence vs manifest routing hints"]
-  R --> M["Match\nrecords index + structured signals"]
-  M --> D["Draft\nfill module JSON Schema with provenance"]
-  D --> G["Find gaps\nrequired / requiredWhen fields with no support"]
-  G --> PL["Plan\norder actions, set autonomy, add links + attachments"]
-  PL --> CS[ChangeSet]
+  A[Artifacts + perception] --> P["Ingest\nEvidence with provenance"]
+  P --> R["Route\nmanifest keywords → instances"]
+  R --> M["Match\nsearch_records + structured signals"]
+  M --> D["Draft\nschema x-fill / x-update + rules + knowledge"]
+  D --> G["Gaps\nrequired / x-requiredWhen / unresolved names"]
+  G --> PL["Plan\norder, links, attachments, autonomy"]
+  PL --> CS[ChangeSet + sort suggestions]
 ```
 
-1. **Perception** produces `Evidence` from each artifact. Demo mode: fixtures for demo artifacts;
-   Web Speech transcripts, OCR (tesseract.js), PDF text (pdfjs) and quick tags for the user's own
-   captures.
-2. **Entity extraction** runs a gazetteer over sites, areas, assets, people and contractors (names
-   plus aliases from `data/seed/org.json`), and regexes for times, dates and asset tags.
-3. **Route** reads every enabled server's manifest (keywords, example situations, "use when" text)
-   and scores the scenario's evidence against them to choose record types. No module names are
-   hard-coded.
-4. **Match** searches the records index for each routed record type, combining text similarity
-   with structured signals: same asset, same area, open status, time window. Above threshold →
-   update or link; below → create.
-5. **Draft** fetches the record type's JSON Schema from its server and fills fields from evidence.
-   Every value carries evidence IDs, a schema default, or a named derivation rule. Classifications
-   look up the knowledge index and attach citations.
-6. **Find gaps** walks the schema: a field that is required, or whose `x-requiredWhen` conditions
-   hold, and has no support becomes a `GapQuestion` using the field's `x-gapQuestion` text.
-7. **Plan** orders actions by dependency (creates before links and attachments), assigns autonomy
-   from policy, and emits the `ChangeSet`.
+| Stage  | Code                                                     | What it does                                                                                                                                                                                                                                                                                         |
+| ------ | -------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Ingest | `src/agents/demo/perception.ts`                          | Transcripts and notes → one statement per sentence (with character spans) and entity mentions; image findings with boxes (video findings with frame time); OCR text; document `Label: value` fields, pipe tables and numbered rows; capture metadata (time, user, site, area, asset tag, quick tags) |
+| Route  | `orchestrator/router.ts`                                 | A record type is proposed when at least two distinct manifest keywords match non-negated evidence. Condition records get one instance per subject asset; events and scheduled records one per scenario                                                                                               |
+| Match  | `orchestrator/matcher.ts`                                | Searches the instance's server for open records and scores asset, area, category, contractor, schedule and time-window signals; 0.6 or more updates. Also finds related open records to link                                                                                                         |
+| Draft  | `orchestrator/drafter.ts`, `rules.ts`, `fill-helpers.ts` | Reads the module's JSON Schema from discovery and fills each field by its `x-fill` directive in dependency order; updates apply the manifest's mode (`patch` via `x-update`, `append_child`, `complete_checklist`). Every value carries evidence ids, a named rule, or a schema default              |
+| Gaps   | `orchestrator/gaps.ts`                                   | Required and `x-requiredWhen` fields with no value become questions from `x-gapQuestion`; unmatched roster names become person questions                                                                                                                                                             |
+| Plan   | `orchestrator/planner.ts`                                | Creates, updates, links (container → `foundDuring` with item id; otherwise event hub → `relatedTo`), attachments; autonomy from the gateway policy                                                                                                                                                   |
+| Sort   | `orchestrator/suggestions.ts`                            | Inbox captures about a processed scenario's asset → move suggestion; scenarios sharing an asset → merge suggestion                                                                                                                                                                                   |
 
-Each step appends to the **run trace**, streamed to the Process screen over Server-Sent Events.
+Language handling (`src/agents/nlp`): whole-word keyword matching with `*` wildcards and a
+three-word negation and deferral window ("no cut", "hasn't been fixed", "until it is replaced");
+a gazetteer over organization names and aliases plus asset-tag patterns (`FL-07`, `V22`); spoken
+and written times ("eight forty", "1:00 PM"), durations and relative dates ("by Friday").
+
+The pipeline (`orchestrator/pipeline.ts`) records every step and tool call in the run trace
+(with an optional per-step delay for the animated view) and returns the change set, the evidence
+and the titles of cited knowledge documents. `DemoProvider` implements `AgentProvider` with these
+modules; `createLlmProvider()` is the stub for a model-backed provider.
 
 ### Schema metadata the orchestrator reads
 
-Record schemas are Zod schemas in `src/domain/records` converted with `z.toJSONSchema`. Field
-metadata travels as JSON Schema extension keywords:
+| Keyword          | Meaning                                                                  |
+| ---------------- | ------------------------------------------------------------------------ |
+| `x-fill`         | How to fill the field on create (vocabulary in `src/domain/drafting.ts`) |
+| `x-update`       | How new evidence changes the field on a matched record                   |
+| `x-requiredWhen` | Conditions that make the field required                                  |
+| `x-gapQuestion`  | Question template when it is required but unsupported                    |
+| `x-picklist`     | Shared picklist used for labels                                          |
 
-| Keyword            | Meaning                                                                         |
-| ------------------ | ------------------------------------------------------------------------------- |
-| `description`      | Human description of the field                                                  |
-| `x-extractionHint` | Words or entities that usually fill it                                          |
-| `x-requiredWhen`   | Conditions (`{ field, op, value }`, all must hold) that make the field required |
-| `x-gapQuestion`    | Question template when it is required but unsupported                           |
-| `x-picklist`       | Name of a shared picklist resource                                              |
+### Perception sources
+
+Demo captures use their perception fixtures. The user's own captures are read on the device
+before processing (`src/capture/device-perception.ts`): tesseract.js OCR for photos and paper
+forms, pdf.js text for PDFs, four keyframes per video, and quick tags and captions as findings.
+The server receives the perception output, not the media files.
 
 ## 5. MCP contract
 
@@ -293,15 +295,17 @@ store's change feed over SSE, so it also reflects writes from external MCP clien
 
 ## 7. RAG
 
-Two hybrid indexes: BM25 keyword search (MiniSearch) + vector similarity (local MiniLM embeddings via
-`@huggingface/transformers`, optional) + metadata filters. When embeddings are unavailable, search
-falls back to BM25 + filters.
+Both indexes are MiniSearch (BM25 with prefix and fuzzy matching) plus metadata filters, behind
+an `Embedder` interface (`src/rag/embedder.ts`) so vector similarity can be blended in later.
 
-- **Records index** — every record across servers; re-indexed on each `record.*` event. Powers find
-  & update and duplicate prevention.
-- **Knowledge index** — SOPs and OSHA reference summaries (`data/knowledge/**/*.md`, frontmatter:
-  `id`, `title`, `kind`, `cfr`, `tags`, `categories`), the hazard taxonomy and checklist templates.
-  Chunks by `##` section so citations can name a section.
+- **Records index** (`src/rag/records-index.ts`) — every record on the enabled servers, read page
+  by page through `search_records` (the agent never reads a store) and rebuilt lazily after any
+  `record.*` event or server toggle. Used to find related open records. Candidate search for find
+  and update uses each server's own `search_records`.
+- **Knowledge index** (`src/rag/knowledge-index.ts`) — SOPs and regulation summaries chunked by
+  `##` section, structured corrective-action guidance lines, the hazard taxonomy and checklist
+  templates. Provides citations for categories, recordability and requirement references, and
+  the guidance behind drafted corrective actions.
 
 ## 8. Workflows
 

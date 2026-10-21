@@ -28,7 +28,9 @@ export function BottomTabs() {
               ? pathname === "/" ||
                 pathname.startsWith("/scenario") ||
                 pathname.startsWith("/inbox")
-              : pathname.startsWith(href);
+              : href === "/review"
+                ? ["/review", "/process", "/results"].some((p) => pathname.startsWith(p))
+                : pathname.startsWith(href);
           return (
             <li key={href}>
               <Link

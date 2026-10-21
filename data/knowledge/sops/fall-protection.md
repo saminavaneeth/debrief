@@ -29,6 +29,8 @@ Anyone who sees a person exposed to a fall without protection stops the work, ge
 
 ## Corrective action guidance
 
-- Unprotected edge: install guardrail or restrict access until protected.
-- Worker not tied off: stop work, brief the crew, verify anchors and equipment before restart.
-- Repeat contractor non-compliance: escalate to the project manager and review the contractor's plan.
+Each line: situation → action | owner | due | keywords.
+
+- Worker not tied off at an edge → Stop work, re-brief the crew on tie-off and verify anchors and harnesses before restart | owner: role:contractor_foreman | due: 1 day | keywords: not tied off, tie off, harness, lanyard, deck edge
+- Unprotected edge → Install guardrail or restrict access until the edge is protected | owner: role:site_manager | due: 3 days | keywords: open edge, guardrail, unprotected, no guardrail
+- Repeat contractor non-compliance → Escalate to the project manager and review the contractor fall protection plan | owner: role:site_manager | due: 7 days | keywords: again, repeat, contractor

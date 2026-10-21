@@ -49,13 +49,19 @@ export const CorrectiveActionInput = CorrectiveAction.partial({
 });
 const correctiveActionsInput = z.array(CorrectiveActionInput).default([]);
 
+/** Input form of a field that keeps the original field's metadata (x-fill, descriptions). */
+const keepMeta = <T extends z.ZodType>(input: T, original: z.ZodType): T => {
+  const m = z.globalRegistry.get(original);
+  return m ? (input.meta(m) as T) : input;
+};
+
 const CHILD_INPUTS: Record<string, z.ZodType> = {
   correctiveActions: correctiveActionsInput,
   notes: z.array(Note.partial({ at: true, by: true })).default([]),
   findings: z
     .array(
       AuditFinding.partial({ id: true, observedAt: true, status: true }).extend({
-        correctiveActions: correctiveActionsInput,
+        correctiveActions: keepMeta(correctiveActionsInput, AuditFinding.shape.correctiveActions),
       }),
     )
     .default([]),
@@ -77,7 +83,10 @@ export function createPayloadSchema(recordType: RecordType, initialStatus: strin
   const status = schema.shape.status as z.ZodEnum;
   const overrides: Record<string, z.ZodType> = { status: status.default(initialStatus as never) };
   for (const [key, input] of Object.entries(CHILD_INPUTS)) {
-    if (key in schema.shape) overrides[key] = input;
+    if (!(key in schema.shape)) continue;
+    // Keep the field's drafting metadata (x-fill, x-update, …) on its input form.
+    const fieldMeta = z.globalRegistry.get(schema.shape[key]);
+    overrides[key] = fieldMeta ? input.meta(fieldMeta) : input;
   }
   return schema.omit(mask).extend(overrides);
 }

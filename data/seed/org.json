@@ -111,7 +111,7 @@
       "name": "Forklift FL-07 (sit-down, electric)",
       "siteId": "plant-1",
       "areaId": "plant-1.dock-3",
-      "aliases": ["forklift 7", "truck 7", "lift 7", "seven"]
+      "aliases": ["forklift 7", "truck 7", "lift 7", "seven", "forklift seven", "truck seven"]
     },
     {
       "id": "FL-09",

@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { ChevronRight, Inbox, Mic, PlayCircle, Plus } from "lucide-react";
+import { ChevronRight, Inbox, Mic, PlayCircle, Plus, Sparkles } from "lucide-react";
 import { useActiveShift, useCaptureTarget, useScenarios, useShiftArtifacts } from "@/capture/hooks";
 import { personName, siteName } from "@/capture/reference";
 import { createScenario, loadDemoDay, setSetting, SETTINGS } from "@/capture/repo";
@@ -33,6 +33,11 @@ export function TodayScreen() {
   }
 
   const inbox = artifacts.filter((a) => a.scenarioId === null);
+  const readyCount = scenarios.filter(
+    (s) =>
+      (s.status === "ready" || s.status === "capturing") &&
+      artifacts.some((a) => a.scenarioId === s.id),
+  ).length;
   const isToday = shift.date === localDate();
 
   async function newScenario() {
@@ -63,6 +68,15 @@ export function TodayScreen() {
           Capture
         </Link>
       </Button>
+
+      {readyCount > 0 && (
+        <Button asChild variant="outline" size="lg" className="h-14 w-full rounded-2xl text-base">
+          <Link href="/process">
+            <Sparkles className="size-5" aria-hidden />
+            Process {readyCount} scenario{readyCount === 1 ? "" : "s"}
+          </Link>
+        </Button>
+      )}
 
       <section aria-labelledby="scenarios-title" className="space-y-3">
         <div className="flex items-center justify-between">

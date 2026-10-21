@@ -10,11 +10,11 @@
  *
  * Bump VERSION when this file's caching rules change.
  */
-const VERSION = "v1";
+const VERSION = "v2";
 const SHELL = `debrief-shell-${VERSION}`;
 const RUNTIME = `debrief-runtime-${VERSION}`;
 const DEV = new URL(self.location.href).searchParams.get("dev") === "1";
-const ROUTES = ["/", "/capture", "/inbox", "/scenario", "/review", "/records", "/platform", "/console"];
+const ROUTES = ["/", "/capture", "/inbox", "/scenario", "/process", "/review", "/results", "/records", "/platform", "/console"];
 const EXTRA = ["/manifest.webmanifest", "/icons/icon-192.png", "/icons/icon-512.png", "/icons/apple-touch-icon.png"];
 const NAV_TIMEOUT_MS = 3500;
 

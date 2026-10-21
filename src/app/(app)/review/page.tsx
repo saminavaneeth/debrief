@@ -1,7 +1,10 @@
-import { PlaceholderScreen } from "@/components/shell/placeholder-screen";
+import { Suspense } from "react";
+import { ReviewScreen } from "@/components/screens/review-screen";
 
-export default function ReviewPage() {
+export default function Page() {
   return (
-    <PlaceholderScreen title="Review" body="Proposed change sets will appear here for approval." />
+    <Suspense>
+      <ReviewScreen />
+    </Suspense>
   );
 }

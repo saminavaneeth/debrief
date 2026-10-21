@@ -83,13 +83,11 @@ test("all five capture types save to the device and survive a reload", async ({ 
   await sheet.getByRole("button", { name: "Slips, trips & walking surfaces" }).click();
   await finishEditor(page, "Photo details");
 
-  await page
-    .locator('input[type="file"][accept="video/*"]')
-    .setInputFiles({
-      name: "walk.mp4",
-      mimeType: "video/mp4",
-      buffer: Buffer.from("not really a video"),
-    });
+  await page.locator('input[type="file"][accept="video/*"]').setInputFiles({
+    name: "walk.mp4",
+    mimeType: "video/mp4",
+    buffer: Buffer.from("not really a video"),
+  });
   await finishEditor(page, "Video details");
 
   await page
@@ -174,7 +172,7 @@ test("works offline after the first visit", async ({ page, context }) => {
   await page.reload();
   await page.waitForFunction(() => !!navigator.serviceWorker.controller);
   await page.waitForFunction(async () => {
-    const cache = await caches.open("debrief-shell-v1");
+    const cache = await caches.open("debrief-shell-v2");
     const keys = (await cache.keys()).map((r) => new URL(r.url).pathname);
     return ["/", "/capture", "/inbox", "/scenario", "/platform"].every((p) => keys.includes(p));
   });

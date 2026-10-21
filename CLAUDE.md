@@ -473,11 +473,11 @@ users; unsupported-field rate (target 0).
 - **Done when:** all five capture types work on a phone over the LAN, survive reload and work offline.
 
 ### Phase 4 — Agent pipeline (demo engine)
-- [ ] `AgentProvider` interface; `DemoProvider` perception (§2) and reasoning
-- [ ] Orchestrator: router (from manifests), matcher (RAG + structured signals), drafter (from
+- [x] `AgentProvider` interface; `DemoProvider` perception (§2) and reasoning
+- [x] Orchestrator: router (from manifests), matcher (RAG + structured signals), drafter (from
       schemas, with provenance), gap-finder, planner (dependency order); inbox sort/merge suggestions
-- [ ] RAG indexes (§6)
-- [ ] Process screen with streamed run trace; Review screen (diff, provenance drawer, gaps,
+- [x] RAG indexes (§6)
+- [x] Process screen with streamed run trace; Review screen (diff, provenance drawer, gaps,
       approvals); push via gateway; Results screen with link graph
 - **Done when:** S1–S6 each produce their expected change set, push successfully, and appear in the
   console with correct links.
@@ -596,3 +596,22 @@ npm run mcp -- incidents   # run one mock server over stdio (MCP clients: npm ru
   **Pending:** check on a real phone over the LAN (see README "Testing on a phone"); offline on a
   phone needs USB port forwarding or a trusted mkcert certificate.
   **Next:** Phase 4 — AgentProvider + DemoProvider, orchestrator, RAG, Process / Review / Results.
+- **2026-10-21** — **Phase 4 done.** Agent pipeline in demo mode: `AgentProvider` + `DemoProvider`
+  (fixture/device perception → Evidence with provenance; real rule-based reasoning) and an LLM
+  stub. Orchestrator: router (manifest keywords, ≥ 2 distinct, per-asset instances for condition
+  records), matcher (server `search_records` + structured signals, threshold 0.6, related open
+  records as links), drafter (schema `x-fill`/`x-update` directives + EHS rules + knowledge
+  citations; manifest update modes patch / append_child / complete_checklist), gap-finder,
+  planner (container `foundDuring` with item ids, event hub `relatedTo`, attachments), Inbox
+  sort/merge suggestions, streamed run trace. RAG: records + knowledge indexes, BM25 + filters
+  behind an `Embedder` interface (embeddings deferred — agreed with user). SOP guidance rewritten
+  as structured lines. On-device perception for own captures: tesseract.js OCR, pdf.js text,
+  video keyframes (approved; assets vendored by `postinstall` into `public/vendor/`). APIs:
+  `/api/agent/process` (SSE), `/api/agent/push`, `/api/agent/records`. Screens: Process, Review
+  (collapsed cards, evidence drawer, gaps, edits, approvals), Results (grouped link graph).
+  `src/evals/compare.ts` + harness: S1–S6 and all variants match their expected change sets
+  (0 unsupported fields); demo-day push leaves correct two-sided links. 110 unit tests, 8 e2e
+  (incl. full process→review→push→console, PDF and OCR own-capture paths). Decisions D-030…D-036.
+  Workflow expectations in `fixtures/expected` are not checked yet (Phase 5).
+  **Next:** Phase 5 — workflow engine + four rules + notifications, Platform screen (servers,
+  enable `training`, policy, audit log, run traces), `npm run eval` with metrics.

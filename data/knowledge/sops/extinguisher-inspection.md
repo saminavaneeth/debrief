@@ -30,5 +30,8 @@ Each unit gets pass or fail on the monthly checklist with a note for any failure
 
 ## Corrective action guidance
 
-- Low pressure: swap with spare, service vendor recharge, owner facilities, due same day.
-- Obstruction: clear, add floor marking for the keep-clear zone, owner area lead, due within 1 day.
+Each line: situation → action | owner | due | keywords.
+
+- Extinguisher pressure low or gauge in the red → Replace with a charged spare today and send the unit for service | owner: role:facilities | due: 0 days | keywords: gauge, red zone, low pressure, undercharged, needle
+- Extinguisher blocked or obstructed → Clear the obstruction and mark a keep-clear zone on the floor | owner: role:warehouse_lead | due: 1 day | keywords: blocked, obstructed, pallets, no access
+- Pin, seal or tag missing → Replace the pin and seal or arrange annual service | owner: role:facilities | due: 7 days | keywords: pin, seal, tag missing

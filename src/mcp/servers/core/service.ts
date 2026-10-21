@@ -70,6 +70,7 @@ export const SearchArgs = z.object({
   to: z.string().optional().describe("Latest event date/time (ISO), inclusive."),
   updatedSince: z.string().optional().describe("Only records updated at or after this time."),
   limit: z.number().int().positive().max(100).default(20),
+  offset: z.number().int().nonnegative().default(0),
 });
 export const GetArgs = z.object({ id: z.string() });
 export const CreateArgs = z.object({
@@ -116,6 +117,10 @@ export interface SearchHit {
   siteId: string;
   areaId?: string;
   assetIds: string[];
+  /** Hazard taxonomy category, for record types that have one. */
+  category?: string;
+  /** First 200 characters of the description. */
+  summary: string;
   eventAt: string;
   updatedAt: string;
   score: number;
@@ -290,7 +295,7 @@ export class ModuleService {
 
     return {
       total: records.length,
-      results: records.slice(0, args.limit).map((r) => ({
+      results: records.slice(args.offset, args.offset + args.limit).map((r) => ({
         id: r.id,
         recordType: r.recordType,
         title: r.title,
@@ -298,6 +303,10 @@ export class ModuleService {
         siteId: r.siteId,
         ...(r.areaId ? { areaId: r.areaId } : {}),
         assetIds: r.assetIds,
+        ...(typeof (r as { category?: unknown }).category === "string"
+          ? { category: (r as { category: string }).category }
+          : {}),
+        summary: r.description.slice(0, 200),
         eventAt: eventTime(r),
         updatedAt: r.updatedAt,
         score: Number((scores.get(r.id) ?? 0).toFixed(4)),

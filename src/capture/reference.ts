@@ -21,3 +21,16 @@ export const areaLabel = (id?: string) => (id ? (areaById.get(id)?.label ?? id) 
 export const siteName = (id?: string) => SITES.find((s) => s.id === id)?.name ?? id;
 export const tagName = (id: string) => tagById.get(id) ?? id;
 export const personName = (id: string) => personById.get(id) ?? id;
+
+export const ROLES = org.roles;
+const roleById = new Map(ROLES.map((r) => [r.id, r.name]));
+const assetById = new Map(ASSETS.map((a) => [a.id, a.name]));
+const contractorById = new Map(org.contractors.map((c) => [c.id, c.name]));
+
+/** "role:maintenance_tech" → "Maintenance Technician (role)", "P-003" → "Luis Ortega". */
+export function ownerName(ref: string): string {
+  if (ref.startsWith("role:")) return `${roleById.get(ref.slice(5)) ?? ref.slice(5)} (role)`;
+  return personById.get(ref) ?? ref;
+}
+export const assetName = (id: string) => assetById.get(id) ?? id;
+export const contractorName = (id: string) => contractorById.get(id) ?? id;

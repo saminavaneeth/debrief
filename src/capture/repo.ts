@@ -271,9 +271,19 @@ export async function clearLocalData() {
   const db = getDb();
   await db.transaction(
     "rw",
-    [db.shifts, db.scenarios, db.artifacts, db.blobs, db.perception, db.settings, db.queue],
+    [
+      db.shifts,
+      db.scenarios,
+      db.artifacts,
+      db.blobs,
+      db.perception,
+      db.settings,
+      db.queue,
+      db.runs,
+    ],
     async () => {
       await Promise.all([
+        db.runs.clear(),
         db.shifts.clear(),
         db.scenarios.clear(),
         db.artifacts.clear(),

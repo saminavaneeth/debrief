@@ -56,6 +56,18 @@ The capture app works offline after one online visit: captures are stored on the
 Live transcripts use the browser's speech service and need a connection; offline, the audio is
 kept and the transcript can be typed.
 
+## Processing and review
+
+**Process** (Today or the Review tab) sends the chosen scenarios to the demo engine and streams
+each step: ingest, route, match, draft, gaps, plan. **Review** groups the proposed actions by
+scenario (create, update, link, attach). Tap a field to see the evidence behind it: the
+highlighted transcript span, the image region, the document excerpt, or the SOP or regulation
+it cites. Answer open questions inline, approve, and **Push**. **Results** shows what was written
+and a graph of the linked records; each record opens in the EHS console.
+
+Your own photos, paper forms and PDFs are read on the device (tesseract.js OCR, pdf.js text)
+before processing. The OCR and PDF assets are copied into `public/vendor/` by `npm install`.
+
 ## Mock EHS systems
 
 Five mock EHS applications run as MCP servers — `incidents`, `audits`, `meetings`, `hazards`,
@@ -108,6 +120,9 @@ src/mcp/     mock EHS servers, store and gateway
 scripts/     seed and stdio launcher
 tests/       data validation, server, gateway and route tests
 e2e/         Playwright end-to-end tests
-src/capture/ on-device storage (Dexie), capture helpers, demo day
+src/capture/ on-device storage (Dexie), capture helpers, device perception, demo day
+src/agents/  AgentProvider, DemoProvider, orchestrator (route, match, draft, gaps, plan)
+src/rag/     records and knowledge indexes
+src/evals/   change-set comparison and the scenario harness
 mcp.config.json  connected servers and their transports
 ```

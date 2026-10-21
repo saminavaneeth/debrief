@@ -8,8 +8,10 @@ import {
 
 export interface PerceptionRow {
   artifactId: string;
+  /** `fixture`: demo perception; `device`: transcripts, OCR and PDF text read on this device. */
+  source: "fixture" | "device";
   /** Scenario fixture the perception came from, e.g. `S1`. */
-  fixtureId: string;
+  fixtureId?: string;
   perception: PerceptionFixture;
 }
 
@@ -51,7 +53,8 @@ export function buildDemoDay(fixtures: ScenarioFixture[]): DemoDay {
         ...a,
         ...(text !== undefined ? { text, textSource: "fixture" as const } : {}),
       });
-      if (p) perception.push({ artifactId: a.id, fixtureId: f.id, perception: p });
+      if (p)
+        perception.push({ artifactId: a.id, source: "fixture", fixtureId: f.id, perception: p });
       if (a.media) assetUrls.add(a.media.uri);
       if (p?.kind === "video") for (const k of p.keyframes) assetUrls.add(k.uri);
     }

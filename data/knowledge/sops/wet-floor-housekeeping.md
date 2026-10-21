@@ -22,5 +22,8 @@ Hoses, cords and pallets are kept out of walkways. Damaged floor plates and dock
 
 ## Corrective action guidance
 
-- Equipment leak causing a wet floor: maintenance repair within 3 days; place a sign and mat until repaired.
-- No sign in place: brief the area on the wet-floor procedure; keep signs stocked at the location.
+Each line: situation → action | owner | due | keywords.
+
+- Equipment leak causing a wet floor → Repair the leak at the source; keep a wet-floor sign and mat in place until fixed | owner: role:maintenance_tech | due: 3 days | keywords: leak, leaking, dripping, ice machine, wet floor, puddle, water
+- No wet-floor sign in place → Brief the area on the wet-floor procedure and keep signs stocked at the location | owner: role:site_manager | due: 7 days | keywords: no sign, wet floor sign, sign
+- Trip hazard on a walkway → Remove or re-route the item and mark the area | owner: role:facilities | due: 3 days | keywords: trip, hose, cord, dock plate

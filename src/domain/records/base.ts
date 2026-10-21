@@ -13,6 +13,7 @@ import {
   ServerId,
   SiteId,
 } from "../common";
+import type { FillDirective, UpdateDirective } from "../drafting";
 import { Provenance } from "../evidence";
 
 /**
@@ -29,6 +30,10 @@ export type FieldMeta = {
   "x-gapQuestion"?: string;
   /** Name of a shared picklist in `ehs://{server}/picklists`. */
   "x-picklist"?: string;
+  /** How a drafter fills the field on create (see `src/domain/drafting.ts`). */
+  "x-fill"?: FillDirective;
+  /** How a drafter changes the field when new evidence updates an existing record. */
+  "x-update"?: UpdateDirective;
 };
 
 export const meta = (m: FieldMeta) => m;
@@ -119,25 +124,36 @@ export const RecordBase = z.strictObject({
   title: z
     .string()
     .min(1)
-    .meta(meta({ description: "Short headline for the record." })),
-  description: z
-    .string()
-    .meta(meta({ description: "What happened or what was found, in plain language." })),
-  siteId: SiteId.meta(meta({ description: "Site where it happened." })),
+    .meta(meta({ description: "Short headline for the record.", "x-fill": { kind: "title" } })),
+  description: z.string().meta(
+    meta({
+      description: "What happened or what was found, in plain language.",
+      "x-fill": { kind: "statements" },
+    }),
+  ),
+  siteId: SiteId.meta(meta({ description: "Site where it happened.", "x-fill": { kind: "site" } })),
   areaId: AreaId.optional().meta(
     meta({
       description: "Area within the site.",
       "x-extractionHint": "Gazetteer match on area names and aliases; else capture location.",
+      "x-fill": { kind: "area" },
     }),
   ),
   assetIds: z
     .array(AssetId)
     .default([])
-    .meta(meta({ description: "Equipment involved, by asset tag (e.g. FL-07)." })),
+    .meta(
+      meta({
+        description: "Equipment involved, by asset tag (e.g. FL-07).",
+        "x-fill": { kind: "assets" },
+      }),
+    ),
   createdAt: IsoDateTime,
   updatedAt: IsoDateTime,
   createdBy: Actor,
-  reportedBy: PersonId.optional().meta(meta({ description: "Person who reported it." })),
+  reportedBy: PersonId.optional().meta(
+    meta({ description: "Person who reported it.", "x-fill": { kind: "capturer" } }),
+  ),
   notes: z.array(Note).default([]),
   correctiveActions: z.array(CorrectiveAction).default([]),
   links: z.array(RecordLink).default([]),

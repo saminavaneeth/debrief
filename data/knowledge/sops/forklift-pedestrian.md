@@ -31,6 +31,9 @@ Any event where a truck came close to striking a person, structure or another tr
 
 ## Corrective action guidance
 
-- Visibility defect: tag out, repair before return to service; owner maintenance.
-- Lane conflict: review traffic plan, add physical barriers or convex mirrors at blind spots.
-- Operator behaviour: coaching and, where needed, refresher training and re-evaluation.
+Each line: situation → action | owner | due | keywords.
+
+- Visibility defect (mirror, camera, lights) → Repair or replace the defective part before the truck returns to service | owner: role:maintenance_tech | due: 2 days | keywords: mirror, cracked, broken, lights, camera, tagged out
+- Lane conflict or near miss with a pedestrian → Review the traffic plan at the location; add a barrier or convex mirror at the blind spot | owner: role:site_manager | due: 14 days | keywords: near miss, pedestrian, lane, nearly, clipped, reversing
+- Faded or missing lane markings → Repaint the pedestrian lane markings | owner: role:facilities | due: 30 days | keywords: faded, markings, lane lines
+- Unsafe operator behaviour → Coach the operator and schedule refresher training | owner: role:site_manager | due: 7 days | keywords: speeding, horn, operator, unsafe driving

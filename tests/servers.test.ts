@@ -74,7 +74,35 @@ describe("incident schema carries extraction metadata", () => {
     expect(schema.properties.equipmentOperatorId["x-gapQuestion"]).toBe(
       "Who was operating {{assetIds}}?",
     );
-    expect(schema.properties.incidentType["x-extractionHint"]).toMatch(/near_miss/);
+    expect(schema.properties.incidentType["x-fill"]).toMatchObject({ kind: "enumKeywords" });
+  });
+
+  it("keeps drafting metadata on child lists in their input form", async () => {
+    const { deps } = createTestDeps();
+    const hazards = await connectClient("hazards", deps);
+    const hazard = await readJsonResource<{ properties: Record<string, Record<string, unknown>> }>(
+      hazards,
+      "ehs://hazards/schema/hazard",
+    );
+    expect(hazard.properties.correctiveActions["x-fill"]).toEqual({ kind: "guidance" });
+    expect(hazard.properties.notes["x-update"]).toEqual({ kind: "note" });
+    const meetings = await connectClient("meetings", deps);
+    const mtg = await readJsonResource<{ properties: Record<string, Record<string, unknown>> }>(
+      meetings,
+      "ehs://meetings/schema/safety_meeting",
+    );
+    expect(mtg.properties.attendees["x-fill"]).toEqual({ kind: "roster" });
+    expect(mtg.properties.actionItems["x-fill"]).toMatchObject({ kind: "actionItems" });
+    const audits = await connectClient("audits", deps);
+    const audit = await readJsonResource<{
+      properties: { findings: { items: { properties: Record<string, Record<string, unknown>> } } };
+    }>(audits, "ehs://audits/schema/audit");
+    expect(audit.properties.findings.items.properties.requirementRef["x-fill"]).toEqual({
+      kind: "regulation",
+    });
+    expect(audit.properties.findings.items.properties.severity["x-fill"]).toMatchObject({
+      kind: "rule",
+    });
   });
 });
 

@@ -46,3 +46,6 @@ next-env.d.ts
 # playwright
 /test-results/
 /playwright-report/
+
+# vendored at install time (scripts/vendor-assets.mjs)
+/public/vendor/

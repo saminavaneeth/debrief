@@ -89,6 +89,30 @@ export function useMediaUrl(artifact: Artifact): string | undefined {
   return blob ? mediaUrlFor(artifact.id, blob) : undefined;
 }
 
+/** Object URL for a stored blob key (`blob:<key>`), or the path itself for public assets. */
+export function useBlobUrl(uri: string | undefined): string | undefined {
+  const key = uri?.startsWith("blob:") ? uri.slice(5) : undefined;
+  const blob = useLiveQuery(
+    async () => (key ? (await getDb().blobs.get(key))?.blob : undefined),
+    [key],
+  );
+  if (!uri) return undefined;
+  if (!key) return uri;
+  return blob ? mediaUrlFor(key, blob) : undefined;
+}
+
+export function useRun(id: string | null | undefined) {
+  return useLiveQuery(async () => (id ? ((await getDb().runs.get(id)) ?? null) : null), [id]);
+}
+
+export function useRuns() {
+  return useLiveQuery(
+    async () =>
+      (await getDb().runs.toArray()).sort((a, b) => b.createdAt.localeCompare(a.createdAt)),
+    [],
+  );
+}
+
 function subscribeOnline(cb: () => void) {
   window.addEventListener("online", cb);
   window.addEventListener("offline", cb);

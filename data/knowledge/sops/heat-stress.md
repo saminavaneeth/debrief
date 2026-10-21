@@ -34,6 +34,8 @@ Line crews receive a heat stress toolbox talk before the warm season and again w
 
 ## Corrective action guidance
 
-- Too few coolers for crew size: add coolers until the 1-per-6 ratio is met.
-- No cool rest area: add shade or fans near the line.
-- Heat-related illness: review the work/rest schedule for the area.
+Each line: situation → action | owner | due | keywords.
+
+- Too few water coolers for the crew → Add coolers until there is one per six workers | owner: role:facilities | due: 2 days | keywords: water cooler, cooler, hydration, water
+- No cool rest area near the line → Add shade or fans near the workstations | owner: role:facilities | due: 7 days | keywords: shade, fans, rest area, hot
+- Heat-related illness → Review the work/rest schedule for the area | owner: role:site_manager | due: 3 days | keywords: heat exhaustion, dizzy, heat illness
