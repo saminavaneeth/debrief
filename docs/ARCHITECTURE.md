@@ -128,6 +128,22 @@ that create records are referenced by later actions as `{ actionId }` until the 
 IDs. `GapQuestion`s target a field on an action; `SortSuggestion`s propose moving, merging or
 splitting captures.
 
+### Capture app (client)
+
+| Part           | Location                                  | Role                                                                                                    |
+| -------------- | ----------------------------------------- | ------------------------------------------------------------------------------------------------------- |
+| Storage        | `src/capture/db.ts`                       | Dexie: shifts, scenarios, artifacts, blobs, perception (demo fixtures), settings, queue                 |
+| Repository     | `src/capture/repo.ts`                     | Shift lifecycle, scenarios (create, rename, move, merge, split, delete), captures, Load demo day, clear |
+| Pure logic     | `src/capture/scenarios.ts`, `demo-day.ts` | Merge/split planning, card summaries, demo-day rows from fixtures                                       |
+| Browser media  | `src/capture/media.ts`, `speech.ts`       | Photo downscaling, durations, recorder format, Web Speech live transcript, read-aloud                   |
+| Reference data | `src/capture/reference.ts`                | Areas, assets, people, hazard tags bundled for offline forms                                            |
+| Screens        | `src/components/screens`                  | Today, Capture, Scenario (`/scenario?id=`), Inbox                                                       |
+| Offline shell  | `public/sw.js`, `src/app/manifest.ts`     | Service worker and web app manifest                                                                     |
+
+Every capture is written to IndexedDB the moment it exists (media blob first, details later in
+the editor sheet), so nothing depends on a connection. The service worker caches the prerendered
+app routes and their assets on install; see D-024.
+
 ## 4. Agent pipeline
 
 ```mermaid

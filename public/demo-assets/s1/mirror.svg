@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 1200" width="1600" height="1200" font-family="Segoe UI, Helvetica, Arial, sans-serif">
+
+<rect width="1600" height="1200" fill="#cbd5e1"/>
+<rect y="744" width="1600" height="456" fill="#94a3b8"/>
+<rect y="960" width="1600" height="48" fill="#facc15"/>
+<rect x="80" y="60" width="640" height="600" fill="#e2e8f0" stroke="#64748b" stroke-width="6"/>
+<text x="400" y="384" font-size="72" text-anchor="middle" fill="#475569">DOOR 2</text>
+<rect x="64" y="504" width="800" height="432" rx="30" fill="#f59e0b" stroke="#78350f" stroke-width="8"/>
+<rect x="128" y="264" width="48" height="672.0000000000001" fill="#334155"/>
+<rect x="736" y="264" width="48" height="672.0000000000001" fill="#334155"/>
+<rect x="128" y="240" width="656" height="36" fill="#334155"/>
+<circle cx="224.00000000000003" cy="960" r="84.00000000000001" fill="#1e293b"/>
+<circle cx="704" cy="960" r="84.00000000000001" fill="#1e293b"/>
+<line x1="784" y1="312" x2="832" y2="420" stroke="#1e293b" stroke-width="14"/>
+<rect x="832" y="216" width="480" height="408.00000000000006" rx="28" fill="#1e293b"/>
+<rect x="848" y="232" width="448" height="376.00000000000006" rx="18" fill="#93c5fd"/>
+<path d="M1072 420 L1000 334.32 L889.6 289.44 M1072 420 L1177.6 322.08000000000004 L1244.8 264.96000000000004 M1072 420 L1192 440.4 L1273.6 501.6 M1072 420 L1043.2 485.28000000000003 L976 591.3600000000001 M1072 420 L990.4 420 L870.4 460.8" stroke="#f8fafc" stroke-width="5" fill="none" stroke-linejoin="bevel"/>
+<rect x="192" y="720" width="224.00000000000003" height="96" rx="6" fill="#f8fafc" stroke="#0f172a" stroke-width="4"/>
+<text x="304" y="789.12" font-size="59.519999999999996" font-weight="700" text-anchor="middle" fill="#0f172a">FL-07</text>
+<rect x="480" y="540" width="192" height="192" rx="6" fill="#dc2626"/>
+<text x="576" y="616.8" font-size="32.64" font-weight="700" text-anchor="middle" fill="#fff">DO NOT</text>
+<text x="576" y="670.56" font-size="32.64" font-weight="700" text-anchor="middle" fill="#fff">OPERATE</text>
+<rect x="0" y="1146" width="1600" height="54" fill="#0f172a" opacity="0.72"/>
+<text x="27" y="1182.72" font-size="28.080000000000002" fill="#f8fafc">Demo illustration · S1 · FL-07 right-side mirror, Dock 3</text>
+</svg>

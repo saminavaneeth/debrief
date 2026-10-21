@@ -211,3 +211,67 @@ index with embeddings (Phase 4) lives in `src/rag` and is separate.
 demo". It is not written to `.data/`.
 **Consequences.** Restarting the app clears the audit log but not the records. Persisting it is a
 small change if needed.
+
+## D-024 · Hand-written service worker instead of Serwist — 2026-10-21
+
+**Context.** The brief allows "Serwist or equivalent". Serwist's Turbopack integration
+(`@serwist/turbopack`) exports `dynamic = "force-static"` route config, which Next 16 rejects when
+Cache Components is on, and its webpack plugin does not run under Turbopack.
+**Decision.** `public/sw.js` (no dependency). On install it fetches every app route, caches the
+HTML and the `/_next/` scripts and styles each page references. Pages are network first with a
+3.5 s timeout and fall back to the cached page, ignoring the query string (so `/scenario?id=…`
+works for any id). Hashed assets are cache first (network first in dev), demo assets and icons
+cache first, `/api/*` network only. React Server Component requests are not intercepted; when they
+fail offline, the router falls back to a full page load, which the worker serves. Registered on
+every page by `ServiceWorkerRegistration`; `NEXT_PUBLIC_DISABLE_SW=1` turns it off.
+**Consequences.** Offline works after one online visit. Bump `VERSION` in `sw.js` when its
+caching rules change.
+
+## D-025 · Client storage and state — 2026-10-21
+
+**Decision.** Dexie database `debrief` with tables `shifts`, `scenarios`, `artifacts`, `blobs`
+(media, separate so listing is cheap), `perception` (demo perception fixtures for Phase 4),
+`settings` (active shift, capture target, last area) and `queue` (work waiting for a connection,
+used from Phase 4). Screens read through `dexie-react-hooks` (`useLiveQuery`) so every screen
+updates as soon as a capture is written. Zustand holds only transient UI state (editor sheet,
+notices). Captures are written before any editing, and the app asks for persistent storage on
+first capture. Each capture's object URL is created once and revoked when it is deleted.
+**Consequences.** Captures survive reloads and never need a connection. Grouping logic
+(merge/split planning, summaries, demo-day construction) is pure and unit-tested; the Dexie layer
+is covered by the end-to-end tests.
+
+## D-026 · Scenario detail is `/scenario?id=…` — 2026-10-21
+
+**Decision.** A single static route with a query parameter instead of `/scenarios/[id]`.
+**Consequences.** The page is prerendered and cached by the service worker, so any scenario
+opens offline. Scenario ids only exist on the device, so there is nothing to render on the server.
+
+## D-027 · Demo media: SVG illustrations, a real PDF, no audio or video files — 2026-10-21
+
+**Context.** No camera footage, and no ffmpeg on the build machine.
+**Decision.** `npm run demo-assets` draws each demo photo and video keyframe as an SVG, with the
+key element inside the fixture finding's bounding box, labelled "Demo illustration". The
+extinguisher checklist is a real PDF built with pdf-lib from the fixture text. App icons are PNGs
+from a small built-in encoder. Demo voice notes play their transcript with the browser's speech
+synthesis; the demo video plays as its keyframes. Real files dropped at the same paths take over.
+**Consequences.** Fixture image paths changed from `.jpg` to `.svg`. Evidence regions line up with
+the pictures in the review screen.
+
+## D-028 · End-to-end tests with Playwright on the system browser — 2026-10-21
+
+**Decision.** `npm run test:e2e` builds the app, starts it on port 3210 with its own snapshot
+(`DEBRIEF_SNAPSHOT`), and drives the installed Edge (`PW_CHANNEL=chrome` for Chrome) at 390×844
+with a fake microphone and camera. Covered: demo day, all five capture types, persistence across
+reload, new/rename/split/merge/move, offline use through the service worker, Reset demo.
+`SCREENSHOTS=1` captures the main screens.
+**Consequences.** No browser download. Live speech recognition itself is not tested (it needs the
+browser's online service); the transcript is typed in the test.
+
+## D-029 · Phone testing over HTTPS — 2026-10-21
+
+**Decision.** `npm run dev:https` serves on all interfaces with a self-signed certificate;
+`allowedDevOrigins` admits private-network hostnames in development. Camera, microphone and speech
+work after accepting the certificate warning, but browsers do not register service workers on a
+certificate error, so offline testing on a phone uses either USB port forwarding
+(`chrome://inspect` → localhost) or a certificate the phone trusts (mkcert with the LAN IP, passed
+via `--experimental-https-key/-cert`).

@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 1600" width="1200" height="1600" font-family="Segoe UI, Helvetica, Arial, sans-serif">
+<rect width="1200" height="1600" fill="#e2e8f0"/><rect y="1312" width="1200" height="288" fill="#a8a29e"/><rect x="497.6" y="467.2" width="204.8" height="524.8" rx="81.92000000000002" fill="#dc2626" stroke="#7f1d1d" stroke-width="6"/>
+<rect x="563.136" y="390.4" width="73.728" height="89.60000000000001" fill="#1f2937"/>
+<path d="M636.864 416 q 122.88 0 112.64000000000001 224" stroke="#111827" stroke-width="16.384" fill="none"/>
+<rect x="120" y="579.2" width="960" height="268.8" fill="#d97706" opacity="0.85"/><rect x="120" y="848" width="960" height="48" fill="#92400e"/><rect x="120" y="886.4000000000001" width="960" height="268.8" fill="#d97706" opacity="0.85"/><rect x="120" y="1155.2" width="960" height="48" fill="#92400e"/><rect x="120" y="1193.6" width="960" height="268.8" fill="#d97706" opacity="0.85"/><rect x="120" y="1462.3999999999999" width="960" height="48" fill="#92400e"/>
+<rect x="120" y="560" width="960" height="960" fill="#e0f2fe" opacity="0.35" stroke="#bae6fd" stroke-width="4"/><rect x="504" y="128" width="192" height="128" rx="6" fill="#dc2626" stroke="#0f172a" stroke-width="4"/>
+<text x="600" y="217.6" font-size="47.05882352941176" font-weight="700" text-anchor="middle" fill="#fff">FE-119</text>
+<rect x="0" y="1528" width="1200" height="72" fill="#0f172a" opacity="0.72"/>
+<text x="36" y="1576.96" font-size="37.44" fill="#f8fafc">Demo illustration · S4 · FE-119, Building A warehouse</text>
+</svg>

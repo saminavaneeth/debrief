@@ -1,7 +1,7 @@
 {
   "id": "S6",
   "title": "Leaking valve, morning and afternoon",
-  "summary": "07:50 Inbox note about V-22 dripping; 16:10 photo of oil sheen under V-22 in scenario 'Tank farm leak'. One hazard, no duplicate.",
+  "summary": "Oil sheen on the containment floor under valve V-22 at Tank Row, with a drip forming at the valve stem.",
   "shift": {
     "id": "SHIFT-2026-10-21",
     "date": "2026-10-21",
@@ -45,8 +45,8 @@
       "areaId": "tank-farm.tank-row",
       "assetTag": "V-22",
       "media": {
-        "mimeType": "image/jpeg",
-        "uri": "/demo-assets/s6/v22-sheen.jpg",
+        "mimeType": "image/svg+xml",
+        "uri": "/demo-assets/s6/v22-sheen.svg",
         "width": 1600,
         "height": 1200
       }

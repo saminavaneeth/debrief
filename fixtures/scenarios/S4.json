@@ -47,8 +47,8 @@
       "areaId": "building-a.warehouse",
       "assetTag": "FE-115",
       "media": {
-        "mimeType": "image/jpeg",
-        "uri": "/demo-assets/s4/fe-115-gauge.jpg",
+        "mimeType": "image/svg+xml",
+        "uri": "/demo-assets/s4/fe-115-gauge.svg",
         "width": 1200,
         "height": 1600
       }
@@ -65,8 +65,8 @@
       "areaId": "building-a.warehouse",
       "assetTag": "FE-119",
       "media": {
-        "mimeType": "image/jpeg",
-        "uri": "/demo-assets/s4/fe-119-blocked.jpg",
+        "mimeType": "image/svg+xml",
+        "uri": "/demo-assets/s4/fe-119-blocked.svg",
         "width": 1200,
         "height": 1600
       }

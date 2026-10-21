@@ -36,7 +36,8 @@ export interface Runtime {
   audit: AuditLog;
 }
 
-export const SNAPSHOT_PATH = dataPath(".data", "store.json");
+/** `DEBRIEF_SNAPSHOT` overrides the snapshot file (end-to-end tests use their own). */
+export const SNAPSHOT_PATH = process.env.DEBRIEF_SNAPSHOT || dataPath(".data", "store.json");
 
 export interface RuntimeOptions {
   snapshotPath?: string | null;

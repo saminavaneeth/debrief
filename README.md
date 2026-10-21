@@ -22,16 +22,39 @@ npm run dev        # http://localhost:3000
 
 ## Scripts
 
-| Command                   | Purpose                                                          |
-| ------------------------- | ---------------------------------------------------------------- |
-| `npm run dev`             | Start the app                                                    |
-| `npm run build`           | Production build                                                 |
-| `npm test`                | Unit tests and data validation (Vitest)                          |
-| `npm run typecheck`       | Generate route types and run `tsc --noEmit`                      |
-| `npm run lint`            | ESLint                                                           |
-| `npm run format`          | Prettier                                                         |
-| `npm run seed`            | Rebuild `.data/store.json` from `data/seed` (same as Reset demo) |
-| `npm run mcp -- <server>` | Run one mock EHS server over stdio                               |
+| Command                   | Purpose                                                             |
+| ------------------------- | ------------------------------------------------------------------- |
+| `npm run dev`             | Start the app                                                       |
+| `npm run build`           | Production build                                                    |
+| `npm test`                | Unit tests and data validation (Vitest)                             |
+| `npm run test:e2e`        | End-to-end tests in Edge at phone size (Playwright; builds the app) |
+| `npm run dev:https`       | HTTPS dev server on the LAN for phone testing                       |
+| `npm run demo-assets`     | Regenerate demo illustrations, the checklist PDF and app icons      |
+| `npm run typecheck`       | Generate route types and run `tsc --noEmit`                         |
+| `npm run lint`            | ESLint                                                              |
+| `npm run format`          | Prettier                                                            |
+| `npm run seed`            | Rebuild `.data/store.json` from `data/seed` (same as Reset demo)    |
+| `npm run mcp -- <server>` | Run one mock EHS server over stdio                                  |
+
+## Capture app
+
+The capture app works offline after one online visit: captures are stored on the device
+(IndexedDB) and the service worker serves the app shell. Use the menu (⋮) for **Load demo day**
+(the six demo scenarios S1–S6) and **Reset demo**.
+
+### Testing on a phone
+
+1. `npm run dev:https`, then open `https://<your-computer-ip>:3000` on the phone (same Wi-Fi) and
+   accept the certificate warning. Camera, microphone and live transcripts work.
+2. For offline testing the phone must trust the certificate (service workers do not register on a
+   certificate error). Either connect an Android phone by USB and forward port 3000 in
+   `chrome://inspect`, then open `http://localhost:3000` on the phone; or create a certificate for
+   your LAN IP with [mkcert](https://github.com/FiloSottile/mkcert), install its root CA on the
+   phone, and run `npx next dev --experimental-https --experimental-https-key key.pem
+--experimental-https-cert cert.pem --hostname 0.0.0.0`.
+
+Live transcripts use the browser's speech service and need a connection; offline, the audio is
+kept and the transcript can be typed.
 
 ## Mock EHS systems
 
@@ -84,5 +107,7 @@ src/lib/     shared helpers
 src/mcp/     mock EHS servers, store and gateway
 scripts/     seed and stdio launcher
 tests/       data validation, server, gateway and route tests
+e2e/         Playwright end-to-end tests
+src/capture/ on-device storage (Dexie), capture helpers, demo day
 mcp.config.json  connected servers and their transports
 ```

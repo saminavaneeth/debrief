@@ -44,3 +44,17 @@ export function addDays(isoDate: string, days: number): string {
   d.setUTCDate(d.getUTCDate() + days);
   return d.toISOString().slice(0, 10);
 }
+
+/** UTC offset of the device at `date`, e.g. `-05:00`. */
+export function localOffset(date: Date): string {
+  const minutes = -date.getTimezoneOffset();
+  const sign = minutes < 0 ? "-" : "+";
+  const abs = Math.abs(minutes);
+  return `${sign}${String(Math.floor(abs / 60)).padStart(2, "0")}:${String(abs % 60).padStart(2, "0")}`;
+}
+
+/** Timestamp in the device's local time with its offset, e.g. `2026-10-21T08:40:00-05:00`. */
+export const localIso = (date: Date = new Date()) => toOffsetIso(date, localOffset(date));
+
+/** The device's local calendar date. */
+export const localDate = (date: Date = new Date()) => localIso(date).slice(0, 10);

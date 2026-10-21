@@ -35,6 +35,8 @@ export const ArtifactMedia = z.strictObject({
   durationMs: z.number().int().nonnegative().optional(),
   width: z.number().int().positive().optional(),
   height: z.number().int().positive().optional(),
+  /** Original file name for uploaded documents. */
+  fileName: z.string().optional(),
 });
 
 /** A single capture. `scenarioId: null` means it sits in the Inbox. */
@@ -51,6 +53,8 @@ export const Artifact = z.strictObject({
   media: ArtifactMedia.optional(),
   /** Note body, edited transcript, or user caption. */
   text: z.string().optional(),
+  /** Where `text` came from: typed, live speech recognition, edited after recognition, or a demo fixture. */
+  textSource: z.enum(["typed", "speech_api", "user_edit", "fixture"]).optional(),
   /** Quick-tag chips chosen from the hazard taxonomy. */
   tags: z.array(z.string()).default([]),
 });

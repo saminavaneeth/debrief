@@ -467,9 +467,9 @@ users; unsupported-field rate (target 0).
   every tool works; console shows seeded records; tool unit tests pass.
 
 ### Phase 3 — Capture app
-- [ ] PWA shell, bottom tabs, Today, Scenario detail, Inbox
-- [ ] Quick capture for all five modalities; Dexie persistence; offline support
-- [ ] "Load demo day" (loads S1–S6 artifacts with their fixtures) and "Reset demo"
+- [x] PWA shell, bottom tabs, Today, Scenario detail, Inbox
+- [x] Quick capture for all five modalities; Dexie persistence; offline support
+- [x] "Load demo day" (loads S1–S6 artifacts with their fixtures) and "Reset demo"
 - **Done when:** all five capture types work on a phone over the LAN, survive reload and work offline.
 
 ### Phase 4 — Agent pipeline (demo engine)
@@ -578,3 +578,21 @@ npm run mcp -- incidents   # run one mock server over stdio (MCP clients: npm ru
   `@/lib/utils` after every `shadcn add`. Console UI was checked via API/SSE, not visually.
   **Next:** Phase 3 — PWA shell, Today / Scenario / Inbox, five capture modalities with Dexie,
   offline, Load demo day / Reset demo.
+- **2026-10-21** — **Phase 3 done (phone check pending).** Capture app: Today (shift header,
+  scenario cards with summary/counts/status, Inbox preview, big Capture button), Capture (target
+  picker + one-tap new scenario; hold-to-talk voice with tap-to-lock, MediaRecorder + Web Speech
+  live transcript; photo/video/document via camera-capable file inputs; notes), details editor
+  sheet (transcript/caption, area, asset tag, hazard quick tags), Scenario detail
+  (`/scenario?id=`: rename, ready/capturing, area, capture here, timeline, move, split, merge,
+  delete), Inbox (multi-select → new scenario / move). Dexie storage + `dexie-react-hooks`
+  (approved), Zustand for UI state. Menu: Load demo day, Start today's shift, EHS console, Reset
+  demo (local + server). Hand-written service worker (Serwist's Turbopack integration doesn't
+  support Cache Components — approved), manifest + generated icons. `npm run demo-assets`: SVG
+  demo photos/keyframes drawn inside fixture boxes, real checklist PDF (pdf-lib), PNG icons; demo
+  voice notes play via speech synthesis, demo video via keyframes. Playwright e2e (approved stack
+  item; system Edge, fake mic/camera): 5 flows pass incl. all five capture types, reload, grouping,
+  offline, reset. 90 unit tests. Decisions D-024…D-029. `fake-indexeddb` was declined, so the
+  Dexie layer is covered by e2e only.
+  **Pending:** check on a real phone over the LAN (see README "Testing on a phone"); offline on a
+  phone needs USB port forwarding or a trusted mkcert certificate.
+  **Next:** Phase 4 — AgentProvider + DemoProvider, orchestrator, RAG, Process / Review / Results.

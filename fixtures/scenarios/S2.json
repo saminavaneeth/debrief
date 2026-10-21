@@ -49,8 +49,8 @@
       "siteId": "plant-1",
       "areaId": "plant-1.break-room",
       "media": {
-        "mimeType": "image/jpeg",
-        "uri": "/demo-assets/s2/puddle.jpg",
+        "mimeType": "image/svg+xml",
+        "uri": "/demo-assets/s2/puddle.svg",
         "width": 1600,
         "height": 1200
       }

@@ -33,8 +33,8 @@
       "siteId": "plant-1",
       "areaId": "plant-1.assembly-b",
       "media": {
-        "mimeType": "image/jpeg",
-        "uri": "/demo-assets/s3/sign-in-sheet.jpg",
+        "mimeType": "image/svg+xml",
+        "uri": "/demo-assets/s3/sign-in-sheet.svg",
         "width": 1700,
         "height": 2200
       }

@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 720" width="1280" height="720" font-family="Segoe UI, Helvetica, Arial, sans-serif">
+
+<rect width="1280" height="720" fill="#cbd5e1"/>
+<rect x="0" y="36" width="1280" height="28.8" fill="#64748b"/>
+<rect x="102.4" y="64.8" width="25.6" height="432" fill="#64748b"/>
+<rect x="1152" y="64.8" width="25.6" height="432" fill="#64748b"/>
+<rect x="0" y="503.99999999999994" width="1280" height="43.199999999999996" fill="#57534e"/>
+<rect x="0" y="547.2" width="1280" height="172.79999999999998" fill="#e7e5e4"/>
+<text x="640" y="669.6" font-size="25.200000000000003" text-anchor="middle" fill="#78716c">floor below · approx. 12 ft</text>
+<rect x="0" y="432" width="409.6" height="8.64" fill="#facc15"/>
+<rect x="25.6" y="345.59999999999997" width="12.8" height="86.39999999999999" fill="#facc15"/>
+<rect x="384" y="345.59999999999997" width="12.8" height="86.39999999999999" fill="#facc15"/>
+<rect x="128" y="396.00000000000006" width="1024" height="62.99999999999999" fill="#57534e"/>
+<text x="640" y="547.2" font-size="28.8" text-anchor="middle" fill="#7f1d1d" font-weight="700">no guardrail on this section</text>
+<circle cx="793.6" cy="176.4" r="28.8" fill="#fcd34d" stroke="#92400e" stroke-width="3"/>
+<path d="M761.2 165.6 a 32.4 25.2 0 0 1 64.8 0 z" fill="#f8fafc" stroke="#475569" stroke-width="3"/>
+<rect x="750.4" y="208.8" width="86.39999999999999" height="129.6" rx="14.4" fill="#84cc16"/>
+<rect x="750.4" y="255.60000000000002" width="86.39999999999999" height="12.6" fill="#e5e7eb"/>
+<rect x="757.6" y="338.4" width="28.8" height="165.6" fill="#1e3a8a"/>
+<rect x="800.8000000000001" y="338.4" width="28.8" height="165.6" fill="#1e3a8a"/>
+<path d="M750.4 216 L836.8000000000001 324" stroke="#ea580c" stroke-width="10.799999999999999" opacity="0.9"/>
+<rect x="752.2" y="279" width="82.8" height="28.8" fill="#84cc16"/>
+<text x="793.6" y="300.6" font-size="14.4" font-weight="700" text-anchor="middle" fill="#14532d">RIDGELINE</text>
+<path d="M800.8000000000001 223.2 q 64.8 90 28.8 180" stroke="#f97316" stroke-width="9" fill="none"/><circle cx="829.6" cy="403.2" r="12.6" fill="none" stroke="#6b7280" stroke-width="6.4799999999999995"/>
+<rect x="0" y="688" width="1280" height="32" fill="#0f172a" opacity="0.72"/>
+<text x="16" y="709.76" font-size="16.64" fill="#f8fafc">Demo illustration · S5 · keyframe 14 s · mezzanine east edge</text>
+</svg>

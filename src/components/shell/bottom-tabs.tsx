@@ -23,7 +23,12 @@ export function BottomTabs() {
     >
       <ul className="grid grid-cols-5">
         {tabs.map(({ href, label, icon: Icon }) => {
-          const active = href === "/" ? pathname === "/" : pathname.startsWith(href);
+          const active =
+            href === "/"
+              ? pathname === "/" ||
+                pathname.startsWith("/scenario") ||
+                pathname.startsWith("/inbox")
+              : pathname.startsWith(href);
           return (
             <li key={href}>
               <Link

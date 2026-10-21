@@ -1,0 +1,50 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1700 2200" width="1700" height="2200" font-family="Segoe UI, Helvetica, Arial, sans-serif">
+
+<rect width="1700" height="2200" fill="#78716c"/>
+<g transform="rotate(-1.6 850 1100)">
+<rect x="85" y="88" width="1530" height="1980" fill="#fffdf7" stroke="#d6d3d1" stroke-width="4"/>
+<text x="850" y="220" font-size="57.199999999999996" font-weight="700" text-anchor="middle" fill="#0f172a">CEDAR VALLEY MANUFACTURING</text>
+<text x="850" y="308.00000000000006" font-size="66" font-weight="700" text-anchor="middle" fill="#0f172a">SAFETY MEETING SIGN-IN SHEET</text>
+<text x="170" y="440" font-size="44" fill="#0f172a">Date: 10/21/2026    Time: 1:00 PM    Location: Assembly Line B</text>
+<text x="170" y="539" font-size="44" fill="#0f172a">Topic: Heat Stress - Recognize, Hydrate, Rest</text>
+<text x="170" y="638.0000000000001" font-size="44" fill="#0f172a">Presenter: Maria Chen</text>
+<text x="180" y="784" font-size="37.400000000000006" font-weight="700" fill="#475569">#</text>
+<text x="306" y="784" font-size="37.400000000000006" font-weight="700" fill="#475569">PRINT NAME</text>
+<text x="985.9999999999999" y="784" font-size="37.400000000000006" font-weight="700" fill="#475569">SIGNATURE</text>
+<line x1="170" y1="792" x2="1530" y2="792" stroke="#334155" stroke-width="4"/>
+<line x1="170" y1="935" x2="1530" y2="935" stroke="#94a3b8" stroke-width="3"/>
+<text x="180" y="899.25" font-size="54.34" fill="#334155">1</text>
+<text x="306" y="903.54" font-size="71.5" fill="#1d4ed8" font-family="Segoe Print, Bradley Hand, Comic Sans MS, cursive">Aisha Rahman</text>
+<text x="985.9999999999999" y="906.4" font-size="78.65" fill="#1e3a8a" font-style="italic" font-family="Segoe Script, Brush Script MT, cursive">A. Rahman</text>
+<line x1="170" y1="1078" x2="1530" y2="1078" stroke="#94a3b8" stroke-width="3"/>
+<text x="180" y="1042.25" font-size="54.34" fill="#334155">2</text>
+<text x="306" y="1046.54" font-size="71.5" fill="#1d4ed8" font-family="Segoe Print, Bradley Hand, Comic Sans MS, cursive">M. Hill</text>
+<text x="985.9999999999999" y="1049.4" font-size="78.65" fill="#1e3a8a" font-style="italic" font-family="Segoe Script, Brush Script MT, cursive">M Hill</text>
+<line x1="170" y1="1221" x2="1530" y2="1221" stroke="#94a3b8" stroke-width="3"/>
+<text x="180" y="1185.25" font-size="54.34" fill="#334155">3</text>
+<text x="306" y="1189.54" font-size="71.5" fill="#1d4ed8" font-family="Segoe Print, Bradley Hand, Comic Sans MS, cursive">Sofia Alvarez</text>
+<text x="985.9999999999999" y="1192.4" font-size="78.65" fill="#1e3a8a" font-style="italic" font-family="Segoe Script, Brush Script MT, cursive">S. Alvarez</text>
+<line x1="170" y1="1364" x2="1530" y2="1364" stroke="#94a3b8" stroke-width="3"/>
+<text x="180" y="1328.25" font-size="54.34" fill="#334155">4</text>
+<text x="306" y="1332.54" font-size="71.5" fill="#1d4ed8" font-family="Segoe Print, Bradley Hand, Comic Sans MS, cursive">Ben Okafor</text>
+<text x="985.9999999999999" y="1335.4" font-size="78.65" fill="#1e3a8a" font-style="italic" font-family="Segoe Script, Brush Script MT, cursive">B Okafor</text>
+<line x1="170" y1="1507" x2="1530" y2="1507" stroke="#94a3b8" stroke-width="3"/>
+<text x="180" y="1471.25" font-size="54.34" fill="#334155">5</text>
+<text x="306" y="1475.54" font-size="71.5" fill="#1d4ed8" font-family="Segoe Print, Bradley Hand, Comic Sans MS, cursive">Hannah Weiss</text>
+<text x="985.9999999999999" y="1478.4" font-size="78.65" fill="#1e3a8a" font-style="italic" font-family="Segoe Script, Brush Script MT, cursive">H. Weiss</text>
+<line x1="170" y1="1650" x2="1530" y2="1650" stroke="#94a3b8" stroke-width="3"/>
+<text x="180" y="1614.25" font-size="54.34" fill="#334155">6</text>
+<text x="306" y="1618.54" font-size="71.5" fill="#1d4ed8" font-family="Segoe Print, Bradley Hand, Comic Sans MS, cursive">D. Reyes</text>
+<text x="985.9999999999999" y="1621.4" font-size="78.65" fill="#1e3a8a" font-style="italic" font-family="Segoe Script, Brush Script MT, cursive">D Reyes</text>
+<line x1="170" y1="1793" x2="1530" y2="1793" stroke="#94a3b8" stroke-width="3"/>
+<text x="180" y="1757.25" font-size="54.34" fill="#334155">7</text>
+<text x="306" y="1761.54" font-size="71.5" fill="#1d4ed8" font-family="Segoe Print, Bradley Hand, Comic Sans MS, cursive">Olivia Grant</text>
+<text x="985.9999999999999" y="1764.4" font-size="78.65" fill="#1e3a8a" font-style="italic" font-family="Segoe Script, Brush Script MT, cursive">O. Grant</text>
+<line x1="170" y1="1936" x2="1530" y2="1936" stroke="#94a3b8" stroke-width="3"/>
+<text x="180" y="1900.25" font-size="54.34" fill="#334155">8</text>
+<text x="306" y="1904.54" font-size="71.5" fill="#1d4ed8" font-family="Segoe Print, Bradley Hand, Comic Sans MS, cursive">T. Nguyen</text>
+<text x="985.9999999999999" y="1907.4" font-size="78.65" fill="#1e3a8a" font-style="italic" font-family="Segoe Script, Brush Script MT, cursive">T Nguyen</text>
+</g>
+<rect x="0" y="2101" width="1700" height="99" fill="#0f172a" opacity="0.72"/>
+<text x="49.5" y="2168.32" font-size="51.480000000000004" fill="#f8fafc">Demo illustration · S3 · toolbox talk sign-in sheet</text>
+</svg>

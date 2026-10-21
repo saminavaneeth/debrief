@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 1200" width="1600" height="1200" font-family="Segoe UI, Helvetica, Arial, sans-serif">
+
+<defs><linearGradient id="sheen" x1="0" x2="1" y1="0" y2="1">
+<stop offset="0" stop-color="#a78bfa" stop-opacity="0.55"/><stop offset="0.3" stop-color="#60a5fa" stop-opacity="0.45"/>
+<stop offset="0.55" stop-color="#34d399" stop-opacity="0.45"/><stop offset="0.8" stop-color="#fbbf24" stop-opacity="0.5"/>
+<stop offset="1" stop-color="#f472b6" stop-opacity="0.45"/></linearGradient></defs>
+<rect width="1600" height="1200" fill="#9ca3af"/>
+<rect y="660" width="1600" height="540" fill="#78716c"/>
+<rect x="0" y="336.00000000000006" width="1600" height="96" fill="#475569"/>
+<rect x="704" y="264" width="192" height="240" rx="14" fill="#1e3a8a" stroke="#0f172a" stroke-width="6"/>
+<rect x="784" y="144" width="32" height="120" fill="#0f172a"/>
+<ellipse cx="800" cy="144" rx="112.00000000000001" ry="24" fill="#dc2626"/>
+<path d="M800 384.00000000000006 q 25.6 48 0 72 q -25.6 -24 0 -72" fill="#713f12"/>
+<ellipse cx="800" cy="900" rx="560" ry="156.52173913043478" fill="url(#sheen)"/>
+<rect x="880.0000000000001" y="240" width="160" height="72" rx="5" fill="#fde047" stroke="#0f172a" stroke-width="4"/>
+<text x="960.0000000000001" y="291.84" font-size="43.199999999999996" font-weight="700" text-anchor="middle" fill="#0f172a">V-22</text>
+<rect x="0" y="1146" width="1600" height="54" fill="#0f172a" opacity="0.72"/>
+<text x="27" y="1182.72" font-size="28.080000000000002" fill="#f8fafc">Demo illustration · S6 · oil sheen under V-22, Tank Row</text>
+</svg>

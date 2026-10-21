@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 720" width="1280" height="720" font-family="Segoe UI, Helvetica, Arial, sans-serif">
+
+<rect width="1280" height="720" fill="#cbd5e1"/>
+<rect x="0" y="36" width="1280" height="28.8" fill="#64748b"/>
+<rect x="102.4" y="64.8" width="25.6" height="432" fill="#64748b"/>
+<rect x="1152" y="64.8" width="25.6" height="432" fill="#64748b"/>
+<rect x="0" y="503.99999999999994" width="1280" height="43.199999999999996" fill="#57534e"/>
+<rect x="0" y="547.2" width="1280" height="172.79999999999998" fill="#e7e5e4"/>
+<text x="640" y="669.6" font-size="25.200000000000003" text-anchor="middle" fill="#78716c">floor below · approx. 12 ft</text>
+<rect x="0" y="432" width="409.6" height="8.64" fill="#facc15"/>
+<rect x="25.6" y="345.59999999999997" width="12.8" height="86.39999999999999" fill="#facc15"/>
+<rect x="384" y="345.59999999999997" width="12.8" height="86.39999999999999" fill="#facc15"/>
+<circle cx="627.2" cy="144.936" r="32.832" fill="#fcd34d" stroke="#92400e" stroke-width="3"/>
+<path d="M590.264 132.624 a 36.936 28.727999999999998 0 0 1 73.872 0 z" fill="#f8fafc" stroke="#475569" stroke-width="3"/>
+<rect x="577.952" y="181.872" width="98.496" height="147.744" rx="16.416" fill="#84cc16"/>
+<rect x="577.952" y="235.224" width="98.496" height="14.363999999999999" fill="#e5e7eb"/>
+<rect x="586.1600000000001" y="329.616" width="32.832" height="188.784" fill="#1e3a8a"/>
+<rect x="635.408" y="329.616" width="32.832" height="188.784" fill="#1e3a8a"/>
+<path d="M577.952 190.07999999999998 L676.4480000000001 313.2" stroke="#ea580c" stroke-width="12.312" opacity="0.9"/>
+<rect x="580.004" y="261.9" width="94.392" height="32.832" fill="#84cc16"/>
+<text x="627.2" y="286.524" font-size="16.416" font-weight="700" text-anchor="middle" fill="#14532d">RIDGELINE</text>
+<path d="M635.408 198.288 q 73.872 102.6 32.832 205.2" stroke="#f97316" stroke-width="10.26" fill="none"/><circle cx="668.24" cy="403.488" r="14.363999999999999" fill="none" stroke="#6b7280" stroke-width="7.3872"/>
+<rect x="0" y="688" width="1280" height="32" fill="#0f172a" opacity="0.72"/>
+<text x="16" y="709.76" font-size="16.64" fill="#f8fafc">Demo illustration · S5 · keyframe 0 s · mezzanine east edge</text>
+</svg>
