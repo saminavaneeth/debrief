@@ -55,7 +55,9 @@ export function buildDemoDay(fixtures: ScenarioFixture[]): DemoDay {
       });
       if (p)
         perception.push({ artifactId: a.id, source: "fixture", fixtureId: f.id, perception: p });
-      if (a.media) assetUrls.add(a.media.uri);
+      // Demo voice notes and the video have no media files yet (speech synthesis and keyframes
+      // stand in), so only images and documents are warmed.
+      if (a.media && a.modality !== "voice" && a.modality !== "video") assetUrls.add(a.media.uri);
       if (p?.kind === "video") for (const k of p.keyframes) assetUrls.add(k.uri);
     }
   }

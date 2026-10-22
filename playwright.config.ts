@@ -2,6 +2,8 @@ import path from "node:path";
 import { defineConfig, devices } from "@playwright/test";
 
 const PORT = 3210;
+/** Run against a deployed copy instead of a local build, e.g. E2E_BASE_URL=https://… */
+const EXTERNAL = process.env.E2E_BASE_URL;
 
 /**
  * End-to-end tests against a production build (the service worker only caches hashed assets in
@@ -14,7 +16,7 @@ export default defineConfig({
   workers: 1,
   reporter: [["list"]],
   use: {
-    baseURL: `http://localhost:${PORT}`,
+    baseURL: EXTERNAL ?? `http://localhost:${PORT}`,
     trace: "retain-on-failure",
     permissions: ["microphone", "camera"],
     launchOptions: {
@@ -41,13 +43,15 @@ export default defineConfig({
       },
     },
   ],
-  webServer: {
-    command: `npx next build && npx next start -p ${PORT}`,
-    url: `http://localhost:${PORT}`,
-    timeout: 300_000,
-    reuseExistingServer: false,
-    env: {
-      DEBRIEF_SNAPSHOT: path.join(process.cwd(), ".data", "e2e-store.json"),
-    },
-  },
+  webServer: EXTERNAL
+    ? undefined
+    : {
+        command: `npx next build && npx next start -p ${PORT}`,
+        url: `http://localhost:${PORT}`,
+        timeout: 300_000,
+        reuseExistingServer: false,
+        env: {
+          DEBRIEF_SNAPSHOT: path.join(process.cwd(), ".data", "e2e-store.json"),
+        },
+      },
 });

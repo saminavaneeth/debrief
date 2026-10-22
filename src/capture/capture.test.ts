@@ -71,6 +71,7 @@ describe("buildDemoDay", () => {
     );
     expect(day.assetUrls).toContain("/demo-assets/s4/extinguisher-checklist.pdf");
     expect(day.assetUrls).toContain("/demo-assets/s5/kf-09.svg");
+    expect(day.assetUrls.some((url) => /.(webm|mp4)$/.test(url))).toBe(false);
   });
 
   it("orders artifacts by capture time", () => {

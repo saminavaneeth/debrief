@@ -32,16 +32,25 @@ export async function setSetting(key: string, value: unknown): Promise<void> {
 
 /* ------------------------------------------------------------------ shifts */
 
-/** The active shift; creates today's shift on first use. */
+/**
+ * The active shift; creates today's shift on first use. Check and create run in one transaction,
+ * so a shift activated meanwhile by another tab or frame (e.g. Load demo day) is never replaced.
+ */
 export async function ensureActiveShift(): Promise<Shift> {
   const db = getDb();
-  const activeId = await getSetting<string>(SETTINGS.activeShiftId);
-  const active = activeId ? await db.shifts.get(activeId) : undefined;
-  if (active) return active;
-  return startShift();
+  return db.transaction("rw", db.shifts, db.settings, async () => {
+    const activeId = await getSetting<string>(SETTINGS.activeShiftId);
+    const active = activeId ? await db.shifts.get(activeId) : undefined;
+    return active ?? activateToday();
+  });
 }
 
 export async function startShift(): Promise<Shift> {
+  const db = getDb();
+  return db.transaction("rw", db.shifts, db.settings, activateToday);
+}
+
+async function activateToday(): Promise<Shift> {
   const db = getDb();
   const date = localDate();
   const id = `SHIFT-${date}`;
