@@ -493,7 +493,7 @@ users; unsupported-field rate (target 0).
 - [x] Presenter view (`/present`)
 - [x] README (setup, architecture summary, screenshots), `docs/DEMO_SCRIPT.md` (3-minute walkthrough)
 - [x] Accessibility pass, Lighthouse PWA check, empty/error states
-- [ ] Deploy. Note: in-memory state needs a single long-running Node process (e.g. Render/Railway)
+- [x] Deploy. Note: in-memory state needs a single long-running Node process (e.g. Render/Railway)
       or a hosted DB adapter; serverless platforms will not keep MemoryStore state between requests.
 - **Done when:** a fresh clone runs with `npm install && npm run dev` on Windows and macOS and the
   full demo works end to end.
@@ -643,3 +643,11 @@ npm run mcp -- incidents   # run one mock server over stdio (MCP clients: npm ru
   **Pending:** connect the repo in Render (New → Blueprint) and run the demo on the hosted URL;
   macOS fresh-clone check; real-phone check from Phase 3 (easier on the hosted HTTPS URL).
   Optional later: real demo audio/video via ffmpeg (today: speech synthesis and keyframes).
+- **2026-10-22** — **Deployed** on Render (blueprint from `render.yaml`):
+  https://debrief-zhn0.onrender.com (presenter: `/present`). Full e2e suite passes against it
+  (`E2E_BASE_URL=https://debrief-zhn0.onrender.com npx playwright test`; note it resets the hosted
+  demo). Fixed a race the deploy test exposed: on dates after the demo day, a fresh frame creating
+  today's shift could override Load demo day — check-and-create is now one IndexedDB transaction.
+  Demo-day cache warm-up no longer requests the missing voice/video files. Cloudflare in front of
+  Render does not cache HTML (`cf-cache-status: DYNAMIC`), so redeploys are safe.
+  **Pending:** macOS fresh-clone check; real-phone check on the hosted URL.
