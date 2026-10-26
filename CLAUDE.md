@@ -651,3 +651,8 @@ npm run mcp -- incidents   # run one mock server over stdio (MCP clients: npm ru
   Demo-day cache warm-up no longer requests the missing voice/video files. Cloudflare in front of
   Render does not cache HTML (`cf-cache-status: DYNAMIC`), so redeploys are safe.
   **Pending:** macOS fresh-clone check; real-phone check on the hosted URL.
+- **2026-10-26** — Hosted demo showed a failed training create: "Who should take this training?"
+  was left unanswered and assignees are schema-required. Gap questions now carry `blocking`
+  (schema-required); Review holds Push until blocking questions on approved actions are
+  answered or the action is rejected; gateway validation errors name the fields (D-047). Demo
+  script updated. Unit + e2e (local and hosted) pass.
