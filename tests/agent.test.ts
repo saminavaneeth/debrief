@@ -1,4 +1,5 @@
 import { describe, expect, it } from "vitest";
+import { applyGapAnswer } from "@/capture/answers";
 import { compareChangeSet, formatComparison } from "@/evals/compare";
 import type { EhsRecord } from "@/domain";
 import {
@@ -187,12 +188,47 @@ describe("blocking gap questions", () => {
 
     const fresh = createAgentEnv();
     fresh.runtime.registry.setEnabled("training", true);
-    const again = (await runFixture(s1, undefined, fresh)).changeSet;
+    // Answer every question the way the Review screen does (a single person from the picker).
+    let again = (await runFixture(s1, undefined, fresh)).changeSet;
+    for (const g of again.gaps) again = applyGapAnswer(again, g.id, "P-005");
     const gap = again.gaps.find((g) => g.fieldPath === "assigneeIds")!;
+    expect(gap.multiple).toBe(true);
     const training = again.actions.find((a) => a.id === gap.actionId)!;
     if (training.type !== "create") throw new Error("expected a create");
-    training.payload = { ...training.payload, assigneeIds: ["P-005"] };
+    expect(training.payload.assigneeIds).toEqual(["P-005"]);
+    const incident = again.actions.find((a) => a.type === "create" && a.recordType === "incident")!;
+    if (incident.type !== "create") throw new Error("expected a create");
+    expect(incident.payload.equipmentOperatorId).toBe("P-005");
+
     const answered = await fresh.runtime.gateway.executeChangeSet(approve(again), AGENT_CALL, {});
-    expect(answered.results.find((r) => r.actionId === training.id)?.status).toBe("executed");
+    const notAttach = answered.results.filter((r) => r.type !== "attach");
+    expect(notAttach.filter((r) => r.status !== "executed")).toEqual([]);
+  });
+});
+
+describe("answering gap questions", () => {
+  it("an unmatched sign-in name is resolved in place; the attendee list keeps its shape", async () => {
+    const s3 = fixtures.find((f) => f.id === "S3")!;
+    const env = createAgentEnv();
+    let cs = (await runFixture(s3, undefined, env)).changeSet;
+    const gap = cs.gaps.find((g) => g.fieldPath.startsWith("attendees["))!;
+    expect(gap.multiple).toBe(false);
+    const before = cs.actions.find((a) => a.id === gap.actionId)!;
+    if (before.type !== "create") throw new Error("expected a create");
+    const count = (before.payload.attendees as unknown[]).length;
+
+    cs = applyGapAnswer(cs, gap.id, "P-010");
+    const after = cs.actions.find((a) => a.id === gap.actionId)!;
+    if (after.type !== "create") throw new Error("expected a create");
+    const attendees = after.payload.attendees as { name: string; personId?: string }[];
+    expect(attendees).toHaveLength(count);
+    expect(attendees.find((a) => a.name === "T. Nguyen")?.personId).toBe("P-010");
+
+    const approved = {
+      ...cs,
+      actions: cs.actions.map((a) => ({ ...a, status: "approved" as const })),
+    };
+    const report = await env.runtime.gateway.executeChangeSet(approved, AGENT_CALL, {});
+    expect(report.results.find((r) => r.actionId === gap.actionId)?.status).toBe("executed");
   });
 });

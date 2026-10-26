@@ -452,3 +452,13 @@ unanswered blocking question, lists those questions and jumps to each one; rejec
 also clears the hold. Gateway validation errors now name the failing fields.
 **Consequences.** A known-invalid record never reaches the gateway, and the action fails
 visibly in review instead of as a partial push with dependent link and attach failures.
+
+## D-048 · Gap answers keep the schema's shape — 2026-10-26
+
+**Decision.** `GapQuestion.multiple` marks list fields (from the schema's `type: array`).
+Answers are applied by one pure function, `applyGapAnswer` (`src/capture/answers.ts`), used by
+the Review screen and by tests: a list field receives the answer as one entry; a selector path
+such as `attendees[T. Nguyen].personId` sets that entry only.
+**Consequences.** Answering "Who should take this training?" produces `assigneeIds: ["P-…"]`,
+which the Training system accepts. Tests exercise the same answer path as the UI, and the e2e
+platform test requires every pushed action to succeed.

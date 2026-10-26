@@ -656,3 +656,8 @@ npm run mcp -- incidents   # run one mock server over stdio (MCP clients: npm ru
   (schema-required); Review holds Push until blocking questions on approved actions are
   answered or the action is rejected; gateway validation errors name the fields (D-047). Demo
   script updated. Unit + e2e (local and hosted) pass.
+- **2026-10-26** — Follow-up: answering the training question still failed, because the person
+  picker's single ID was written into the `assigneeIds` list field as a string. Gaps now carry
+  `multiple`; answers go through `applyGapAnswer` (shared by Review and tests), which wraps list
+  answers (D-048). The earlier unit test had bypassed the UI answer path and the e2e test did not
+  check the training result; both now do.

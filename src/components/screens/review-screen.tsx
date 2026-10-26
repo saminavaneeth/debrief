@@ -9,6 +9,7 @@ import type { ChangeSet, GapQuestion, ProposedAction } from "@/domain";
 import { applyPatch } from "@/mcp/servers/core/patch";
 import { getDb } from "@/capture/db";
 import { useOnline, useRun, useRuns } from "@/capture/hooks";
+import { applyGapAnswer } from "@/capture/answers";
 import { pushRun, saveChangeSet } from "@/capture/process";
 import { moveArtifacts } from "@/capture/repo";
 import { useCaptureUi } from "@/capture/ui-store";
@@ -134,15 +135,7 @@ function ReviewDetail({ id }: { id: string }) {
       a.fieldSupport[path] = { source: "user", evidenceIds: [], citations: [] };
     });
   const answer = (gap: GapQuestion, value: unknown) =>
-    update((d) => {
-      const g = d.gaps.find((x) => x.id === gap.id)!;
-      g.answer = value;
-      const a = d.actions.find((x) => x.id === gap.actionId);
-      if (a?.type === "create") {
-        a.payload = applyPatch(a.payload, [{ op: "set", path: gap.fieldPath, value }]).record;
-        a.fieldSupport[gap.fieldPath] = { source: "user", evidenceIds: [], citations: [] };
-      }
-    });
+    void saveChangeSet(run.id, applyGapAnswer(cset, gap.id, value));
   const approveAll = () =>
     update((d) => {
       for (const a of d.actions) if (a.status === "proposed") a.status = "approved";

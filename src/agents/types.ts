@@ -154,6 +154,8 @@ export interface GapSeed {
   options?: { value: string; label: string }[];
   /** Schema-required: writing the record fails without it. */
   blocking?: boolean;
+  /** The field is an array; answers become one entry. */
+  multiple?: boolean;
 }
 
 export interface DraftRecord {

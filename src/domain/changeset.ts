@@ -114,6 +114,8 @@ export const GapQuestion = z.strictObject({
   required: z.boolean(),
   /** The target schema requires this value, so the action cannot be written without it. */
   blocking: z.boolean().default(false),
+  /** The field holds a list (e.g. assignees): an answer is added as one entry. */
+  multiple: z.boolean().default(false),
   answerType: z.enum(["text", "person", "choice", "number", "date"]),
   options: z.array(z.strictObject({ value: z.string(), label: z.string() })).default([]),
   answer: z.unknown().optional(),

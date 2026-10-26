@@ -40,6 +40,10 @@ test("plug in training, process, workflows fire, patterns become a rule, evals r
   await pushButton.click();
   await expect(page).toHaveURL(/\/results\?cs=/, { timeout: 30_000 });
   await expect(page.getByText("Repeat hazards in one area suggest an audit")).toBeVisible();
+  // Every action went through: the training assignment exists and nothing failed validation.
+  await expect(page.getByText(/^(\d+) of \1 actions done/)).toBeVisible();
+  await expect(page.getByRole("listitem").getByRole("link", { name: /^TRN-\d{4} / })).toBeVisible();
+  await expect(page.getByText(/Validation failed/)).toHaveCount(0);
 
   // The suggestion card is in the activity feed.
   await page.goto("/platform?tab=activity");
