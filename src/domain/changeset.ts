@@ -112,6 +112,8 @@ export const GapQuestion = z.strictObject({
   fieldPath: z.string(),
   question: z.string(),
   required: z.boolean(),
+  /** The target schema requires this value, so the action cannot be written without it. */
+  blocking: z.boolean().default(false),
   answerType: z.enum(["text", "person", "choice", "number", "date"]),
   options: z.array(z.strictObject({ value: z.string(), label: z.string() })).default([]),
   answer: z.unknown().optional(),

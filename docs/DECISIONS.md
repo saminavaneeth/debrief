@@ -441,3 +441,14 @@ grouped by push, with titles and statuses fetched from the gateway and links to 
 in-memory store with its snapshot on the instance disk.
 **Consequences.** A restart (deploy, or the free plan waking from sleep) starts from the seed
 data. Persistent state across restarts needs a database adapter behind the repository interface.
+
+## D-047 · Blocking gap questions hold the push — 2026-10-26
+
+**Decision.** A gap question is `blocking` when its field is in the target schema's `required`
+list, so the system would reject the record without it. Conditionally required values
+(`x-requiredWhen`, e.g. the forklift operator) are not blocking: the record can be written and
+completed later. Review disables **Push** while an action that would be pushed has an
+unanswered blocking question, lists those questions and jumps to each one; rejecting the action
+also clears the hold. Gateway validation errors now name the failing fields.
+**Consequences.** A known-invalid record never reaches the gateway, and the action fails
+visibly in review instead of as a partial push with dependent link and attach failures.

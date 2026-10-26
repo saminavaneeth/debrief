@@ -66,7 +66,8 @@ export const DEMO_STEPS: DemoStep[] = [
       "Tap a field to see its evidence: the highlighted sentence or the photo region.",
       "Slip: not recordable, citing the 29 CFR 1904.7 first-aid list.",
       "The Inbox V-22 note is suggested into “Tank farm leak”, so one hazard is created, not two.",
-      "Answer “Who was operating FL-07?”, approve all, push.",
+      "Answer “Who was operating FL-07?” and “Who should take this training?”, approve all, push.",
+      "Push waits for values the target systems require, so nothing fails on the way in.",
     ],
   },
   {

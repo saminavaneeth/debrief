@@ -53,8 +53,9 @@ function GapInput({ gap, onAnswer }: { gap: GapQuestion; onAnswer: (value: unkno
   const answered = gap.answer !== undefined;
   return (
     <div
+      id={`gap-${gap.id}`}
       className={cn(
-        "space-y-2 rounded-xl border p-3",
+        "scroll-mt-20 space-y-2 rounded-xl border p-3",
         answered ? "border-emerald-300 bg-emerald-50" : "border-amber-300 bg-amber-50",
       )}
     >
@@ -62,6 +63,11 @@ function GapInput({ gap, onAnswer }: { gap: GapQuestion; onAnswer: (value: unkno
         <CircleHelp className="mt-0.5 size-4 shrink-0" aria-hidden />
         {gap.question}
       </p>
+      {gap.blocking && !answered && (
+        <p className="text-sm text-amber-900">
+          Required by the target system. Answer it, or reject this action, before pushing.
+        </p>
+      )}
       {gap.answerType === "person" ? (
         <select
           aria-label={gap.question}

@@ -28,10 +28,16 @@ test("plug in training, process, workflows fire, patterns become a rule, evals r
   const s1 = page.getByRole("region", { name: "Forklift near-miss, Dock 3" });
   await expect(s1.getByText("Forklift operator refresher", { exact: true })).toBeVisible();
   await expect(s1.getByText("Who should take this training?")).toBeVisible();
-  await s1.getByLabel("Who should take this training?").selectOption("P-005");
-
+  // Assignees are required by the Training system, so Push waits for the answer.
   await page.getByRole("button", { name: "Approve all" }).click();
-  await page.getByRole("button", { name: /^Push \d+$/ }).click();
+  const pushButton = page.getByRole("button", { name: /^Push \d+$/ });
+  await expect(pushButton).toBeDisabled();
+  await expect(page.getByText("Answer before pushing, or reject the action:")).toBeVisible();
+  await page.getByRole("button", { name: "Who should take this training?" }).click();
+  await expect(s1.getByLabel("Who should take this training?")).toBeFocused();
+  await s1.getByLabel("Who should take this training?").selectOption("P-005");
+  await expect(pushButton).toBeEnabled();
+  await pushButton.click();
   await expect(page).toHaveURL(/\/results\?cs=/, { timeout: 30_000 });
   await expect(page.getByText("Repeat hazards in one area suggest an audit")).toBeVisible();
 

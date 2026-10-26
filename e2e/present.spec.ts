@@ -40,6 +40,7 @@ test("presenter: script drives the phone, records open in the console pane", asy
     timeout: 60_000,
   });
   await phone.getByLabel("Who was operating FL-07?").selectOption("P-005");
+  await phone.getByLabel("Who should take this training?").selectOption("P-005");
   await phone.getByRole("button", { name: "Approve all" }).click();
   await phone.getByRole("button", { name: /^Push \d+$/ }).click();
   await expect(phone.getByRole("img", { name: /Link graph/ })).toBeVisible({ timeout: 30_000 });

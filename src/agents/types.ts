@@ -152,6 +152,8 @@ export interface GapSeed {
   question: string;
   answerType: "text" | "person" | "choice" | "number" | "date";
   options?: { value: string; label: string }[];
+  /** Schema-required: writing the record fails without it. */
+  blocking?: boolean;
 }
 
 export interface DraftRecord {

@@ -57,6 +57,7 @@ export function findGaps(
         instanceKey: d.instanceKey,
         fieldPath: key,
         question,
+        blocking: required.has(key),
         answerType: answerType(prop),
         ...(options ? { options } : {}),
       });
@@ -77,6 +78,7 @@ export function toGapQuestions(
     fieldPath: s.fieldPath,
     question: s.question,
     required: true,
+    blocking: s.blocking ?? false,
     answerType: s.answerType,
     options: s.options ?? [],
   }));

@@ -158,3 +158,41 @@ describe("plugging in a module", () => {
     }
   });
 });
+
+describe("blocking gap questions", () => {
+  it("flags schema-required gaps; unanswered, the push fails naming the field; answered, it succeeds", async () => {
+    const s1 = fixtures.find((f) => f.id === "S1")!;
+    const env = createAgentEnv();
+    env.runtime.registry.setEnabled("training", true);
+    const { changeSet } = await runFixture(s1, undefined, env);
+    const byField = Object.fromEntries(changeSet.gaps.map((g) => [g.fieldPath, g]));
+    // Training assignees are in the schema's required list; the operator is a business rule.
+    expect(byField.assigneeIds?.blocking).toBe(true);
+    expect(byField.equipmentOperatorId?.blocking).toBe(false);
+
+    const approve = (cs: typeof changeSet) => ({
+      ...cs,
+      actions: cs.actions.map((a) => ({ ...a, status: "approved" as const })),
+    });
+    const unanswered = await env.runtime.gateway.executeChangeSet(
+      approve(changeSet),
+      AGENT_CALL,
+      {},
+    );
+    const failed = unanswered.results.find((r) => r.actionId === byField.assigneeIds!.actionId);
+    expect(failed).toMatchObject({
+      status: "failed",
+      error: "Validation failed for training.create_record: assigneeIds",
+    });
+
+    const fresh = createAgentEnv();
+    fresh.runtime.registry.setEnabled("training", true);
+    const again = (await runFixture(s1, undefined, fresh)).changeSet;
+    const gap = again.gaps.find((g) => g.fieldPath === "assigneeIds")!;
+    const training = again.actions.find((a) => a.id === gap.actionId)!;
+    if (training.type !== "create") throw new Error("expected a create");
+    training.payload = { ...training.payload, assigneeIds: ["P-005"] };
+    const answered = await fresh.runtime.gateway.executeChangeSet(approve(again), AGENT_CALL, {});
+    expect(answered.results.find((r) => r.actionId === training.id)?.status).toBe("executed");
+  });
+});

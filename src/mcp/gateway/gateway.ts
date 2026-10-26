@@ -210,7 +210,13 @@ export class Gateway {
         ctx,
       );
       if (!verdict.valid)
-        fail(new GatewayError(`Validation failed for ${name}`, "invalid", verdict.errors));
+        fail(
+          new GatewayError(
+            `Validation failed for ${name}: ${verdict.errors.map((e) => e.path || "record").join(", ")}`,
+            "invalid",
+            verdict.errors,
+          ),
+        );
     }
 
     const client = await this.deps.pool.client(server);

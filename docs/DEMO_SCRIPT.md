@@ -53,7 +53,8 @@ Record links tapped in the phone open in the right-hand pane.
   first-aid citation (cold therapy).
 - The Inbox V-22 note is suggested into **Tank farm leak**, so the valve leak becomes one hazard,
   not two.
-- Answer **Who was operating FL-07?**, tap **Approve all**, then **Push**.
+- Answer **Who was operating FL-07?** and **Who should take this training?**, tap **Approve all**,
+  then **Push**. Push waits until every value the target systems require has an answer.
 
 ### 2:10 — Linked records, live
 

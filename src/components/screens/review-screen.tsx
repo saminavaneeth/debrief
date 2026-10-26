@@ -178,6 +178,18 @@ function ReviewDetail({ id }: { id: string }) {
     (a) => a.status === "approved" || (a.status === "proposed" && a.autonomy === "auto"),
   ).length;
   const openGaps = cset.gaps.filter((g) => g.answer === undefined).length;
+  // Unanswered schema-required values on actions about to be pushed: the push would fail.
+  const blockers = cset.gaps.filter((g) => {
+    const a = cset.actions.find((x) => x.id === g.actionId);
+    const willPush =
+      a?.status === "approved" || (a?.status === "proposed" && a.autonomy === "auto");
+    return g.blocking && g.answer === undefined && willPush;
+  });
+  const showGap = (id: string) => {
+    const el = document.getElementById(`gap-${id}`);
+    el?.scrollIntoView({ behavior: "smooth", block: "center" });
+    el?.querySelector<HTMLElement>("select, input")?.focus({ preventScroll: true });
+  };
   const resultFor = (a: ProposedAction) => run.results?.find((r) => r.actionId === a.id);
 
   return (
@@ -251,6 +263,27 @@ function ReviewDetail({ id }: { id: string }) {
             {openGaps > 0 && ` · ${openGaps} question${openGaps === 1 ? "" : "s"} open`}
             {!online && " · offline"}
           </p>
+          {blockers.length > 0 && (
+            <div
+              role="status"
+              className="space-y-1 rounded-xl bg-amber-50 p-2 text-sm text-amber-950"
+            >
+              <p>Answer before pushing, or reject the action:</p>
+              <ul className="space-y-1">
+                {blockers.map((g) => (
+                  <li key={g.id}>
+                    <button
+                      type="button"
+                      className="min-h-8 text-left font-medium underline underline-offset-4"
+                      onClick={() => showGap(g.id)}
+                    >
+                      {g.question}
+                    </button>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          )}
           <div className="grid grid-cols-2 gap-2">
             <Button
               variant="outline"
@@ -266,7 +299,7 @@ function ReviewDetail({ id }: { id: string }) {
               size="lg"
               className="h-12"
               onClick={push}
-              disabled={pushing || toPush === 0 || !online}
+              disabled={pushing || toPush === 0 || !online || blockers.length > 0}
             >
               {pushing ? <Loader2 className="animate-spin" aria-hidden /> : <Send aria-hidden />}
               Push {toPush}
