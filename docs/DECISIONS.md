@@ -462,3 +462,10 @@ such as `attendees[T. Nguyen].personId` sets that entry only.
 **Consequences.** Answering "Who should take this training?" produces `assigneeIds: ["P-…"]`,
 which the Training system accepts. Tests exercise the same answer path as the UI, and the e2e
 platform test requires every pushed action to succeed.
+
+## D-049 · Short CLAUDE.md; brief and progress log in docs/ — 2026-11-07
+
+**Decision.** `CLAUDE.md` holds only the summary, status, pointers, commands and working rules
+(under 300 words). The original build brief moved word for word to `docs/BRIEF.md` and the
+progress log to `docs/PROGRESS.md`, where new entries are appended.
+**Consequences.** Less context loaded per session; the full specification is one file away.

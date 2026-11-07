@@ -172,6 +172,7 @@ LAN setup above.
 - [Architecture](docs/ARCHITECTURE.md)
 - [Decision log](docs/DECISIONS.md)
 - [Demo script](docs/DEMO_SCRIPT.md)
+- [Build brief](docs/BRIEF.md) and [progress log](docs/PROGRESS.md)
 
 ## Repository layout
 

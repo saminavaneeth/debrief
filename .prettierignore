@@ -5,4 +5,6 @@ package-lock.json
 evals/results
 public
 CLAUDE.md
+docs/BRIEF.md
+docs/PROGRESS.md
 AGENTS.md
