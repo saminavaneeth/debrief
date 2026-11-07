@@ -168,7 +168,7 @@ LAN setup above.
 
 ## Documentation
 
-- [Product requirements](docs/PRD.md)
+- [Product requirements](docs/PRD.md) and [jobs to be done](docs/jtbd/README.md)
 - [Architecture](docs/ARCHITECTURE.md)
 - [Decision log](docs/DECISIONS.md)
 - [Demo script](docs/DEMO_SCRIPT.md)

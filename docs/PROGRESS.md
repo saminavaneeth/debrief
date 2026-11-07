@@ -124,3 +124,8 @@ Newest entries at the bottom. Append one at the end of every working session.
   check the training result; both now do.
 - **2026-11-07** — CLAUDE.md cut to ~235 words (summary, status, pointers, commands, rules). The
   original brief moved verbatim to `docs/BRIEF.md` and this log to `docs/PROGRESS.md` (D-049).
+- **2026-11-07** — Jobs-to-be-done documents in `docs/jtbd/` (index + one per PRD §4 job) with
+  Given/When/Then acceptance criteria, each with a status and the test or eval that verifies it.
+  Open items surfaced: retry of failed actions from the app (AC-3.7), accepting a suggestion
+  creates the follow-up record (AC-6.7), inline edit of boolean/choice classifications (AC-5.6),
+  in-app module registration (AC-7.8); not covered by tests: AC-1.10, AC-5.7, AC-6.5.

@@ -65,19 +65,22 @@ workflow rules.
 
 ## 4. Jobs to be done
 
-1. When something happens on the floor, I want to record it the way I'd tell a colleague, so I can
-   stay on the floor and still have a complete record.
-2. When I see a problem that is already known, I want my new evidence added to the existing record,
-   so we don't end up with duplicates.
-3. When one event touches several systems, I want all the records created and linked in one step.
-4. When a required detail is missing, I want to be asked a specific question instead of having a
-   field guessed.
-5. When a classification has regulatory weight (recordability, fall-protection thresholds), I want
-   the reference shown next to the decision.
-6. When patterns emerge across the day or the month, I want the system to suggest the follow-up
-   (an audit, a toolbox talk).
-7. As an admin, when we add a new EHS module, I want the agent to start using it without custom
-   integration work.
+Each job has its own document with acceptance criteria: [docs/jtbd](jtbd/README.md).
+
+1. [JTBD-1](jtbd/01-capture-in-the-field.md) — When something happens on the floor, I want to record
+   it the way I'd tell a colleague, so I can stay on the floor and still have a complete record.
+2. [JTBD-2](jtbd/02-update-known-problems.md) — When I see a problem that is already known, I want
+   my new evidence added to the existing record, so we don't end up with duplicates.
+3. [JTBD-3](jtbd/03-one-event-many-systems.md) — When one event touches several systems, I want all
+   the records created and linked in one step.
+4. [JTBD-4](jtbd/04-ask-dont-guess.md) — When a required detail is missing, I want to be asked a
+   specific question instead of having a field guessed.
+5. [JTBD-5](jtbd/05-regulatory-references.md) — When a classification has regulatory weight
+   (recordability, fall-protection thresholds), I want the reference shown next to the decision.
+6. [JTBD-6](jtbd/06-follow-up-on-patterns.md) — When patterns emerge across the day or the month, I
+   want the system to suggest the follow-up (an audit, a toolbox talk).
+7. [JTBD-7](jtbd/07-plug-in-a-module.md) — As an admin, when we add a new EHS module, I want the
+   agent to start using it without custom integration work.
 
 ## 5. User journeys
 
