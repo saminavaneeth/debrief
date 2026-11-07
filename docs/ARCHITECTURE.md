@@ -362,6 +362,8 @@ an admin enables it from the Platform screen.
 
 ## 9. Platform and evals
 
+Metric definitions, matching rules and targets: [EVALS.md](EVALS.md).
+
 `/api/platform` (GET state, POST actions) backs the Platform screen: connected servers and their
 discovered tools, server toggles, autonomy levels per action type, workflow rules with their
 recent evaluations, proposals, the notification and suggestion feed, the gateway audit log, and

@@ -129,3 +129,7 @@ Newest entries at the bottom. Append one at the end of every working session.
   Open items surfaced: retry of failed actions from the app (AC-3.7), accepting a suggestion
   creates the follow-up record (AC-6.7), inline edit of boolean/choice classifications (AC-5.6),
   in-app module registration (AC-7.8); not covered by tests: AC-1.10, AC-5.7, AC-6.5.
+- **2026-11-07** — `docs/EVALS.md`: eval set (S1–S6 × 3 wordings), per-case flow, expected
+  change set matching rules, metric definitions with targets and latest results (18/18, all
+  100%), mapping to PRD success metrics and JTBDs, limits, how to add a case. Linked from PRD §7,
+  ARCHITECTURE §9 and README.

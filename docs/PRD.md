@@ -174,7 +174,8 @@ change.
 | Unsupported-field rate                  | Drafted values with no evidence or schema default ÷ drafted values       | 0                                                 |
 
 Eval-time proxies (measured by `npm run eval` on S1–S6 and variants): routing accuracy, action
-accuracy, field accuracy, unsupported fields, gap-question precision.
+accuracy, field accuracy, unsupported fields, gap-question precision. Definitions, targets and
+latest results: [EVALS.md](EVALS.md).
 
 ## 8. Roadmap
 
