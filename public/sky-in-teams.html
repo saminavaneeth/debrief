@@ -1,0 +1,950 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Sky Teams Prototype</title>
+<style>
+  :root {
+    --top: #243142; --rail: #2f3d50; --rail-ink: #c9d3df;
+    --list: #f1f3f6; --chat: #f8f9fb; --line: #e2e6eb;
+    --ink: #1c2430; --muted: #5d6877; --faint: #8a94a3;
+    --me: #dce8f8; --bubble: #ffffff;
+    --sky: #0f766e; --sky-soft: #d5f5ef; --sky-ink: #0b5650;
+    --login-soft: #e8ebef; --login-ink: #3b4553;
+    --me-soft: #dbe7fd; --me-ink: #1d4ed8;
+    --rule-soft: #ece8fd; --rule-ink: #5b3fc4;
+    --draft: #b45309; --draft-soft: #fffaf0;
+    --saved: #15803d; --saved-soft: #f2fbf5;
+    --alert: #b91c1c; --alert-soft: #fdf1f1;
+    --label-bg: #fff4d6; --label-ink: #7a4b00;
+  }
+  * { box-sizing: border-box; }
+  html, body { height: 100%; margin: 0; }
+  body {
+    font-family: "Segoe UI", system-ui, -apple-system, Roboto, "Helvetica Neue", Arial, sans-serif;
+    font-size: 16px; color: var(--ink); background: var(--chat);
+    -webkit-font-smoothing: antialiased;
+  }
+  button, input, select { font: inherit; color: inherit; }
+  button { cursor: pointer; }
+
+  .app { display: flex; flex-direction: column; height: 100vh; height: 100dvh; }
+
+  /* Top bar */
+  .topbar { display: flex; align-items: center; gap: 14px; padding: 8px 14px; background: var(--top); color: #fff; flex-wrap: wrap; }
+  .brand { display: flex; align-items: center; gap: 10px; font-weight: 600; }
+  .brand svg { opacity: .85; }
+  .mockchip { font-size: 12px; font-weight: 500; color: #c9d3df; border: 1px solid #4a5a70; border-radius: 999px; padding: 2px 8px; }
+  .label { background: var(--label-bg); color: var(--label-ink); font-size: 13px; font-weight: 600; padding: 4px 10px; border-radius: 6px; }
+  .spacer { flex: 1; }
+  .controls { display: flex; align-items: center; gap: 8px; font-size: 14px; }
+  .controls label { color: #c9d3df; }
+  .controls select { background: #354558; color: #fff; border: 1px solid #4a5a70; border-radius: 6px; padding: 5px 8px; }
+  .controls button { background: transparent; color: #fff; border: 1px solid #4a5a70; border-radius: 6px; padding: 5px 10px; }
+  .controls button:hover, .controls select:hover { border-color: #8da0b8; }
+
+  .main { flex: 1; display: flex; min-height: 0; }
+
+  /* Rail */
+  .rail { width: 68px; background: var(--rail); display: flex; flex-direction: column; align-items: center; padding-top: 8px; gap: 4px; }
+  .rail div { width: 60px; padding: 8px 0 6px; text-align: center; color: var(--rail-ink); font-size: 11px; border-radius: 8px; }
+  .rail div.on { background: #3e5068; color: #fff; }
+  .rail svg { display: block; margin: 0 auto 3px; }
+
+  /* Chat list */
+  .chats { width: 290px; background: var(--list); border-right: 1px solid var(--line); display: flex; flex-direction: column; }
+  .who-am-i { display: flex; gap: 10px; align-items: center; padding: 14px 14px 12px; border-bottom: 1px solid var(--line); }
+  .who-am-i b { display: block; font-size: 15px; }
+  .who-am-i div span { font-size: 13px; color: var(--muted); }
+  .chats h3 { margin: 14px 14px 6px; font-size: 13px; color: var(--muted); font-weight: 600; letter-spacing: .02em; }
+  .ci { display: flex; gap: 10px; align-items: center; padding: 9px 14px; border: 0; background: none; width: 100%; text-align: left; border-left: 3px solid transparent; }
+  .ci:hover { background: #e7eaef; }
+  .ci.on { background: #e3e8ef; border-left-color: var(--sky); }
+  .ci .t { flex: 1; min-width: 0; }
+  .ci .n { font-size: 15px; font-weight: 600; display: flex; justify-content: space-between; gap: 6px; }
+  .ci .p { display: block; font-size: 13px; color: var(--muted); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .ci.deco { cursor: default; opacity: .72; }
+  .ci.deco:hover { background: none; }
+  .badge { background: var(--alert); color: #fff; font-size: 11px; font-weight: 700; border-radius: 999px; min-width: 18px; height: 18px; padding: 0 5px; display: inline-flex; align-items: center; justify-content: center; }
+
+  .av { width: 36px; height: 36px; border-radius: 50%; flex: none; display: inline-flex; align-items: center; justify-content: center; font-size: 13px; font-weight: 700; color: #fff; }
+  .av.sm { width: 32px; height: 32px; font-size: 12px; }
+  .av.sky { background: var(--sky); border-radius: 9px; }
+  .av.me { background: #3b6fd8; }
+  .av.grp { background: #6b7a8f; border-radius: 9px; }
+  .av.dana { background: #c2610c; }
+  .av.priya { background: #b83d7a; }
+  .av.luis { background: #2f8a4c; }
+  .av.jordan { background: #6d4fc2; }
+
+  /* Chat pane */
+  .chat { flex: 1; display: flex; flex-direction: column; min-width: 0; }
+  .chat-head { display: flex; align-items: center; gap: 12px; padding: 10px 18px; border-bottom: 1px solid var(--line); background: #fff; }
+  .chat-head b { font-size: 17px; display: block; }
+  .chat-head div span { font-size: 13px; color: var(--muted); }
+  .listbtn { display: none; border: 1px solid var(--line); background: #fff; border-radius: 6px; padding: 5px 9px; font-size: 14px; white-space: nowrap; }
+  .rules { background: #eef7f5; border-bottom: 1px solid #cfe9e4; padding: 8px 18px; font-size: 14px; color: var(--sky-ink); }
+  .rules b { margin-right: 6px; }
+  .rules .pin { display: inline-block; font-size: 12px; font-weight: 600; color: var(--muted); background: #fff; border: 1px solid #cfe9e4; border-radius: 999px; padding: 0 8px; margin-right: 8px; }
+  .rules ul { display: inline; margin: 0; padding: 0; list-style: none; }
+  .rules li { display: inline; }
+  .rules li + li::before { content: " · "; color: #7fb9b0; }
+
+  .msgs { flex: 1; overflow-y: auto; padding: 18px 18px 8px; scroll-behavior: smooth; }
+  .thread { max-width: 760px; margin: 0 auto; }
+
+  .row { display: flex; gap: 10px; margin: 12px 0; align-items: flex-start; }
+  .row.me { justify-content: flex-end; }
+  .row .col { max-width: min(600px, 86%); min-width: 0; }
+  .meta { font-size: 13px; color: var(--muted); margin: 0 0 3px 2px; }
+  .meta b { color: var(--ink); font-weight: 600; margin-right: 6px; }
+  .row.me .meta { text-align: right; margin-right: 2px; }
+  .bub { background: var(--bubble); border: 1px solid var(--line); border-radius: 4px 12px 12px 12px; padding: 9px 13px; line-height: 1.45; }
+  .row.me .bub { background: var(--me); border-color: #c7d8f1; border-radius: 12px 4px 12px 12px; }
+  .bub p { margin: 0; }
+  .bub p + p, .bub p + .card, .bub .card + p, .bub p + .chipset, .bub .mini + p { margin-top: 8px; }
+  .mention { color: var(--sky); font-weight: 600; }
+  .row.dim .bub { opacity: .95; }
+
+  .typing { display: inline-flex; gap: 4px; padding: 4px 2px; }
+  .typing i { width: 7px; height: 7px; border-radius: 50%; background: #9aa5b3; animation: blink 1s infinite ease-in-out; }
+  .typing i:nth-child(2) { animation-delay: .15s; } .typing i:nth-child(3) { animation-delay: .3s; }
+  @keyframes blink { 0%, 80%, 100% { opacity: .3; transform: translateY(0); } 40% { opacity: 1; transform: translateY(-2px); } }
+
+  .divider { display: flex; align-items: center; gap: 10px; color: var(--faint); font-size: 13px; margin: 18px 0; }
+  .divider::before, .divider::after { content: ""; flex: 1; height: 1px; background: var(--line); }
+  .divider button { border: 1px solid #b9c3cf; background: #fff; border-radius: 999px; padding: 5px 14px; font-size: 14px; color: var(--ink); }
+  .divider button:hover { border-color: var(--sky); color: var(--sky); }
+  .sys { text-align: center; font-size: 13px; color: var(--muted); margin: 10px auto; max-width: 560px; }
+  .sys.alertline { color: var(--alert); }
+
+  .photo { margin: 6px 0 0; width: 300px; max-width: 100%; }
+  .photo svg { display: block; width: 100%; height: auto; border-radius: 8px; border: 1px solid #c7d0db; }
+  .photo figcaption { font-size: 12px; color: var(--muted); margin-top: 3px; }
+
+  /* Chips */
+  .chipset { display: flex; gap: 8px; flex-wrap: wrap; }
+  .chip { border: 1.5px solid var(--sky); color: var(--sky); background: #fff; border-radius: 999px; padding: 6px 14px; font-weight: 600; font-size: 15px; }
+  .chip:hover { background: var(--sky-soft); }
+  .chip.danger { border-color: var(--alert); color: var(--alert); }
+  .chip.danger:hover { background: var(--alert-soft); }
+  .chip:disabled { opacity: .45; cursor: default; background: #fff; }
+  .chip.picked { opacity: 1; background: var(--sky); color: #fff; }
+  .chip.danger.picked { background: var(--alert); color: #fff; }
+
+  /* Tags */
+  .tag { display: inline-block; font-size: 11.5px; font-weight: 600; border-radius: 5px; padding: 1px 7px; white-space: nowrap; vertical-align: 1px; }
+  .tag.sky { background: var(--sky-soft); color: var(--sky-ink); }
+  .tag.login { background: var(--login-soft); color: var(--login-ink); }
+  .tag.me { background: var(--me-soft); color: var(--me-ink); }
+  .tag.rule { background: var(--rule-soft); color: var(--rule-ink); }
+
+  /* Cards */
+  .card { border: 2px dashed var(--draft); background: var(--draft-soft); border-radius: 10px; padding: 12px 14px 12px; font-size: 15px; }
+  .card.saved { border: 2px solid var(--saved); background: var(--saved-soft); }
+  .card-h { display: flex; justify-content: space-between; align-items: baseline; gap: 10px; margin-bottom: 8px; flex-wrap: wrap; }
+  .card-h b { font-size: 16px; }
+  .state { font-size: 13px; font-weight: 700; color: var(--draft); }
+  .card.saved .state { color: var(--saved); }
+  .fields { display: grid; grid-template-columns: 132px 1fr; gap: 7px 12px; margin: 0; }
+  .fields dt { color: var(--muted); font-size: 14px; padding-top: 1px; }
+  .fields dd { margin: 0; }
+  .fields .v { margin-right: 6px; }
+  .was { display: block; font-size: 12.5px; color: var(--muted); margin-top: 2px; }
+  .editbtn { border: 0; background: none; color: var(--me-ink); font-size: 13.5px; font-weight: 600; padding: 0 0 0 4px; text-decoration: underline; text-underline-offset: 2px; }
+  .card.saved .editbtn { display: none; }
+  .editbox { display: inline-flex; gap: 6px; align-items: center; }
+  .editbox input { width: 96px; border: 1.5px solid var(--me-ink); border-radius: 6px; padding: 3px 7px; background: #fff; }
+  .editbox button { border: 0; background: var(--me-ink); color: #fff; border-radius: 6px; padding: 4px 10px; font-size: 13.5px; font-weight: 600; }
+  .pulse { animation: pulse 1.6s ease-in-out 3; }
+  @keyframes pulse { 0%, 100% { box-shadow: 0 0 0 0 rgba(29,78,216,0); } 50% { box-shadow: 0 0 0 4px rgba(29,78,216,.22); } }
+
+  .sev { margin-top: 10px; padding: 10px 12px; background: #fff; border: 1px solid #ead9bd; border-radius: 8px; }
+  .card.saved .sev { border-color: #cfe7d6; }
+  .sev-top { display: flex; justify-content: space-between; gap: 8px; align-items: center; flex-wrap: wrap; }
+  .lbl { color: var(--muted); font-size: 14px; }
+  .scale { display: flex; gap: 4px; margin: 7px 0 7px; }
+  .scale span { flex: 1; text-align: center; font-size: 13px; padding: 4px 0; border-radius: 5px; background: #f0f1f4; color: var(--faint); }
+  .scale span.on { background: #c2410c; color: #fff; font-weight: 700; }
+  .why { margin: 0; line-height: 1.45; }
+  .src { margin: 5px 0 0; font-size: 13px; color: var(--muted); }
+  .rec { margin-top: 8px; padding: 9px 12px; background: #fff; border: 1px solid #ead9bd; border-radius: 8px; line-height: 1.45; }
+  .card.saved .rec { border-color: #cfe7d6; }
+  .rec .lbl { display: block; margin-bottom: 2px; }
+  .privacy { margin-top: 8px; font-size: 13.5px; color: var(--sky-ink); }
+  .legend { margin-top: 10px; font-size: 12.5px; color: var(--muted); }
+  .legend .tag { margin: 0 1px; }
+  .card-f { display: flex; align-items: center; justify-content: space-between; gap: 10px; margin-top: 12px; flex-wrap: wrap; }
+  .card-f small { color: var(--draft); font-weight: 600; font-size: 13.5px; }
+  .confirm { border: 0; background: var(--saved); color: #fff; font-weight: 700; border-radius: 8px; padding: 8px 18px; font-size: 15px; }
+  .confirm:hover { filter: brightness(1.08); }
+  .confirm:disabled { opacity: .7; cursor: default; }
+  .audit { margin-top: 10px; padding-top: 8px; border-top: 1px solid #cfe7d6; font-size: 13.5px; color: #2c5b3a; font-family: ui-monospace, "Cascadia Mono", Consolas, monospace; }
+
+  .mini { border: 1px solid var(--line); border-left: 4px solid var(--sky); background: #fbfcfd; border-radius: 6px; padding: 8px 12px; font-size: 15px; }
+  .mini b { display: block; margin-bottom: 3px; }
+  .mini .fields { grid-template-columns: 82px 1fr; gap: 3px 10px; }
+  .pill { display: inline-block; font-size: 12.5px; font-weight: 700; padding: 1px 8px; border-radius: 999px; background: #fdf0d5; color: #8a5300; }
+  .note { font-size: 13px; color: var(--muted); }
+
+  .urgent { border-left: 4px solid var(--alert); background: var(--alert-soft); padding: 9px 12px; border-radius: 6px; }
+  .urgent p + p { margin-top: 6px; }
+
+  /* Composer */
+  .composer { padding: 8px 18px 6px; background: var(--chat); }
+  .cbox { max-width: 760px; margin: 0 auto; background: #fff; border: 1px solid #c9d1db; border-radius: 10px; padding: 6px 8px; }
+  .cbox:focus-within { border-color: var(--sky); box-shadow: 0 0 0 2px rgba(15,118,110,.15); }
+  .cbox.off { background: #f3f4f6; }
+  .pending { display: none; align-items: center; gap: 8px; padding: 4px 4px 6px; font-size: 13px; color: var(--muted); }
+  .pending.show { display: flex; }
+  .pending .thumb { width: 64px; border-radius: 5px; overflow: hidden; border: 1px solid #c7d0db; }
+  .pending .thumb svg { display: block; width: 100%; height: auto; }
+  .pending button { border: 0; background: none; color: var(--muted); font-size: 18px; padding: 0 4px; }
+  .crow { display: flex; align-items: center; gap: 6px; }
+  .crow input { flex: 1; border: 0; outline: 0; padding: 7px 4px; font-size: 16px; background: transparent; min-width: 0; }
+  .icon { border: 0; background: none; padding: 6px; border-radius: 6px; color: var(--muted); display: inline-flex; }
+  .icon:hover:not(:disabled) { background: #eef1f4; color: var(--ink); }
+  .icon:disabled { opacity: .35; cursor: default; }
+  .icon.nudge { color: var(--sky); animation: nudge 1.4s ease-in-out infinite; }
+  @keyframes nudge { 0%, 100% { background: transparent; } 50% { background: var(--sky-soft); } }
+  .send:not(:disabled) { color: var(--sky); }
+  .chint { max-width: 760px; margin: 4px auto 0; font-size: 12.5px; color: var(--faint); min-height: 17px; }
+
+  /* Footer & toast */
+  .foot { display: flex; justify-content: space-between; gap: 10px; flex-wrap: wrap; padding: 5px 14px; font-size: 12px; color: var(--muted); border-top: 1px solid var(--line); background: #fff; }
+  .toast { position: fixed; right: 20px; bottom: 76px; background: #1f2a37; color: #fff; border-radius: 10px; padding: 12px 14px; display: none; align-items: center; gap: 12px; box-shadow: 0 8px 24px rgba(0,0,0,.25); font-size: 15px; max-width: calc(100vw - 32px); }
+  .toast.show { display: flex; }
+  .toast button { border: 0; background: var(--sky); color: #fff; font-weight: 700; border-radius: 6px; padding: 6px 12px; }
+
+  /* Phone */
+  @media (max-width: 760px) {
+    .rail { display: none; }
+    .chats { position: fixed; top: 0; left: 0; bottom: 0; width: min(300px, 86vw); z-index: 20; transform: translateX(-102%); transition: transform .2s; box-shadow: 4px 0 20px rgba(0,0,0,.2); }
+    body.list-open .chats { transform: none; }
+    .listbtn { display: inline-block; }
+    .topbar { padding: 8px 16px; gap: 8px; }
+    .label { font-size: 12px; order: 3; width: 100%; text-align: center; }
+    .mockchip { display: none; }
+    .controls label span { display: none; }
+    .msgs { padding: 12px 16px 6px; }
+    .composer { padding: 6px 16px 4px; }
+    .chat-head { padding: 8px 16px; }
+    .rules { padding: 7px 16px; font-size: 13px; }
+    .fields { grid-template-columns: 1fr; gap: 1px 0; }
+    .fields dt { margin-top: 6px; }
+    .row .col { max-width: 92%; }
+    .row .av.sm { display: none; }
+    .foot { padding: 5px 16px; }
+    .foot .keys { display: none; }
+    .toast { right: 16px; left: 16px; bottom: 90px; }
+  }
+</style>
+</head>
+<body>
+<div class="app">
+  <header class="topbar">
+    <div class="brand">
+      <svg width="18" height="18" viewBox="0 0 18 18" aria-hidden="true"><g fill="currentColor"><rect x="1" y="1" width="4" height="4" rx="1"/><rect x="7" y="1" width="4" height="4" rx="1"/><rect x="13" y="1" width="4" height="4" rx="1"/><rect x="1" y="7" width="4" height="4" rx="1"/><rect x="7" y="7" width="4" height="4" rx="1"/><rect x="13" y="7" width="4" height="4" rx="1"/><rect x="1" y="13" width="4" height="4" rx="1"/><rect x="7" y="13" width="4" height="4" rx="1"/><rect x="13" y="13" width="4" height="4" rx="1"/></g></svg>
+      Work chat <span class="mockchip">Teams-style mock</span>
+    </div>
+    <div class="label">Concept prototype · scripted · no live AI or HSI data</div>
+    <div class="spacer"></div>
+    <div class="controls">
+      <label for="scenario"><span>Scenario</span></label>
+      <select id="scenario" aria-label="Scenario">
+        <option value="1">1 · Report an incident</option>
+        <option value="2">2 · Report from the crew chat</option>
+        <option value="3">3 · Someone already reported it</option>
+        <option value="4">4 · Someone's hurt</option>
+        <option value="5">5 · Check on a report</option>
+      </select>
+      <button id="reset" title="Start this scenario again (R)">Reset</button>
+    </div>
+  </header>
+
+  <div class="main">
+    <nav class="rail" aria-hidden="true">
+      <div><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M6 16V11a6 6 0 0 1 12 0v5l1.5 2h-15z"/><path d="M10 20a2 2 0 0 0 4 0"/></svg>Activity</div>
+      <div class="on"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 5h16v11H9l-5 4z"/></svg>Chat</div>
+      <div><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="4" y="5" width="16" height="15" rx="2"/><path d="M4 10h16M9 3v4M15 3v4"/></svg>Calendar</div>
+      <div><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M6 3h8l4 4v14H6z"/><path d="M14 3v4h4"/></svg>Files</div>
+    </nav>
+
+    <aside class="chats" id="chats">
+      <div class="who-am-i">
+        <span class="av me">MS</span>
+        <div><b>Marco Silva</b><span>Picker · Columbus DC</span></div>
+      </div>
+      <h3>Chats</h3>
+      <div id="chatlist"></div>
+    </aside>
+
+    <section class="chat">
+      <div class="chat-head">
+        <button class="listbtn" id="listbtn" aria-label="Show chats">☰ Chats</button>
+        <span class="av" id="headAv"></span>
+        <div><b id="headName"></b><span id="headSub"></span></div>
+      </div>
+      <div class="rules" id="rules" hidden>
+        <span class="pin">Pinned by Dana Okafor</span>
+        <b>Sky in this chat:</b>
+        <ul>
+          <li>only reads messages that tag it</li>
+          <li>posts only a short reply here</li>
+          <li>takes photos and injury details in a private chat</li>
+          <li>everyone acts as themselves</li>
+        </ul>
+      </div>
+      <div class="msgs" id="msgs"></div>
+      <div class="composer">
+        <div class="cbox" id="cbox">
+          <div class="pending" id="pending">
+            <span class="thumb" id="pendingThumb"></span>
+            <span>forklift-aisle-7.jpg</span>
+            <button id="unattach" aria-label="Remove photo">×</button>
+          </div>
+          <div class="crow">
+            <button class="icon" id="attach" title="Attach a photo" aria-label="Attach a photo">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M20 11.5l-8 8a5 5 0 0 1-7-7l8.5-8.5a3.3 3.3 0 0 1 4.7 4.7L9.7 17.2a1.7 1.7 0 0 1-2.4-2.4L15 7.2"/></svg>
+            </button>
+            <input id="cin" type="text" autocomplete="off" autocapitalize="off" spellcheck="false" aria-label="Message">
+            <button class="icon send" id="send" title="Send" aria-label="Send">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M3 20.5l18-8.5L3 3.5l2.5 7L15 12l-9.5 1.5z"/></svg>
+            </button>
+          </div>
+        </div>
+        <div class="chint" id="chint"></div>
+      </div>
+    </section>
+  </div>
+
+  <footer class="foot">
+    <span>Concept by Sami Navaneeth. A Teams-style mock, not an HSI or Microsoft product screen. Names, sites, rules and report numbers are made up.</span>
+    <span class="keys">Keys: R reset · 1–5 scenarios · Tab fills a line</span>
+  </footer>
+</div>
+
+<div class="toast" id="toast" role="status">
+  <span>HSI Sky sent you a private message</span>
+  <button id="toastOpen">Open</button>
+</div>
+
+<script>
+(function () {
+  'use strict';
+
+  /* ---------- Script text ---------- */
+  var LINES = {
+    // A 1:1 chat with a bot needs no tag. In a group chat, Sky only gets messages that tag it.
+    report: 'forklift hit the racking in aisle 7',
+    reportCrew: '@HSI Sky forklift hit the racking in aisle 7',
+    status: "where's my report from Tuesday?",
+    injury: "Luis's hand got cut on the bent upright. Stitches at the clinic."
+  };
+
+  var PHOTO_SVG =
+    '<svg viewBox="0 0 320 200" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Illustration: a forklift next to a bent rack upright in aisle 7">' +
+    '<rect width="320" height="200" fill="#dfe3e8"/>' +
+    '<rect y="150" width="320" height="50" fill="#b9bfc7"/>' +
+    '<path d="M0 172h320" stroke="#e8c33a" stroke-width="5" stroke-dasharray="22 14"/>' +
+    '<rect x="16" y="10" width="54" height="22" rx="3" fill="#24548f"/><text x="43" y="26" font-family="Arial" font-size="12" font-weight="700" fill="#fff" text-anchor="middle">AISLE 7</text>' +
+    '<g stroke="#2a5aa0" stroke-width="7" fill="none" stroke-linecap="square"><path d="M40 40v112"/><path d="M118 40v40 q0 12 10 22 q8 10 4 26 v24"/><path d="M196 40v112"/></g>' +
+    '<g fill="#e06b1f"><rect x="40" y="58" width="156" height="7"/><rect x="40" y="104" width="78" height="7"/><rect x="132" y="104" width="64" height="7" transform="rotate(4 132 104)"/></g>' +
+    '<g fill="#a07a4f"><rect x="52" y="34" width="52" height="24"/><rect x="138" y="34" width="46" height="24"/><rect x="54" y="80" width="50" height="24"/><rect x="150" y="82" width="38" height="22" transform="rotate(4 150 82)"/></g>' +
+    '<g><rect x="214" y="98" width="70" height="44" rx="5" fill="#f2b705"/><rect x="226" y="66" width="40" height="34" fill="none" stroke="#333" stroke-width="5"/>' +
+    '<rect x="198" y="62" width="7" height="86" fill="#444"/><rect x="164" y="138" width="40" height="6" fill="#444"/>' +
+    '<circle cx="230" cy="148" r="12" fill="#222"/><circle cx="272" cy="148" r="12" fill="#222"/><circle cx="230" cy="148" r="4" fill="#888"/><circle cx="272" cy="148" r="4" fill="#888"/>' +
+    '<text x="250" y="126" font-family="Arial" font-size="11" font-weight="700" fill="#333" text-anchor="middle">FL-12</text></g>' +
+    '<path d="M124 96 l6 -6 M134 112 l8 -3" stroke="#c00" stroke-width="2.5" stroke-linecap="round"/>' +
+    '</svg>';
+
+  var PEOPLE = {
+    sky: { name: 'HSI Sky', av: 'S', cls: 'sky' },
+    me: { name: 'Marco Silva', av: 'MS', cls: 'me' },
+    dana: { name: 'Dana Okafor', av: 'DO', cls: 'dana' },
+    priya: { name: 'Priya Shah', av: 'PS', cls: 'priya' },
+    luis: { name: 'Luis Ortega', av: 'LO', cls: 'luis' },
+    jordan: { name: 'Jordan Park', av: 'JP', cls: 'jordan' }
+  };
+
+  /* ---------- DOM ---------- */
+  function $(id) { return document.getElementById(id); }
+  var msgsEl = $('msgs'), cin = $('cin'), sendBtn = $('send'), attachBtn = $('attach');
+  var pendingEl = $('pending'), chint = $('chint'), cbox = $('cbox'), toast = $('toast');
+  var scenarioSel = $('scenario');
+  $('pendingThumb').innerHTML = PHOTO_SVG;
+
+  function el(html) {
+    var t = document.createElement('template');
+    t.innerHTML = html.trim();
+    return t.content.firstElementChild;
+  }
+  function esc(s) {
+    return String(s).replace(/[&<>"']/g, function (c) {
+      return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c];
+    });
+  }
+  function fmt(text) {
+    return esc(text).replace('@HSI Sky', '<span class="mention">@HSI Sky</span>');
+  }
+
+  /* ---------- Run control (reset cancels pending steps) ---------- */
+  var runId = 0;
+  var CANCEL = { cancelled: true };
+  function wait(ms) {
+    var r = runId;
+    return new Promise(function (res, rej) {
+      setTimeout(function () { if (r === runId) res(); else rej(CANCEL); }, ms);
+    });
+  }
+  function safe(fn) {
+    return function () {
+      var p = fn.apply(null, arguments);
+      if (p && p.catch) p.catch(function (e) { if (e !== CANCEL) console.error(e); });
+    };
+  }
+
+  /* ---------- Chats ---------- */
+  var chats = {};
+  var active = 'sky';
+
+  function makeChats() {
+    chats = {
+      sky: { name: 'HSI Sky', sub: 'App · private chat', av: 'S', cls: 'sky', preview: '', thread: el('<div class="thread"></div>'), composer: null, unread: 0 },
+      crew: { name: 'Aisle 5–8 early shift', sub: 'Group chat · 9 people · HSI Sky added', av: 'A5', cls: 'grp', preview: '', thread: el('<div class="thread"></div>'), composer: null, unread: 0 }
+    };
+    msgsEl.innerHTML = '';
+    msgsEl.appendChild(chats.sky.thread);
+    msgsEl.appendChild(chats.crew.thread);
+  }
+
+  function renderList() {
+    var list = $('chatlist');
+    list.innerHTML = '';
+    ['sky', 'crew'].forEach(function (id) {
+      var c = chats[id];
+      var b = el('<button class="ci' + (id === active ? ' on' : '') + '"><span class="av ' + c.cls + '">' + c.av + '</span>' +
+        '<span class="t"><span class="n"><span>' + esc(c.name) + '</span>' + (c.unread ? '<span class="badge">' + c.unread + '</span>' : '') + '</span>' +
+        '<span class="p">' + esc(c.preview) + '</span></span></button>');
+      b.addEventListener('click', function () { switchChat(id); document.body.classList.remove('list-open'); });
+      list.appendChild(b);
+    });
+    [['dana', 'See you at the 7:00 huddle'], ['jordan', 'Site rules v3 are live']].forEach(function (d) {
+      var p = PEOPLE[d[0]];
+      list.appendChild(el('<div class="ci deco" title="Not part of this prototype"><span class="av ' + p.cls + '">' + p.av + '</span>' +
+        '<span class="t"><span class="n"><span>' + p.name + '</span></span><span class="p">' + d[1] + '</span></span></div>'));
+    });
+  }
+
+  function switchChat(id) {
+    active = id;
+    var c = chats[id];
+    c.unread = 0;
+    chats.sky.thread.hidden = id !== 'sky';
+    chats.crew.thread.hidden = id !== 'crew';
+    $('headAv').className = 'av ' + c.cls;
+    $('headAv').textContent = c.av;
+    $('headName').textContent = c.name;
+    $('headSub').textContent = c.sub;
+    $('rules').hidden = id !== 'crew';
+    if (id === 'sky') hideToast();
+    renderList();
+    renderComposer();
+    scrollDown(true);
+  }
+
+  function scrollDown(instant) {
+    if (instant) { msgsEl.style.scrollBehavior = 'auto'; }
+    msgsEl.scrollTop = msgsEl.scrollHeight;
+    if (instant) { msgsEl.style.scrollBehavior = ''; }
+  }
+
+  function touch(chatId, preview) {
+    var c = chats[chatId];
+    if (preview) c.preview = preview;
+    if (chatId !== active) c.unread += 1;
+    renderList();
+    if (chatId === active) scrollDown();
+  }
+
+  /* ---------- Messages ---------- */
+  function addMsg(chatId, who, time, body, preview) {
+    var p = PEOPLE[who];
+    var mine = who === 'me';
+    var row = el('<div class="row' + (mine ? ' me' : '') + '">' +
+      (mine ? '' : '<span class="av sm ' + p.cls + '">' + p.av + '</span>') +
+      '<div class="col"><div class="meta">' + (mine ? '' : '<b>' + p.name + '</b>') + time + '</div><div class="bub"></div></div></div>');
+    var bub = row.querySelector('.bub');
+    if (typeof body === 'string') bub.innerHTML = body; else bub.appendChild(body);
+    chats[chatId].thread.appendChild(row);
+    touch(chatId, preview || (mine ? 'You: ' : '') + (bub.textContent || '').slice(0, 60));
+    return bub;
+  }
+  function addDivider(chatId, text) {
+    chats[chatId].thread.appendChild(el('<div class="divider"><span>' + esc(text) + '</span></div>'));
+  }
+  function addSys(chatId, html, cls) {
+    chats[chatId].thread.appendChild(el('<div class="sys ' + (cls || '') + '">' + html + '</div>'));
+    if (chatId === active) scrollDown();
+  }
+  function skyTyping(chatId) {
+    var row = el('<div class="row"><span class="av sm sky">S</span><div class="col"><div class="meta"><b>HSI Sky</b>is typing</div><div class="bub"><span class="typing"><i></i><i></i><i></i></span></div></div></div>');
+    chats[chatId].thread.appendChild(row);
+    if (chatId === active) scrollDown();
+    return row;
+  }
+  function skySays(chatId, time, body, delay, preview) {
+    var row = skyTyping(chatId);
+    return wait(delay || 700).then(function () {
+      row.remove();
+      return addMsg(chatId, 'sky', time, body, preview);
+    });
+  }
+  function photoFig() {
+    return '<figure class="photo">' + PHOTO_SVG + '<figcaption>Photo · illustration</figcaption></figure>';
+  }
+  function myReport(chatId, text, photo, time) {
+    var html = (text ? '<p>' + fmt(text) + '</p>' : '') + (photo ? photoFig() : '');
+    return addMsg(chatId, 'me', time, html, 'You: ' + (text || 'Photo'));
+  }
+
+  function chipset(chatId, time, options) {
+    var wrap = el('<div class="chipset"></div>');
+    options.forEach(function (o) {
+      var b = el('<button class="chip' + (o.danger ? ' danger' : '') + '">' + esc(o.label) + '</button>');
+      b.addEventListener('click', function () {
+        Array.prototype.forEach.call(wrap.children, function (x) { x.disabled = true; });
+        b.classList.add('picked');
+        addMsg(chatId, 'me', time, '<p>' + esc(o.label) + '</p>');
+        safe(o.go)();
+      });
+      wrap.appendChild(b);
+    });
+    return wrap;
+  }
+
+  /* ---------- Composer (guided typing) ---------- */
+  function setComposer(chatId, cfg) {
+    chats[chatId].composer = cfg ? {
+      script: cfg.script || '', allowPhoto: !!cfg.allowPhoto, onSend: cfg.onSend,
+      hint: cfg.hint || '', placeholder: cfg.placeholder || 'Type a message',
+      typed: '', photo: false, done: false
+    } : null;
+    if (chatId === active) renderComposer();
+  }
+  function cur() { var c = chats[active]; return c && c.composer; }
+
+  function renderComposer() {
+    var c = cur();
+    var on = !!(c && !c.done);
+    cbox.classList.toggle('off', !on);
+    cin.disabled = !on;
+    cin.value = c ? c.typed : '';
+    cin.placeholder = on ? c.placeholder : (active === 'crew' && !c ? 'Pick scenario 2 to try the crew chat' : 'Type a message');
+    attachBtn.disabled = !(on && c.allowPhoto && !c.photo);
+    attachBtn.classList.toggle('nudge', !!(on && c.allowPhoto && !c.photo && !c.script));
+    pendingEl.classList.toggle('show', !!(c && c.photo && !c.done));
+    sendBtn.disabled = !on;
+    var hint = '';
+    if (on) {
+      if (c.script) hint = 'Click the box and press any keys: the scripted line types itself. Tab fills it, Enter sends.';
+      if (c.allowPhoto && !c.photo) hint += (hint ? ' ' : '') + 'The paperclip attaches the photo.';
+      if (c.hint) hint = c.hint;
+    }
+    chint.textContent = hint;
+  }
+
+  function setTyped(v) {
+    var c = cur(); if (!c) return;
+    c.typed = v; cin.value = v;
+  }
+
+  cin.addEventListener('keydown', function (e) {
+    var c = cur();
+    if (!c || c.done) return;
+    var s = c.script;
+    if (e.key === 'Enter') { e.preventDefault(); doSend(); return; }
+    if (e.key === 'Tab') { if (s && c.typed.length < s.length) { e.preventDefault(); setTyped(s); } return; }
+    if (e.key === 'Escape') { cin.blur(); return; }
+    if (e.key === 'Backspace') { e.preventDefault(); setTyped(s.slice(0, Math.max(0, c.typed.length - 1))); return; }
+    if (e.key.length === 1 && !e.ctrlKey && !e.metaKey && !e.altKey) {
+      e.preventDefault();
+      if (s) setTyped(s.slice(0, c.typed.length + 1));
+    }
+  });
+  // Touch keyboards often don't send usable key events: advance one letter per input.
+  cin.addEventListener('input', function () {
+    var c = cur();
+    if (!c || c.done || !c.script) { setTyped(c ? c.typed : ''); return; }
+    setTyped(c.script.slice(0, Math.min(c.script.length, c.typed.length + 1)));
+  });
+  cin.addEventListener('paste', function (e) { e.preventDefault(); });
+
+  function doSend() {
+    var c = cur();
+    if (!c || c.done) return;
+    if (!c.script && !c.photo) { attachBtn.classList.add('nudge'); return; }
+    var payload = { text: c.script, photo: c.photo };
+    c.done = true;
+    c.typed = '';
+    cin.blur();
+    renderComposer();
+    safe(c.onSend)(payload);
+  }
+  sendBtn.addEventListener('click', doSend);
+  attachBtn.addEventListener('click', function () {
+    var c = cur();
+    if (!c || c.done || !c.allowPhoto) return;
+    c.photo = true;
+    renderComposer();
+    if (c.script) cin.focus();
+  });
+  $('unattach').addEventListener('click', function () {
+    var c = cur(); if (!c) return;
+    c.photo = false; renderComposer();
+  });
+
+  /* ---------- Guided edit for a single field ---------- */
+  function guidedInput(input, script, onDone) {
+    input.addEventListener('keydown', function (e) {
+      if (e.key === 'Enter') { e.preventDefault(); input.value = script; onDone(); return; }
+      if (e.key === 'Tab') { e.preventDefault(); input.value = script; return; }
+      if (e.key === 'Escape') { input.blur(); return; }
+      if (e.key === 'Backspace') { e.preventDefault(); input.value = script.slice(0, Math.max(0, input.value.length - 1)); return; }
+      if (e.key.length === 1 && !e.ctrlKey && !e.metaKey && !e.altKey) {
+        e.preventDefault(); input.value = script.slice(0, input.value.length + 1);
+      }
+    });
+    var n = 0;
+    input.addEventListener('input', function () { n = Math.min(script.length, n + 1); input.value = script.slice(0, n); });
+    input.addEventListener('paste', function (e) { e.preventDefault(); });
+  }
+
+  /* ---------- Draft card ---------- */
+  var TAG = {
+    login: '<span class="tag login">Login</span>',
+    me: '<span class="tag me">Marco</span>',
+    rule: '<span class="tag rule">Rule check</span>'
+  };
+  function skyTag(text) { return '<span class="tag sky">Sky' + (text ? ' · ' + text : '') + '</span>'; }
+
+  // opts: { id, rows:[{k, v, tag, edit:{script, display, was}}], sev:{level, why, src}, rec, privacy, saveTime, onSaved }
+  function draftCard(opts) {
+    var card = el('<div class="card"><div class="card-h"><b>Incident report</b><span class="state">Draft · not saved</span></div><dl class="fields"></dl></div>');
+    var dl = card.querySelector('.fields');
+    var edits = [];
+    var openEdit = null;
+
+    opts.rows.forEach(function (r) {
+      dl.appendChild(el('<dt>' + esc(r.k) + '</dt>'));
+      var dd = el('<dd><span class="v">' + esc(r.v) + '</span><span class="tg">' + r.tag + '</span></dd>');
+      dl.appendChild(dd);
+      if (r.edit) {
+        var btn = el('<button class="editbtn pulse">Change</button>');
+        dd.appendChild(btn);
+        btn.addEventListener('click', function () {
+          if (card.classList.contains('saved')) return;
+          btn.hidden = true;
+          var v = dd.querySelector('.v'), tg = dd.querySelector('.tg');
+          v.hidden = true; tg.hidden = true;
+          var box = el('<span class="editbox"><input aria-label="' + esc(r.k) + '" placeholder="' + esc(r.edit.script) + '"><button>Save</button></span>');
+          dd.insertBefore(box, v);
+          var input = box.querySelector('input');
+          function commit() {
+            if (!box.parentNode) return;
+            box.remove();
+            v.textContent = r.edit.display;
+            v.hidden = false;
+            tg.innerHTML = '<span class="tag me">Changed by Marco</span>';
+            tg.hidden = false;
+            dd.appendChild(el('<span class="was">Sky guessed ' + esc(r.edit.was) + ' from the message time</span>'));
+            edits.push(r.k);
+            openEdit = null;
+          }
+          openEdit = commit;
+          guidedInput(input, r.edit.script, commit);
+          box.querySelector('button').addEventListener('click', function () { input.value = r.edit.script; commit(); });
+          input.focus();
+        });
+      }
+    });
+
+    if (opts.sev) {
+      var levels = ['Low', 'Medium', 'High', 'Critical'];
+      card.appendChild(el('<div class="sev"><div class="sev-top"><span class="lbl">Suggested severity</span>' + skyTag('using your site rule') + '</div>' +
+        '<div class="scale">' + levels.map(function (l) { return '<span' + (l === opts.sev.level ? ' class="on"' : '') + '>' + l + '</span>'; }).join('') + '</div>' +
+        '<p class="why"><b>Why:</b> ' + opts.sev.why + '</p><p class="src">' + opts.sev.src + '</p></div>'));
+    }
+    if (opts.rec) {
+      card.appendChild(el('<div class="rec"><span class="lbl">OSHA recordable? ' + TAG.rule + '</span>' + opts.rec + '</div>'));
+    }
+    if (opts.privacy) card.appendChild(el('<div class="privacy">' + opts.privacy + '</div>'));
+    card.appendChild(el('<div class="legend">Tags show where each value came from: ' + skyTag() + ' filled it in, ' + TAG.login + ' is from company sign-in, ' + TAG.me + ' answered or changed it.</div>'));
+
+    var foot = el('<div class="card-f"><small>Nothing is saved until you confirm.</small><button class="confirm">Confirm and save</button></div>');
+    card.appendChild(foot);
+    var confirmBtn = foot.querySelector('.confirm');
+    confirmBtn.addEventListener('click', safe(function () {
+      if (openEdit) openEdit();
+      confirmBtn.disabled = true;
+      confirmBtn.textContent = 'Saving…';
+      return wait(650).then(function () {
+        card.classList.add('saved');
+        card.querySelector('.state').textContent = 'Saved · #' + opts.id;
+        card.querySelector('.card-h b').textContent = 'Incident report #' + opts.id;
+        foot.remove();
+        var changed = edits.length ? edits.length + ' field changed (' + edits.join(', ') + ')' : 'no fields changed';
+        if (edits.length > 1) changed = edits.length + ' fields changed (' + edits.join(', ') + ')';
+        card.appendChild(el('<div class="audit">Source: Teams · drafted by Sky · confirmed by Marco Silva at ' + opts.saveTime + ' · ' + changed + '</div>'));
+        return opts.onSaved();
+      });
+    }));
+    return card;
+  }
+
+  /* ---------- Shared flow pieces ---------- */
+  function sevS4() {
+    return {
+      level: 'High',
+      why: 'Your site rule S-4 says any contact between equipment and racking is High until someone qualified inspects the racking. A damaged upright can collapse.',
+      src: 'Riverside site rules v3 · owner: Jordan Park, EHS manager'
+    };
+  }
+
+  function baseRows(hasPhoto) {
+    return [
+      { k: 'Reported by', v: 'Marco Silva, picker', tag: TAG.login },
+      { k: 'Site', v: 'Riverside Distribution, Columbus DC', tag: TAG.login },
+      { k: 'Location', v: 'Aisle 7', tag: skyTag('from your message') },
+      { k: 'When', v: 'Today 06:38', tag: skyTag('guessed from message time'), edit: { script: '06:10', display: 'Today 06:10', was: '06:38' } }
+    ];
+  }
+
+  function askHurt(chatId, text, instant) {
+    var body = el('<div><p>' + text + '</p></div>');
+    body.appendChild(chipset(chatId, '06:39', [
+      { label: 'No one hurt', go: function () { return noOneHurt(chatId); } },
+      { label: "Yes, someone's hurt", danger: true, go: function () { return someoneHurt(chatId); } }
+    ]));
+    if (instant) { addMsg(chatId, 'sky', '06:38', body); return Promise.resolve(); }
+    return skySays(chatId, '06:38', body, 800);
+  }
+
+  function noOneHurt(chatId) {
+    var hasPhoto = chats[chatId].hasPhoto;
+    var rows = baseRows(hasPhoto).concat([
+      { k: 'What happened', v: hasPhoto ? 'Forklift struck a rack upright in aisle 7. The upright looks bent.' : 'Forklift struck the racking in aisle 7.', tag: skyTag(hasPhoto ? 'from message and photo' : 'from your message') },
+      { k: 'Equipment', v: 'Forklift' + (hasPhoto ? ' FL-12' : ''), tag: skyTag(hasPhoto ? 'from photo' : 'from your message') },
+      { k: 'Anyone hurt?', v: 'No', tag: TAG.me }
+    ]);
+    var body = el('<div><p>Here\'s the draft. Check it, then tap Confirm.</p></div>');
+    body.appendChild(draftCard({
+      id: '4127', rows: rows, sev: sevS4(),
+      rec: 'Not needed: no one was hurt.',
+      saveTime: '06:41',
+      onSaved: function () {
+        return skySays(chatId, '06:41', '<p>Saved as report #4127. I\'ve told Dana Okafor, your supervisor, as your site rule says for High.</p>', 700);
+      }
+    }));
+    return skySays(chatId, '06:39', body, 1000, 'Draft ready to confirm');
+  }
+
+  function someoneHurt(chatId) {
+    var body = '<div class="urgent"><p><b>Get help first.</b> Call site first aid on ext. 2222, or emergency services if it\'s serious.</p>' +
+      '<p>I\'ve told Dana Okafor, your supervisor, and Rosa Diaz, your shift lead, just now.</p><p>We\'ll do the report once everyone\'s safe.</p></div>';
+    return skySays(chatId, '06:39', body, 600, 'Get help first').then(function () {
+      addSys(chatId, 'Alerts sent to Dana Okafor and Rosa Diaz at 06:39. Site rule: any injury alerts the supervisor and the shift\'s backup contact straight away. This is a message, not a saved report.', 'alertline');
+      var div = el('<div class="divider"><button>Skip ahead 1 hour ›</button></div>');
+      chats[chatId].thread.appendChild(div);
+      if (chatId === active) scrollDown();
+      div.querySelector('button').addEventListener('click', safe(function () {
+        div.innerHTML = '<span>1 hour later</span>';
+        return skySays(chatId, '07:40', '<p>Marco, is everyone OK? When you\'re ready, tell me what happened to the person who was hurt. This stays in our private chat.</p>', 700).then(function () {
+          setComposer(chatId, { script: LINES.injury, onSend: function (m) { return injuryDraft(chatId, m); } });
+        });
+      }));
+    });
+  }
+
+  function injuryDraft(chatId, m) {
+    addMsg(chatId, 'me', '07:42', '<p>' + esc(m.text) + '</p>');
+    var rows = baseRows(true).concat([
+      { k: 'What happened', v: 'Forklift struck a rack upright in aisle 7. Luis Ortega\'s hand was cut on the bent upright.', tag: skyTag('from your messages') },
+      { k: 'Injured person', v: 'Luis Ortega', tag: skyTag('matched to your crew list') },
+      { k: 'Injury', v: 'Cut to the hand', tag: skyTag() },
+      { k: 'Treatment', v: 'Stitches at the clinic', tag: skyTag() },
+      { k: 'Anyone hurt?', v: 'Yes', tag: TAG.me }
+    ]);
+    var body = el('<div><p>Thanks, Marco. Here\'s the draft. Check it, then tap Confirm.</p></div>');
+    body.appendChild(draftCard({
+      id: '4128', rows: rows,
+      sev: { level: 'High', why: 'Your site rule S-2 says any injury that needs more than first aid is High.', src: 'Riverside site rules v3 · owner: Jordan Park, EHS manager' },
+      rec: '<b>Yes.</b> Stitches count as medical treatment, not first aid, under OSHA\'s recordkeeping rule (1904.7). A butterfly bandage would have been first aid. The EHS team makes the final call.',
+      privacy: 'Injury details stay in this private chat. Luis\'s name is never shown in a group chat.',
+      saveTime: '07:43',
+      onSaved: function () {
+        return skySays(chatId, '07:43', '<p>Saved as report #4128. The EHS team will confirm whether it\'s recordable. Dana Okafor and Rosa Diaz already know.</p>', 700);
+      }
+    }));
+    return skySays(chatId, '07:42', body, 1100, 'Draft ready to confirm');
+  }
+
+  // First report in the 1:1 chat. next(chatId) runs after the photo is in.
+  function reportComposer(chatId, next) {
+    setComposer(chatId, {
+      script: LINES.report, allowPhoto: true,
+      onSend: function (m) {
+        myReport(chatId, m.text, m.photo, '06:38');
+        chats[chatId].hasPhoto = m.photo;
+        if (m.photo) return next(chatId);
+        return skySays(chatId, '06:38', '<p>Got it. Can you send a photo of the racking? It helps whoever inspects it.</p>', 700).then(function () {
+          setComposer(chatId, {
+            allowPhoto: true, placeholder: 'Attach the photo, then send',
+            hint: 'Tap the paperclip to attach the photo, then send.',
+            onSend: function (p) {
+              myReport(chatId, '', true, '06:38');
+              chats[chatId].hasPhoto = true;
+              return next(chatId);
+            }
+          });
+        });
+      }
+    });
+  }
+
+  /* ---------- Histories ---------- */
+  function skyHistory() {
+    addDivider('sky', 'Yesterday');
+    addMsg('sky', 'sky', '15:02', '<p>Hi Marco. Message me here to report something or check on a report. A short line and a photo are enough.</p>');
+    addDivider('sky', 'Today');
+  }
+  function crewHistory() {
+    addDivider('crew', 'Yesterday');
+    addSys('crew', 'Dana Okafor added HSI Sky to the chat.');
+    addMsg('crew', 'sky', '15:10', '<p>Hi everyone. Tag me to report something or check on a report. I only see messages that tag me. I\'ll ask for photos and any injury details in a private chat with you.</p>');
+    addDivider('crew', 'Today');
+    addMsg('crew', 'dana', '06:05', '<p>Morning all. Truck 3 is late, so dock 2 opens at 7.</p>');
+    addMsg('crew', 'priya', '06:20', '<p>Has anyone seen the label printer for aisle 6?</p>');
+    addMsg('crew', 'luis', '06:21', '<p>Back office, I think</p>');
+  }
+
+  /* ---------- Scenarios ---------- */
+  var SCENARIOS = {
+    1: function () {
+      skyHistory(); crewHistory(); switchChat('sky');
+      reportComposer('sky', function (id) { return askHurt(id, 'Got it, Marco. I\'ve started a draft. Was anyone hurt?'); });
+    },
+    2: function () {
+      skyHistory(); crewHistory(); switchChat('crew');
+      // Photos go to the private chat: Teams bots get file contents reliably only in 1:1 chats.
+      setComposer('crew', {
+        script: LINES.reportCrew,
+        hint: 'Click the box and press any keys: the line types itself. Enter sends. In a group chat, Sky asks for the photo privately.',
+        onSend: function (m) {
+          myReport('crew', m.text, false, '06:38');
+          chats.sky.hasPhoto = false;
+          return skySays('crew', '06:38', '<p>Thanks Marco. I\'ve messaged you privately to finish the report.</p>', 800).then(function () {
+            addDivider('sky', 'Follow-up from Aisle 5–8 early shift');
+            var body = el('<div><p>Marco, this is about the forklift and the racking in aisle 7. Was anyone hurt?</p></div>');
+            body.appendChild(chipset('sky', '06:39', [
+              { label: 'No one hurt', go: function () {
+                return skySays('sky', '06:39', '<p>Good. Can you send a photo of the racking here? It helps whoever inspects it.</p>', 700).then(function () {
+                  setComposer('sky', {
+                    allowPhoto: true, placeholder: 'Attach the photo, then send',
+                    hint: 'Tap the paperclip to attach the photo, then send.',
+                    onSend: function () {
+                      myReport('sky', '', true, '06:39');
+                      chats.sky.hasPhoto = true;
+                      return noOneHurt('sky');
+                    }
+                  });
+                });
+              } },
+              { label: "Yes, someone's hurt", danger: true, go: function () { return someoneHurt('sky'); } }
+            ]));
+            addMsg('sky', 'sky', '06:38', body, 'Was anyone hurt?');
+            if (active !== 'sky') toast.classList.add('show');
+          });
+        }
+      });
+    },
+    3: function () {
+      skyHistory(); crewHistory(); switchChat('sky');
+      reportComposer('sky', function (id) {
+        var body = el('<div><p>Thanks, Marco. Priya Shah already reported this at 06:12.</p>' +
+          '<div class="mini"><b>Report #4126 · Forklift hit racking, aisle 7</b><dl class="fields"><dt>Reported by</dt><dd>Priya Shah, 06:12</dd><dt>Status</dt><dd><span class="pill">Open</span></dd></dl></div>' +
+          '<p>Add your photo to her report?</p></div>');
+        body.appendChild(chipset(id, '06:39', [
+          { label: "Add to Priya's report", go: function () {
+            return skySays(id, '06:39', '<p>Done. Your photo is on report #4126. Priya and Dana Okafor can see it.</p>', 700).then(function () {
+              addSys(id, 'Source: Teams · photo added to #4126 by Marco Silva at 06:39');
+            });
+          } },
+          { label: "It's a different incident", go: function () { return askHurt(id, 'OK, I\'ll start a new draft. Was anyone hurt?'); } }
+        ]));
+        return skySays(id, '06:38', body, 900);
+      });
+    },
+    4: function () {
+      skyHistory(); crewHistory(); switchChat('sky');
+      myReport('sky', LINES.report, true, '06:38');
+      chats.sky.hasPhoto = true;
+      askHurt('sky', 'Got it, Marco. I\'ve started a draft. Was anyone hurt?', true);
+      setComposer('sky', null);
+    },
+    5: function () {
+      skyHistory(); crewHistory(); switchChat('sky');
+      setComposer('sky', {
+        script: LINES.status,
+        onSend: function (m) {
+          myReport('sky', m.text, false, '09:15');
+          var body = '<p>Here\'s your report from Tuesday.</p>' +
+            '<div class="mini"><b>Report #4098 · Spill near dock 2</b><dl class="fields">' +
+            '<dt>Fix</dt><dd>Replace the drain cover</dd>' +
+            '<dt>Owner</dt><dd>Sam Reyes, Maintenance</dd>' +
+            '<dt>Due</dt><dd>Friday</dd>' +
+            '<dt>Status</dt><dd><span class="pill">In progress</span></dd></dl></div>' +
+            '<p class="note">Showing only what you\'re allowed to see.</p>';
+          return skySays('sky', '09:15', body, 800);
+        }
+      });
+    }
+  };
+
+  var current = 1;
+  function run(n) {
+    runId += 1;
+    current = n;
+    scenarioSel.value = String(n);
+    hideToast();
+    document.body.classList.remove('list-open');
+    makeChats();
+    active = 'sky';
+    SCENARIOS[n]();
+    chats.sky.unread = 0; chats.crew.unread = 0; // history isn't "new"
+    renderList();
+    renderComposer();
+    scrollDown(true);
+  }
+
+  function hideToast() { toast.classList.remove('show'); }
+  $('toastOpen').addEventListener('click', function () { switchChat('sky'); });
+  scenarioSel.addEventListener('change', function () { run(+scenarioSel.value); scenarioSel.blur(); });
+  $('reset').addEventListener('click', function () { run(current); });
+  $('listbtn').addEventListener('click', function () { document.body.classList.toggle('list-open'); });
+  msgsEl.addEventListener('click', function () { document.body.classList.remove('list-open'); });
+
+  document.addEventListener('keydown', function (e) {
+    var t = e.target.tagName;
+    if (t === 'INPUT' || t === 'SELECT' || t === 'TEXTAREA') return;
+    if (e.ctrlKey || e.metaKey || e.altKey) return;
+    if (e.key === 'r' || e.key === 'R') { run(current); }
+    else if (/^[1-5]$/.test(e.key)) { run(+e.key); }
+  });
+
+  run(1);
+})();
+</script>
+</body>
+</html>
